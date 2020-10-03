@@ -35,7 +35,7 @@ public class GalerieChangementCL
 			gt[i] = new GalerieThread(this,state,((long)i+1)*100);
 			thread = new Thread(gt[i]);
 			thread.start();
-		}		
+		}	
     }
 
 	public void changement(boolean state)
