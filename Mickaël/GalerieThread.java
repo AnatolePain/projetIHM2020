@@ -1,25 +1,30 @@
 public class GalerieThread  implements Runnable 
 {
-    private GalerieChangementCL gc;
+    private PieceVue gc;
     private boolean state;
     private long wait = 0;
+	private int nbNext = 0;
 
-    public GalerieThread(GalerieChangementCL g,boolean b,long w) 
+    public GalerieThread(PieceVue g,boolean b,long w,int nb) 
     {
         this.gc = g;
         this.state = b;
         this.wait = w;
+		this.nbNext = nb;
     }
  
     public void run() 
     {
-        try {
-      
-            Thread.sleep(this.wait) ;
-         }  catch (InterruptedException e) {
-         
-             // gestion de l'erreur
-         }
-        gc.changement(this.state);
+		for(int i = 0; i < this.nbNext;i++)
+		{
+			try 
+			{
+				Thread.sleep(this.wait);
+			}
+			catch (InterruptedException e) 
+			{
+			}
+			gc.changement(this.state);
+		}
     }
  }

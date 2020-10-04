@@ -4,18 +4,25 @@ import java.awt.event.*;
 
 public class GalerieEventCL implements MouseListener 
 {
-    private GalerieChangementCL galerie;
+    private PieceVue galerie;
     private JFrame fenetre;
 
-	public GalerieEventCL(GalerieChangementCL gc,JFrame jf)
+	public GalerieEventCL(PieceVue gc,JFrame jf)
 	{
         this.galerie = gc;
         this.fenetre = jf;
 	}
-
+	
     public void mouseClicked(MouseEvent evenement)
     {
-        this.galerie.changementThread(evenement.getX() > this.fenetre.getWidth()/2);
+		if(evenement.getX() > this.fenetre.getWidth()/3 && evenement.getX() < (this.fenetre.getWidth()/3)*2)
+		{
+			this.galerie.transition();
+		}
+		else
+		{
+			this.galerie.changementThread(evenement.getX() > this.fenetre.getWidth()/2);
+		}
     }
 
     public void mouseEntered(MouseEvent evenement){}

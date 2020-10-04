@@ -1940,7 +1940,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1381,
+											"top": 1277,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "«interface»"
@@ -1953,7 +1953,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 1413,
-											"top": 1396,
+											"top": 1292,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "Passage"
@@ -1967,7 +1967,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 1040,
-											"top": 1984,
+											"top": 1776,
 											"width": 96.05908203125,
 											"height": 13,
 											"text": "(from ProjetIHM)"
@@ -1981,14 +1981,14 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 1040,
-											"top": 1984,
+											"top": 1776,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1408,
-									"top": 1376,
+									"top": 1272,
 									"width": 232.93603515625,
 									"height": 38,
 									"stereotypeLabel": {
@@ -2016,7 +2016,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 992,
+									"top": 888,
 									"width": 10,
 									"height": 10
 								},
@@ -2041,7 +2041,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1419,
+											"top": 1315,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "+getAutrePiece(Piece p): Piece",
@@ -2058,7 +2058,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1434,
+											"top": 1330,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "+getPieces(): Iterator<Piece>",
@@ -2075,7 +2075,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1449,
+											"top": 1345,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "+reliePiece(Piece p): boolean",
@@ -2092,7 +2092,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1464,
+											"top": 1360,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "+getEtatPassage(): EtatPassage",
@@ -2109,7 +2109,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1479,
+											"top": 1375,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "+setEtatPassage(EtatPassage e): void",
@@ -2126,7 +2126,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1413,
-											"top": 1494,
+											"top": 1390,
 											"width": 222.93603515625,
 											"height": 13,
 											"text": "+getDescription(): default String",
@@ -2135,7 +2135,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 1408,
-									"top": 1414,
+									"top": 1310,
 									"width": 232.93603515625,
 									"height": 98
 								},
@@ -2151,7 +2151,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 992,
+									"top": 888,
 									"width": 10,
 									"height": 10
 								},
@@ -2167,7 +2167,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 992,
+									"top": 888,
 									"width": 10,
 									"height": 10
 								}
@@ -2175,7 +2175,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 1408,
-							"top": 1376,
+							"top": 1272,
 							"width": 232.93603515625,
 							"height": 136,
 							"nameCompartment": {
@@ -3709,8 +3709,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1334,
-									"top": 1287,
+									"left": 1326,
+									"top": 1237,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -3730,8 +3730,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1324,
-									"top": 1298,
+									"left": 1319,
+									"top": 1250,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -3751,8 +3751,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1355,
-									"top": 1264,
+									"left": 1341,
+									"top": 1210,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -3770,7 +3770,7 @@
 								"$ref": "AAAAAAF08Htz2acTjmY="
 							},
 							"lineStyle": 1,
-							"points": "1448:1375;1242:1189",
+							"points": "1407:1272;1262:1189",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF08IV8cqjx7do="
@@ -3803,8 +3803,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1680,
-									"top": 1148,
+									"left": 1685,
+									"top": 1094,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -3824,8 +3824,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1667,
-									"top": 1140,
+									"left": 1673,
+									"top": 1085,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -3845,8 +3845,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1705,
-									"top": 1163,
+									"left": 1708,
+									"top": 1113,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -3864,7 +3864,7 @@
 								"$ref": "AAAAAAF08Htz2acTjmY="
 							},
 							"lineStyle": 1,
-							"points": "1564:1375;1823:949",
+							"points": "1575:1271;1819:949",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF08IWiCakCQ7M="
@@ -4871,7 +4871,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF08HpF+abzZP8="
 									},
-									"name": "Passage p"
+									"name": "Passage p",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -4991,7 +4992,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF08HuYJac9Qyg="
 									},
-									"name": "Piece p"
+									"name": "Piece p",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
