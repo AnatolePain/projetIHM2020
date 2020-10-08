@@ -20,8 +20,8 @@ public class PieceVue
 		}
 		this.cardl.next(this.galeriePanel);
 		this.cardl.next(this.galeriePanel);
-		bloquer(0);
-		bloquer(2);
+		//bloquer(0);
+		//bloquer(2);
 	}
 
 	public JPanel getPanel()
