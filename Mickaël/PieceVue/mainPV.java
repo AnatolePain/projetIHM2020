@@ -9,9 +9,9 @@ public class mainPV
 		PieceVue pv = new PieceVue();
 		EventPV mouse;
 
-		fenetre.add(pv.getPanel(),BorderLayout.CENTER);
+		fenetre.add(pv,BorderLayout.CENTER);
 		mouse = new EventPV(pv,fenetre);
-		fenetre.addMouseListener(mouse);
+		fenetre.addMouseListener(mouse);		
 
 		fenetre.setSize(500, 500);
         fenetre.setLocation(100, 100);

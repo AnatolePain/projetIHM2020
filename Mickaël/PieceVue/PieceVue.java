@@ -1,9 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class PieceVue
+public class PieceVue extends JPanel
 {
-	private JPanel galeriePanel = new JPanel();
 	private ImageDonjon[] swapChain = new ImageDonjon[16];
 	private ImageIcon[] rocher = new ImageIcon[5];
 	private CardLayout cardl;
@@ -17,23 +16,23 @@ public class PieceVue
 	public PieceVue()
 	{
 		this.cardl = new CardLayout();
-		this.galeriePanel.setLayout(this.cardl);
+		this.setLayout(this.cardl);
 		for(int i = 0; i < 16;i++)
 		{
 			swapChain[i] = new ImageDonjon(new ImageIcon("../../ProjetIHM/res/images/Salles/image"+i+".png"));
-			this.galeriePanel.add(swapChain[i],"image"+i);
+			this.add(swapChain[i],"image"+i);
 		}
 		for(int i = 0; i < 5;i++)
 		{
 			rocher[i] = new ImageIcon("../../ProjetIHM/res/images/Salles/fermer"+i+".png");
 		}
-		this.cardl.next(this.galeriePanel);
-		this.cardl.next(this.galeriePanel);
+		this.cardl.next(this);
+		this.cardl.next(this);
 	}
 
 	public JPanel getPanel()
 	{
-		return this.galeriePanel;
+		return this;
 	}
 
 	public void changementThread(boolean state)
@@ -64,12 +63,12 @@ public class PieceVue
     {
 		if(state)
 		{
-			this.cardl.next(this.galeriePanel);
+			this.cardl.next(this);
 			indice = ++indice%16;
 		}
 		else
 		{
-			this.cardl.previous(this.galeriePanel);
+			this.cardl.previous(this);
 			indice = --indice%16;
 			if(indice < 0)
 			{
