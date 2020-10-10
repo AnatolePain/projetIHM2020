@@ -1,5 +1,11 @@
-
-public enum TypeTruc{
+/**
+ * Le mécanisme d'action est très simpliste pour l'instant.
+ * Un truc a un type.
+ * C'est ce type qui va influencer le déclenchement et l'effet d'une action.
+ *
+ * @see Activable
+ */
+public enum TypeTruc implements Descriptible{
     CLE("clé"), ALCOOL("alcool"), EAU("eau"), GOODIES("trésor");
 
     private final String description;

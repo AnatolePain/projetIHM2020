@@ -148,7 +148,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 901,
-											"top": 1709,
+											"top": 1694,
 											"width": 174.1416015625,
 											"height": 13,
 											"text": "+TypeTruc(String d)",
@@ -165,7 +165,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 901,
-											"top": 1724,
+											"top": 1709,
 											"width": 174.1416015625,
 											"height": 13,
 											"text": "+toString(): String",
@@ -174,7 +174,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 896,
-									"top": 1704,
+									"top": 1689,
 									"width": 184.1416015625,
 									"height": 38
 								},
@@ -239,23 +239,6 @@
 										},
 										{
 											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF09HNX6KnyXrI=",
-											"_parent": {
-												"$ref": "AAAAAAF07tTR42IHIXk="
-											},
-											"model": {
-												"$ref": "AAAAAAF09HNXranvSZA="
-											},
-											"font": "Arial;13;0",
-											"left": 901,
-											"top": 1626,
-											"width": 174.1416015625,
-											"height": 13,
-											"text": "EnumerationLiteral1",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
 											"_id": "AAAAAAF09HN8F6n5Pdc=",
 											"_parent": {
 												"$ref": "AAAAAAF07tTR42IHIXk="
@@ -265,7 +248,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 901,
-											"top": 1641,
+											"top": 1626,
 											"width": 174.1416015625,
 											"height": 13,
 											"text": "GOODIES(\"trésor\");",
@@ -282,7 +265,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 901,
-											"top": 1656,
+											"top": 1641,
 											"width": 174.1416015625,
 											"height": 13,
 											"text": " EAU(\"eau\");",
@@ -299,7 +282,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 901,
-											"top": 1671,
+											"top": 1656,
 											"width": 174.1416015625,
 											"height": 13,
 											"text": "ALCOOL(\"alcool\");",
@@ -316,7 +299,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 901,
-											"top": 1686,
+											"top": 1671,
 											"width": 174.1416015625,
 											"height": 13,
 											"text": "CLE(\"clé\");",
@@ -327,7 +310,7 @@
 									"left": 896,
 									"top": 1606,
 									"width": 184.1416015625,
-									"height": 98
+									"height": 83
 								}
 							],
 							"font": "Arial;13;0",
@@ -12819,14 +12802,6 @@
 								"$ref": "AAAAAAF07tTR4mH7QOo="
 							},
 							"name": "private final String description;"
-						},
-						{
-							"_type": "UMLEnumerationLiteral",
-							"_id": "AAAAAAF09HNXranvSZA=",
-							"_parent": {
-								"$ref": "AAAAAAF07tTR4mH7QOo="
-							},
-							"name": "EnumerationLiteral1"
 						},
 						{
 							"_type": "UMLEnumerationLiteral",

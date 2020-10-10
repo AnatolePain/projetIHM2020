@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class PieceContenueVue extends JPanel
 {
@@ -8,17 +9,29 @@ public class PieceContenueVue extends JPanel
 	private PanelNom jcomplN;
 	private CasePiece[] caseP = new CasePiece[10]; 
 	private JPanel jPanelCasep = new JPanel();
-	GridBagConstraints gbcPanelN = new GridBagConstraints();
-	GridBagConstraints gbcPanelCasep = new GridBagConstraints();
+	private GridBagConstraints gbcPanelN = new GridBagConstraints();
+	private GridBagConstraints gbcPanelCasep = new GridBagConstraints();
+	private ImageIcon imageBase;
+	private ImageIcon imageSelect;
+	private Map<TypeTruc, ImageIcon> item;
 
 	public PieceContenueVue()
 	{
+		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
+		this.item.put(TypeTruc.CLE,new ImageIcon("../../ProjetIHM/res/images/UI/items/cle.png"));
+		this.item.put(TypeTruc.ALCOOL,new ImageIcon("../../ProjetIHM/res/images/UI/items/alcool.png"));
+		this.item.put(TypeTruc.EAU,new ImageIcon("../../ProjetIHM/res/images/UI/items/eau.png"));
+		this.item.put(TypeTruc.GOODIES,new ImageIcon("../../ProjetIHM/res/images/UI/items/tresors.png"));
+
+		this.imageBase = new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panel.png");
+		this.imageSelect = new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panelSelect.png");
 		this.setLayout(new GridBagLayout());
 		this.jcomplN = new PanelNom(new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panelText.png"),this.nom);
 		this.jPanelCasep.setLayout(this.pieceLayout);
+		this.jPanelCasep.setBackground(Color.lightGray);
 		for(int i = 0 ; i < caseP.length;i++)
 		{
-			this.caseP[i] = new CasePiece(new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panel.png"));
+			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item);
 			this.jPanelCasep.add(this.caseP[i]);
 		}
 		gbcPanelN.gridx = 0;      // la plage de cellules commence à la première colonne
@@ -41,9 +54,9 @@ public class PieceContenueVue extends JPanel
 		this.add(this.jPanelCasep, gbcPanelCasep);
 	}
 
-	public void setTruc(TypeTruc type, String description,int posX,int posY)
+	public void setTruc(TypeTruc type, String description,int pos)
 	{
-		
+		this.caseP[pos%10].setObject(type,description);
 	}
 
 	public void clear()
