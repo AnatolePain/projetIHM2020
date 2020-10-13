@@ -3,22 +3,20 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class CasePiece extends JComponent implements MouseListener 
+public class CasePiece extends JComponent
 {
 	private ImageIcon imageBase;
 	private ImageIcon imageSlect;
 	private ImageIcon object; 
 	private boolean select = false;
 	private Map<TypeTruc, ImageIcon> itemImage;
-	private JPopupMenu popupMenu;  
+	private PieceMenuContextuel popupMenu;  
 
 	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI)
 	{
 		this.imageBase = b;
 		this.imageSlect = s;
 		this.itemImage = iI;
-		this.addMouseListener(this);
-		this.popupMenu = this.createPopupMenu();
 	}
 
 	public void setObject(TypeTruc tt,String description)
@@ -41,55 +39,10 @@ public class CasePiece extends JComponent implements MouseListener
 		repaint();
 	}
 
-	private JPopupMenu createPopupMenu() 
-	{
-        JPopupMenu popupMenu = new JPopupMenu();
-        
-        JMenuItem mnuUndo = new JMenuItem("Annuler");
-        mnuUndo.setIcon(new ImageIcon("../../ProjetIHM/res/images/UI/icon/croix.png"));
-        mnuUndo.setMnemonic('U');
-        mnuUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-        popupMenu.add(mnuUndo);
-        
-        popupMenu.addSeparator();
-        
-        JMenuItem mnuCopy = new JMenuItem("Description");
-        mnuCopy.setIcon(new ImageIcon("../../ProjetIHM/res/images/UI/icon/info.png"));
-        mnuCopy.setMnemonic('C');
-        mnuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
-        popupMenu.add(mnuCopy);
-        
-        JMenuItem mnuCut = new JMenuItem("Ramasser");
-        mnuCut.setIcon(new ImageIcon("../../ProjetIHM/res/images/UI/icon/recup.png"));
-        mnuCut.setMnemonic( 't' );
-        mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
-        popupMenu.add(mnuCut);
-
-        return popupMenu;
-    }
-
     public JPopupMenu GetPopupMenu()
     {
     	return popupMenu;
     }
-
-	@Override public void mouseClicked(MouseEvent evenement){}
-	@Override public void mouseEntered(MouseEvent evenement)
-	{
-		this.setSelect(true);
-	}
-	@Override public void mouseExited(MouseEvent evenement)
-	{
-		this.setSelect(false);
-	}
-	@Override public void mousePressed(MouseEvent evenement)
-	{
-		if (evenement.getButton() == MouseEvent.BUTTON3) 
-		{
-			popupMenu.show(evenement.getComponent(), evenement.getX(), evenement.getY() );
-		}
-	}
-	@Override public void mouseReleased(MouseEvent evenement){}
 
 	protected void paintComponent(Graphics pinceau) 
   	{

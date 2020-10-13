@@ -1,17 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class DialogDescription
+public class DialogDescription extends JDialog
 {
-	private JDialog jd;
 
-	public DialogDescription(JFrame jf,String d)
+	public DialogDescription(String d)
 	{
-		this.jd =  new JDialog(jf , "Description", true);
-		this.jd.setLayout(new FlowLayout());  
-		this.jd.add(new JLabel(d));
-		this.jd.setSize(400,100);
-		this.jd.setVisible(true);
+		//this = new JDialog(jf , "Description", true);
+		this.setLayout(new FlowLayout());  
+		this.add(new JLabel(d));
+		this.setSize(400,100);
+		this.setVisible(true);
 	}
+
+	
 
 }
