@@ -3,13 +3,16 @@ import java.awt.*;
 
 public class MiniCarteVue extends JPanel {
 
-	private static int VOUSETESICI = 1;
-	private static int PIECE = 2;
-	private static int INCONNU = 3;
+	private final static char VOUSETESICI = 1;
+	private final static char PIECE = 2;
+	private final static char INCONNU = 3;
+	private int vousEtesIciX;
+	private int vousEtesIciY;
 	private CelluleCarte[][] tabCellule;
 
 	public MiniCarteVue(){
 	   
+	   	this.setPreferredSize(new Dimension(300, 300));
 		GridLayout grille = new GridLayout(6,6);
 		this.setLayout(grille);
 		tabCellule = new CelluleCarte[6][6];
@@ -38,7 +41,10 @@ public class MiniCarteVue extends JPanel {
 		tabCellule[2][2].changeStatus(PIECE);
 		tabCellule[2][3].changeStatus(PIECE);
 		tabCellule[3][1].changeStatus(PIECE);
-		tabCellule[3][2].changeStatus(VOUSETESICI);
+
+		vousEtesIciX = 2 ; vousEtesIciY = 3;
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+
 		tabCellule[3][3].changeStatus(PIECE);
 		tabCellule[3][4].changeStatus(PIECE);
 		tabCellule[4][1].changeStatus(PIECE);
@@ -46,10 +52,39 @@ public class MiniCarteVue extends JPanel {
 		tabCellule[4][3].changeStatus(PIECE);
 		tabCellule[4][4].changeStatus(PIECE);
 
+		this.setFocusable(true);
+		this.requestFocusInWindow();
+		GestionClavier clavier = new GestionClavier(this);
+		this.addKeyListener(clavier);
+
 	}
 
 	public void modifCellule(int x, int y, int status){
-		tabCellule[x][y].changeStatus(status);
+		tabCellule[y][x].changeStatus(status);
+	}
+
+	public void moveUp(){
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+		vousEtesIciY--;
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+	}
+
+	public void moveDown(){
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+		vousEtesIciY++;
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+	}
+
+	public void moveLeft(){
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+		vousEtesIciX--;
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+	}
+
+	public void moveRight(){
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+		vousEtesIciX++;
+		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
 	}
 
 

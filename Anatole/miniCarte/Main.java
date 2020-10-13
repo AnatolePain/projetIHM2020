@@ -5,7 +5,4 @@ public class Main {
 		g.setVisible(true);
 	}
 
-	//sojfmsdkljfmlkqsdjfs
-	//sfùmldkflùms/fsdfjlsdkj/flsqdjflk
-
 }
