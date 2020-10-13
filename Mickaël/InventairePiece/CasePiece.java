@@ -12,17 +12,19 @@ public class CasePiece extends JComponent
 	private Map<TypeTruc, ImageIcon> itemImage;
 	private PieceMenuContextuel popupMenu;  
 
-	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI)
+	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
 	{
 		this.imageBase = b;
 		this.imageSlect = s;
 		this.itemImage = iI;
+		this.popupMenu = new PieceMenuContextuel(dd);
 	}
 
 	public void setObject(TypeTruc tt,String description)
 	{
 		this.object = this.itemImage.get(tt);
 		this.setToolTipText(description);
+		this.popupMenu.getDescriptionEvent().setDescription(description);
 		repaint();
 	}
 
@@ -39,7 +41,7 @@ public class CasePiece extends JComponent
 		repaint();
 	}
 
-    public JPopupMenu GetPopupMenu()
+    public PieceMenuContextuel GetPopupMenu()
     {
     	return popupMenu;
     }

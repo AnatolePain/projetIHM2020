@@ -5,10 +5,10 @@ import java.util.*;
 public class PieceContenueVue extends JPanel
 {
 	private String nom = "Piece";
-	private GridLayout pieceLayout = new GridLayout(2,4);
+	private GridLayout pieceLayout = new GridLayout(2,5);
 	private PanelNom jcomplN;
-	private CasePiece[] caseP = new CasePiece[10]; 
-	private CasePieceEvent[] casePEvent = new CasePieceEvent[10];
+	private CasePiece[] caseP = new CasePiece[12]; 
+	private CasePieceEvent[] casePEvent = new CasePieceEvent[12];
 	private JPanel jPanelCasep = new JPanel();
 	private GridBagConstraints gbcPanelN = new GridBagConstraints();
 	private GridBagConstraints gbcPanelCasep = new GridBagConstraints();
@@ -17,7 +17,7 @@ public class PieceContenueVue extends JPanel
 	private Map<TypeTruc, ImageIcon> item;
 	private int indice = 0;
 
-	public PieceContenueVue()
+	public PieceContenueVue(DialogDescription dialog)
 	{
 		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
 		this.item.put(TypeTruc.CLE,new ImageIcon("../../ProjetIHM/res/images/UI/items/cle.png"));
@@ -33,7 +33,7 @@ public class PieceContenueVue extends JPanel
 		this.jPanelCasep.setBackground(Color.lightGray);
 		for(int i = 0 ; i < caseP.length;i++)
 		{
-			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item);
+			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog);
 			this.casePEvent[i] = new CasePieceEvent(this.caseP[i]);
 			this.caseP[i].addMouseListener(this.casePEvent[i]);
 			this.jPanelCasep.add(this.caseP[i]);
@@ -49,7 +49,7 @@ public class PieceContenueVue extends JPanel
 		gbcPanelCasep.gridx = 0;
         gbcPanelCasep.gridy = 1;
         gbcPanelCasep.gridwidth = 1;
-        gbcPanelCasep.gridheight = 10;
+        gbcPanelCasep.gridheight = 12;
         gbcPanelCasep.fill = GridBagConstraints.BOTH; 
         gbcPanelCasep.weightx = 1.0;
         gbcPanelCasep.weighty = 1.0;
@@ -60,13 +60,13 @@ public class PieceContenueVue extends JPanel
 
 	public void addTruc(TypeTruc type, String description)
 	{
-		this.caseP[indice++%10].setObject(type,description);
+		this.caseP[indice++%12].setObject(type,description);
 	}
 
 	public void clear()
 	{
 		indice = 0;
-		for(int i = 0; i < 10;i++)
+		for(int i = 0; i < 12;i++)
 		{
 			this.caseP[i].clearObject();
 		}

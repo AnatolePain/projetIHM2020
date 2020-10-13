@@ -6,6 +6,7 @@ import java.util.*;
 public class CasePieceEvent implements MouseListener 
 {
 	private CasePiece caseP;
+	private PieceMenuContextuel pm;
 
 	public CasePieceEvent(CasePiece cp)
 	{
@@ -25,7 +26,8 @@ public class CasePieceEvent implements MouseListener
 	{
 		if (evenement.getButton() == MouseEvent.BUTTON3) 
 		{
-			this.caseP.GetPopupMenu().show(evenement.getComponent(), evenement.getX(), evenement.getY() );
+			this.pm = this.caseP.GetPopupMenu();
+			this.pm.show(evenement.getComponent(), evenement.getX(), evenement.getY() );
 		}
 	}
 	@Override public void mouseReleased(MouseEvent evenement){}
