@@ -31,9 +31,11 @@ public class CasePiece extends JComponent implements MouseListener
 	public void clearObject()
 	{
 		this.object = null;
+		this.setToolTipText("");
+		repaint();
 	}
 
-	private void setSelect(boolean b)
+	public void setSelect(boolean b)
 	{
 		this.select = b;
 		repaint();
@@ -66,6 +68,11 @@ public class CasePiece extends JComponent implements MouseListener
         return popupMenu;
     }
 
+    public JPopupMenu GetPopupMenu()
+    {
+    	return popupMenu;
+    }
+
 	@Override public void mouseClicked(MouseEvent evenement){}
 	@Override public void mouseEntered(MouseEvent evenement)
 	{
@@ -77,7 +84,10 @@ public class CasePiece extends JComponent implements MouseListener
 	}
 	@Override public void mousePressed(MouseEvent evenement)
 	{
-		popupMenu.show(evenement.getComponent(), evenement.getX(), evenement.getY() );
+		if (evenement.getButton() == MouseEvent.BUTTON3) 
+		{
+			popupMenu.show(evenement.getComponent(), evenement.getX(), evenement.getY() );
+		}
 	}
 	@Override public void mouseReleased(MouseEvent evenement){}
 

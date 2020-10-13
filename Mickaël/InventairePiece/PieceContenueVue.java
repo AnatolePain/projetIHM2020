@@ -8,12 +8,14 @@ public class PieceContenueVue extends JPanel
 	private GridLayout pieceLayout = new GridLayout(2,4);
 	private PanelNom jcomplN;
 	private CasePiece[] caseP = new CasePiece[10]; 
+	private CasePieceEvent[] casePEvent = new CasePieceEvent[10];
 	private JPanel jPanelCasep = new JPanel();
 	private GridBagConstraints gbcPanelN = new GridBagConstraints();
 	private GridBagConstraints gbcPanelCasep = new GridBagConstraints();
 	private ImageIcon imageBase;
 	private ImageIcon imageSelect;
 	private Map<TypeTruc, ImageIcon> item;
+	private int indice = 0;
 
 	public PieceContenueVue()
 	{
@@ -32,21 +34,23 @@ public class PieceContenueVue extends JPanel
 		for(int i = 0 ; i < caseP.length;i++)
 		{
 			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item);
+			this.casePEvent[i] = new CasePieceEvent(this.caseP[i]);
+			this.caseP[i].AddMouseListener(this.casePEvent[i]);
 			this.jPanelCasep.add(this.caseP[i]);
 		}
-		gbcPanelN.gridx = 0;      // la plage de cellules commence à la première colonne
-        gbcPanelN.gridy = 0;      // la plage de cellules commence à la deuxième ligne
-        gbcPanelN.gridwidth = 1;  // la plage de cellules englobe deux colonnes
-        gbcPanelN.gridheight = 1; // la plage de cellules englobe une seule ligne
-        gbcPanelN.fill = GridBagConstraints.BOTH;     // n'occupe pas tout l'espace de la plage
+		gbcPanelN.gridx = 0;
+        gbcPanelN.gridy = 0;
+        gbcPanelN.gridwidth = 1;
+        gbcPanelN.gridheight = 1;
+        gbcPanelN.fill = GridBagConstraints.BOTH;
         gbcPanelN.weightx = 0.3;
         gbcPanelN.weighty = 0.3;
 
-		gbcPanelCasep.gridx = 0;      // la plage de cellules commence à la première colonne
-        gbcPanelCasep.gridy = 1;      // la plage de cellules commence à la deuxième ligne
-        gbcPanelCasep.gridwidth = 1;  // la plage de cellules englobe deux colonnes
-        gbcPanelCasep.gridheight = 10; // la plage de cellules englobe une seule ligne
-        gbcPanelCasep.fill = GridBagConstraints.BOTH;     // n'occupe pas tout l'espace de la plage
+		gbcPanelCasep.gridx = 0;
+        gbcPanelCasep.gridy = 1;
+        gbcPanelCasep.gridwidth = 1;
+        gbcPanelCasep.gridheight = 10;
+        gbcPanelCasep.fill = GridBagConstraints.BOTH; 
         gbcPanelCasep.weightx = 1.0;
         gbcPanelCasep.weighty = 1.0;
 
@@ -54,13 +58,17 @@ public class PieceContenueVue extends JPanel
 		this.add(this.jPanelCasep, gbcPanelCasep);
 	}
 
-	public void setTruc(TypeTruc type, String description,int pos)
+	public void addTruc(TypeTruc type, String description)
 	{
-		this.caseP[pos%10].setObject(type,description);
+		this.caseP[indice++%10].setObject(type,description);
 	}
 
 	public void clear()
 	{
-		
+		indice = 0;
+		for(int i = 0; i < 10;i++)
+		{
+			this.caseP[i].clearObject();
+		}
 	}
 }
