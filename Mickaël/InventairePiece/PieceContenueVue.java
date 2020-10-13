@@ -35,7 +35,7 @@ public class PieceContenueVue extends JPanel
 		{
 			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item);
 			this.casePEvent[i] = new CasePieceEvent(this.caseP[i]);
-			this.caseP[i].AddMouseListener(this.casePEvent[i]);
+			this.caseP[i].addMouseListener(this.casePEvent[i]);
 			this.jPanelCasep.add(this.caseP[i]);
 		}
 		gbcPanelN.gridx = 0;
