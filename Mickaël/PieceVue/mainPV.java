@@ -7,11 +7,8 @@ public class mainPV
 	{
 		JFrame fenetre = new JFrame("PV");
 		PieceVue pv = new PieceVue();
-		EventPV mouse;
 
-		fenetre.add(pv,BorderLayout.CENTER);
-		mouse = new EventPV(pv,fenetre);
-		fenetre.addMouseListener(mouse);		
+		fenetre.add(pv,BorderLayout.CENTER);	
 
 		fenetre.setSize(500, 500);
         fenetre.setLocation(100, 100);

@@ -4,10 +4,12 @@ import java.awt.*;
 public class GameVue  extends  JPanel{
 
 
-	public GameVue(){
+	public GameVue(JFrame f){
 
 		//JPanel panPrincipale =  new JPanel();
 	    //this.add(panPrincipale);
+
+
 
 	    GridBagLayout theLayout = new GridBagLayout();
 	    this.setLayout(theLayout);
@@ -43,7 +45,8 @@ public class GameVue  extends  JPanel{
 		this.add(c, gbc01);
 
 		//Inventaire joueur
-		InventaireVue d = new InventaireVue();
+		//InventaireVue d = new InventaireVue();
+		JButton d = new JButton();
 		d.setPreferredSize(new Dimension(300, 200));
 		GridBagConstraints gbc02 = new GridBagConstraints();
 		gbc02.gridx = 1;      // la plage de cellules commence à la première colonne
@@ -60,8 +63,9 @@ public class GameVue  extends  JPanel{
 
 		//Contenu de la pièce
 		//JButton e = new JButton("3");
-		PieceConteneurVue e = new PieceConteneurVue();
-		e.setPreferredSize(new Dimension(800, 200));
+		DialogDescription dialog = new DialogDescription(f);
+        PieceContenueVue e = new PieceContenueVue(dialog);
+		e.setPreferredSize(new Dimension(800, 250));
 		GridBagConstraints gbc03 = new GridBagConstraints();
 		gbc03.gridx = 0;      // la plage de cellules commence à la première colonne
 		gbc03.gridy = 2;      // la plage de cellules commence à la deuxième ligne
@@ -73,6 +77,14 @@ public class GameVue  extends  JPanel{
 		gbc03.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
 		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
 		this.add(e, gbc03);
+
+		e.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
+        e.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
+        e.addTruc(TypeTruc.EAU,"Gourde d'eau");
+        e.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
+        e.addTruc(TypeTruc.GOODIES,"500 piece d'or");
+        e.addTruc(TypeTruc.ALCOOL,"Vin");
+        e.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 
 	}
 
