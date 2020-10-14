@@ -3,21 +3,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class CasePiece extends JComponent
+public class CaseInventaire extends JComponent
 {
 	private ImageIcon imageBase;
 	private ImageIcon imageSlect;
 	private ImageIcon object; 
 	private boolean select = false;
 	private Map<TypeTruc, ImageIcon> itemImage;
-	private PieceMenuContextuel popupMenu;  
+	private InventaireMenuContextuel popupMenu;  
 
-	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
+	public CaseInventaire(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
 	{
 		this.imageBase = b;
 		this.imageSlect = s;
 		this.itemImage = iI;
-		this.popupMenu = new PieceMenuContextuel(dd);
+		this.popupMenu = new InventaireMenuContextuel(dd);
 	}
 
 	public void setObject(TypeTruc tt,String description)
@@ -41,7 +41,7 @@ public class CasePiece extends JComponent
 		repaint();
 	}
 
-    public PieceMenuContextuel GetPopupMenu()
+    public InventaireMenuContextuel GetPopupMenu()
     {
     	return popupMenu;
     }

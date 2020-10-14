@@ -3,11 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class PieceMenuContextuel extends JPopupMenu
+public class InventaireMenuContextuel extends JPopupMenu
 {
 	private DescriptionEvent descE;
 
-	public PieceMenuContextuel(DialogDescription dd)
+	public InventaireMenuContextuel(DialogDescription dd)
 	{  
 		this.descE = new DescriptionEvent(dd);
         JMenuItem mnuUndo = new JMenuItem("Annuler");
@@ -25,11 +25,17 @@ public class PieceMenuContextuel extends JPopupMenu
         this.add(mnuCopy);
 		mnuCopy.addActionListener(descE);
         
-        JMenuItem mnuCut = new JMenuItem("Ramasser");
+        JMenuItem mnuCut = new JMenuItem("Jeter");
         mnuCut.setIcon(new ImageIcon("../../ProjetIHM/res/images/UI/icon/recup.png"));
-        mnuCut.setMnemonic( 't' );
+        mnuCut.setMnemonic( 'J' );
         mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
         this.add(mnuCut);
+
+		JMenuItem mnuUtil = new JMenuItem("Utiliser");
+        mnuUtil.setIcon(new ImageIcon("../../ProjetIHM/res/images/UI/icon/use.png"));
+        mnuUtil.setMnemonic( 'E' );
+        mnuUtil.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK) );
+        this.add(mnuUtil);
 	}
 	public DescriptionEvent getDescriptionEvent()
 	{

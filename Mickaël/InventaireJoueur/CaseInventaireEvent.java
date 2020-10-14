@@ -3,30 +3,30 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class CasePieceEvent implements MouseListener 
+public class CaseInventaireEvent implements MouseListener 
 {
-	private CasePiece caseP;
-	private PieceMenuContextuel pm;
+	private CaseInventaire caseI;
+	private InventaireMenuContextuel pm;
 
-	public CasePieceEvent(CasePiece cp)
+	public CaseInventaireEvent(CaseInventaire cp)
 	{
-		this.caseP = cp;
+		this.caseI = cp;
 	}
 
 	@Override public void mouseClicked(MouseEvent evenement){}
 	@Override public void mouseEntered(MouseEvent evenement)
 	{
-		this.caseP.setSelect(true);
+		this.caseI.setSelect(true);
 	}
 	@Override public void mouseExited(MouseEvent evenement)
 	{
-		this.caseP.setSelect(false);
+		this.caseI.setSelect(false);
 	}
 	@Override public void mousePressed(MouseEvent evenement)
 	{
-		if (evenement.getButton() == MouseEvent.BUTTON3 && !this.caseP.isEmpty()) 
+		if (evenement.getButton() == MouseEvent.BUTTON3 && !this.caseI.isEmpty()) 
 		{
-			this.pm = this.caseP.GetPopupMenu();
+			this.pm = this.caseI.GetPopupMenu();
 			this.pm.show(evenement.getComponent(), evenement.getX(), evenement.getY() );
 		}
 	}

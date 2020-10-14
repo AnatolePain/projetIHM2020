@@ -13,8 +13,8 @@ public class Main
 		pcV.addTruc(TypeTruc.EAU,"Gourde d'eau");
 		pcV.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
 		pcV.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-		pcV.addTruc(TypeTruc.ALCOOL,"Vin");
-		pcV.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		pcV.addTruc(TypeTruc.ALCOOL,"du Vin");
+		pcV.addTruc(TypeTruc.EAU,"AHHHHHHHHHHH");
 		fenetre.setSize(600, 250);
         fenetre.setLocation(100, 100);
 		

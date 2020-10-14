@@ -13,8 +13,8 @@ public class Main
 		icV.addTruc(TypeTruc.EAU,"Gourde d'eau");
 		icV.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
 		icV.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-		icV.addTruc(TypeTruc.ALCOOL,"Vin");
-		icV.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		icV.addTruc(TypeTruc.ALCOOL,"du Vin");
+		icV.addTruc(TypeTruc.EAU,"AHHHHHHHHHHH");
 		fenetre.setSize(300, 600);
         fenetre.setLocation(100, 100);
 		

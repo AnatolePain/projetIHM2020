@@ -24,6 +24,15 @@ public class PanelNom extends JComponent
         }
 		secondPinceau.drawImage(imageBase.getImage(), 0, 0, getWidth(), getHeight(), this);
 		secondPinceau.setFont(this.font);
-		secondPinceau.drawString(this.nom, (int)(getWidth()/2.2f), (int)(getHeight()/1.5f));
+		drawCenteredString(secondPinceau,this.nom,this.font);
+	}
+
+	public void drawCenteredString(Graphics g, String text, Font font) 
+	{
+		FontMetrics metrics = g.getFontMetrics(font);
+		int x = (getWidth() - metrics.stringWidth(text)) / 2;    
+		int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+		g.setFont(font);
+		g.drawString(text, x, y);
 	}
 }
