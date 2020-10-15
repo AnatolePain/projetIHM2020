@@ -6,7 +6,7 @@ public class GestionClavier implements KeyListener {
 	private MiniCarteVue miniCarte;
 
 	public GestionClavier(MiniCarteVue mc){
-		miniCarte = mc;
+		this.miniCarte = mc;
 	}
 
 
@@ -14,22 +14,20 @@ public class GestionClavier implements KeyListener {
 	@Override
 	public void 	keyPressed(KeyEvent e){
 		//VK_UP VK_DOWN VK_LEFT VK_RIGHT
-
 		if(e.getKeyCode()== KeyEvent.VK_UP ){
-			miniCarte.moveUp();
-			System.out.println("UP");
+			this.miniCarte.moveUp();
 		}else if(e.getKeyCode()== KeyEvent.VK_DOWN){
-			miniCarte.moveDown();
+			this.miniCarte.moveDown();
 		}else if(e.getKeyCode()== KeyEvent.VK_LEFT){
-			miniCarte.moveLeft();
+			this.miniCarte.moveLeft();
 		}else if(e.getKeyCode()== KeyEvent.VK_RIGHT){
-			miniCarte.moveRight();
+			this.miniCarte.moveRight();
 		}
 	}
 
 	//Invoked when a key has been released.
-	public void 	keyReleased(KeyEvent e){}
+	public void keyReleased(KeyEvent e){}
 
 	//Invoked when a key has been typed.
-	public void 	keyTyped(KeyEvent e){}
+	public void keyTyped(KeyEvent e){}
 }

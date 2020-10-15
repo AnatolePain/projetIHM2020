@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class CelluleCarte extends JComponent {
 
@@ -11,35 +12,42 @@ public class CelluleCarte extends JComponent {
 	private final static ImageIcon imagePiece = new ImageIcon(LOCATIONIMAGE + "piece.png");
 	private final static ImageIcon imageVousEtesIci = new ImageIcon(LOCATIONIMAGE + "vous_etes_ici.png");
 	private final static ImageIcon imageInconnu = new ImageIcon(LOCATIONIMAGE + "inconnu.png");
+	private int status;
 
-	public CelluleCarte(int status){
+	public CelluleCarte(int s){
 
-		if(status == VOUSETESICI){
-	   		imageBase = imageVousEtesIci;
-	   }else if(status == PIECE){
-	   		imageBase = imagePiece;
-	   }else if(status == INCONNU){
-	   		imageBase = imageInconnu;
+		this.status = s;
+		if(this.status == this.VOUSETESICI){
+	   		this.imageBase = this.imageVousEtesIci;
+	   }else if(this.status == this.PIECE){
+	   		this.imageBase = this.imagePiece;
+	   }else if(this.status == this.INCONNU){
+	   		this.imageBase = this.imageInconnu;
 	   }
 
 	}
 
 	public CelluleCarte(){
-		imageBase = imageInconnu;
+		this.status = this.INCONNU;
+		this.imageBase = this.imageInconnu;
 	}
 
-	public void changeStatus(int status){
-	   
-	   if(status == VOUSETESICI){
-	   		imageBase = imageVousEtesIci;
-	   }else if(status == PIECE){
-	   		imageBase = imagePiece;
-	   }else if(status == INCONNU){
-	   		imageBase = imageInconnu;
+	public void changeStatus(int s){
+	   this.status = s;
+	   if(this.status == this.VOUSETESICI){
+	   		this.imageBase = this.imageVousEtesIci;
+	   }else if(this.status == this.PIECE){
+	   		this.imageBase = this.imagePiece;
+	   }else if(this.status == this.INCONNU){
+	   		this.imageBase = this.imageInconnu;
 	   }
 
 	   this.repaint();
 		
+	}
+
+	public int getStatus(){
+		return this.status;
 	}
 
 	protected void paintComponent(Graphics pinceau) {

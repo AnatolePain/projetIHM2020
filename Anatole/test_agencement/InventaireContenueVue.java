@@ -2,13 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class PieceContenueVue extends JPanel
+public class InventaireContenueVue extends JPanel
 {
-	private String nom = "Piece";
-	private GridLayout pieceLayout = new GridLayout(2,5);
+	private String nom = "Inventaire";
+	private GridLayout pieceLayout = new GridLayout(9,3);
 	private PanelNom jcomplN;
-	private CasePiece[] caseP = new CasePiece[12]; 
-	private CasePieceEvent[] casePEvent = new CasePieceEvent[12];
+	private final static int NOMBRESCASES = 45;
+	private CaseInventaire[] caseP = new CaseInventaire[NOMBRESCASES]; 
+	private CaseInventaireEvent[] casePEvent = new CaseInventaireEvent[NOMBRESCASES];
 	private JPanel jPanelCasep = new JPanel();
 	private GridBagConstraints gbcPanelN = new GridBagConstraints();
 	private GridBagConstraints gbcPanelCasep = new GridBagConstraints();
@@ -17,7 +18,7 @@ public class PieceContenueVue extends JPanel
 	private Map<TypeTruc, ImageIcon> item;
 	private int indice = 0;
 
-	public PieceContenueVue(DialogDescription dialog)
+	public InventaireContenueVue(DialogDescription dialog)
 	{
 		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
 		this.item.put(TypeTruc.CLE,new ImageIcon("../../ProjetIHM/res/images/UI/items/cle.png"));
@@ -33,8 +34,8 @@ public class PieceContenueVue extends JPanel
 		this.jPanelCasep.setBackground(Color.lightGray);
 		for(int i = 0 ; i < caseP.length;i++)
 		{
-			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog);
-			this.casePEvent[i] = new CasePieceEvent(this.caseP[i]);
+			this.caseP[i] = new CaseInventaire(this.imageBase,this.imageSelect,this.item,dialog);
+			this.casePEvent[i] = new CaseInventaireEvent(this.caseP[i]);
 			this.caseP[i].addMouseListener(this.casePEvent[i]);
 			this.jPanelCasep.add(this.caseP[i]);
 		}
@@ -43,13 +44,13 @@ public class PieceContenueVue extends JPanel
         gbcPanelN.gridwidth = 1;
         gbcPanelN.gridheight = 1;
         gbcPanelN.fill = GridBagConstraints.BOTH;
-        gbcPanelN.weightx = 0.3;
-        gbcPanelN.weighty = 0.3;
+        gbcPanelN.weightx = 0.1;
+        gbcPanelN.weighty = 0.1;
 
 		gbcPanelCasep.gridx = 0;
         gbcPanelCasep.gridy = 1;
-        gbcPanelCasep.gridwidth = 1;
-        gbcPanelCasep.gridheight = 12;
+        gbcPanelCasep.gridwidth = 4;
+        gbcPanelCasep.gridheight = 40;
         gbcPanelCasep.fill = GridBagConstraints.BOTH; 
         gbcPanelCasep.weightx = 1.0;
         gbcPanelCasep.weighty = 1.0;
@@ -60,13 +61,13 @@ public class PieceContenueVue extends JPanel
 
 	public void addTruc(TypeTruc type, String description)
 	{
-		this.caseP[indice++%12].setObject(type,description);
+		this.caseP[indice++%NOMBRESCASES].setObject(type,description);
 	}
 
 	public void clear()
 	{
 		indice = 0;
-		for(int i = 0; i < 12;i++)
+		for(int i = 0; i < NOMBRESCASES;i++)
 		{
 			this.caseP[i].clearObject();
 		}

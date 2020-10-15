@@ -44,9 +44,10 @@ public class GameVue  extends  JPanel{
 		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
 		this.add(c, gbc01);
 
+
 		//Inventaire joueur
-		//InventaireVue d = new InventaireVue();
-		JButton d = new JButton();
+		DialogDescription dialog = new DialogDescription(f);
+		InventaireContenueVue d = new InventaireContenueVue(dialog);
 		d.setPreferredSize(new Dimension(300, 200));
 		GridBagConstraints gbc02 = new GridBagConstraints();
 		gbc02.gridx = 1;      // la plage de cellules commence à la première colonne
@@ -63,7 +64,6 @@ public class GameVue  extends  JPanel{
 
 		//Contenu de la pièce
 		//JButton e = new JButton("3");
-		DialogDescription dialog = new DialogDescription(f);
         PieceContenueVue e = new PieceContenueVue(dialog);
 		e.setPreferredSize(new Dimension(800, 250));
 		GridBagConstraints gbc03 = new GridBagConstraints();
@@ -83,8 +83,8 @@ public class GameVue  extends  JPanel{
         e.addTruc(TypeTruc.EAU,"Gourde d'eau");
         e.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
         e.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-        e.addTruc(TypeTruc.ALCOOL,"Vin");
-        e.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+        e.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
+        e.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 
 	}
 

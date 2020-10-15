@@ -3,19 +3,22 @@ import java.awt.*;
 
 public class MiniCarteVue extends JPanel {
 
-	private final static char VOUSETESICI = 1;
-	private final static char PIECE = 2;
-	private final static char INCONNU = 3;
 	private int vousEtesIciX;
 	private int vousEtesIciY;
 	private CelluleCarte[][] tabCellule;
+	private final static int TAILLECARTE = 6;
+
+	//Les status possibles:
+	private final static char VOUSETESICI = 1;
+	private final static char PIECE = 2;
+	private final static char INCONNU = 3;
 
 	public MiniCarteVue(){
 	   
 	   	this.setPreferredSize(new Dimension(300, 300));
-		GridLayout grille = new GridLayout(6,6);
+		GridLayout grille = new GridLayout(TAILLECARTE,TAILLECARTE);
 		this.setLayout(grille);
-		tabCellule = new CelluleCarte[6][6];
+		this.tabCellule = new CelluleCarte[TAILLECARTE][TAILLECARTE];
 
 
 		//			p2 - p4     
@@ -64,27 +67,35 @@ public class MiniCarteVue extends JPanel {
 	}
 
 	public void moveUp(){
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
-		vousEtesIciY--;
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		if(tabCellule[vousEtesIciY-1][vousEtesIciX].getStatus() != INCONNU){
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+			vousEtesIciY--;
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		}
 	}
 
 	public void moveDown(){
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
-		vousEtesIciY++;
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		if(tabCellule[vousEtesIciY+1][vousEtesIciX].getStatus() != INCONNU){
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+			vousEtesIciY++;
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		}
 	}
 
 	public void moveLeft(){
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
-		vousEtesIciX--;
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		if(tabCellule[vousEtesIciY][vousEtesIciX-1].getStatus() != INCONNU){
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+			vousEtesIciX--;
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		}
 	}
 
 	public void moveRight(){
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
-		vousEtesIciX++;
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		if(tabCellule[vousEtesIciY][vousEtesIciX+1].getStatus() != INCONNU){
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(PIECE);
+			vousEtesIciX++;
+			tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);
+		}
 	}
 
 
