@@ -24,7 +24,7 @@ public class CaseInventaireEvent implements MouseListener
 	}
 	@Override public void mousePressed(MouseEvent evenement)
 	{
-		if (evenement.getButton() == MouseEvent.BUTTON3) 
+		if (evenement.getButton() == MouseEvent.BUTTON3 && !this.caseI.isEmpty()) 
 		{
 			this.pm = this.caseI.GetPopupMenu();
 			this.pm.show(evenement.getComponent(), evenement.getX(), evenement.getY() );

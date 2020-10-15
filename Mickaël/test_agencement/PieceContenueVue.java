@@ -5,10 +5,11 @@ import java.util.*;
 public class PieceContenueVue extends JPanel
 {
 	private String nom = "Piece";
-	private GridLayout pieceLayout = new GridLayout(2,5);
+	private GridLayout pieceLayout = new GridLayout(3,16);
 	private PanelNom jcomplN;
-	private CasePiece[] caseP = new CasePiece[12]; 
-	private CasePieceEvent[] casePEvent = new CasePieceEvent[12];
+	private final static int NOMBRESCASES = 48;
+	private CasePiece[] caseP = new CasePiece[NOMBRESCASES]; 
+	private CasePieceEvent[] casePEvent = new CasePieceEvent[NOMBRESCASES];
 	private JPanel jPanelCasep = new JPanel();
 	private GridBagConstraints gbcPanelN = new GridBagConstraints();
 	private GridBagConstraints gbcPanelCasep = new GridBagConstraints();
@@ -49,7 +50,7 @@ public class PieceContenueVue extends JPanel
 		gbcPanelCasep.gridx = 0;
         gbcPanelCasep.gridy = 1;
         gbcPanelCasep.gridwidth = 1;
-        gbcPanelCasep.gridheight = 12;
+        gbcPanelCasep.gridheight = NOMBRESCASES;
         gbcPanelCasep.fill = GridBagConstraints.BOTH; 
         gbcPanelCasep.weightx = 1.0;
         gbcPanelCasep.weighty = 1.0;
@@ -60,13 +61,13 @@ public class PieceContenueVue extends JPanel
 
 	public void addTruc(TypeTruc type, String description)
 	{
-		this.caseP[indice++%12].setObject(type,description);
+		this.caseP[indice++%NOMBRESCASES].setObject(type,description);
 	}
 
 	public void clear()
 	{
 		indice = 0;
-		for(int i = 0; i < 12;i++)
+		for(int i = 0; i < NOMBRESCASES;i++)
 		{
 			this.caseP[i].clearObject();
 		}

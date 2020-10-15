@@ -5,9 +5,9 @@ import java.util.*;
 public class PieceContenueVue extends JPanel
 {
 	private String nom = "Piece";
-	private GridLayout pieceLayout = new GridLayout(3,8);
+	private GridLayout pieceLayout = new GridLayout(3,16);
 	private PanelNom jcomplN;
-	private final static int NOMBRESCASES = 24;
+	private final static int NOMBRESCASES = 48;
 	private CasePiece[] caseP = new CasePiece[NOMBRESCASES]; 
 	private CasePieceEvent[] casePEvent = new CasePieceEvent[NOMBRESCASES];
 	private JPanel jPanelCasep = new JPanel();

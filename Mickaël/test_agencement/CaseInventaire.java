@@ -46,6 +46,11 @@ public class CaseInventaire extends JComponent
     	return popupMenu;
     }
 
+	public boolean isEmpty()
+	{
+		return object == null;
+	}
+
 	protected void paintComponent(Graphics pinceau) 
   	{
 		Graphics secondPinceau = pinceau.create();

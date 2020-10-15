@@ -59,6 +59,14 @@ public class GameVue  extends  JPanel{
 		gbc02.weightx = 0.0;  // souhaite plus de largeur si possible
 		gbc02.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
 		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
+		
+		d.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
+        d.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
+        d.addTruc(TypeTruc.EAU,"Gourde d'eau");
+        d.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
+        d.addTruc(TypeTruc.GOODIES,"500 piece d'or");
+        d.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
+        d.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 		this.add(d, gbc02);
 
 
