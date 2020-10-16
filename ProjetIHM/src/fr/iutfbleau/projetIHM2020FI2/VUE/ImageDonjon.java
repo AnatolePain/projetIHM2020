@@ -1,3 +1,4 @@
+package fr.iutfbleau.projetIHM2020FI2.VUE;
 import javax.swing.*;
 import javax.swing.JComponent;
 import java.awt.*;
