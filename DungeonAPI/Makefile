@@ -31,14 +31,17 @@ default: $(allclass)
 $(BUILD)test/TestTexteMNP.class: $(SRC)test/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)test/TestTexteMNP.java
 
-$(BUILD)API/Activable.class: $(SRC)API/Activable.java $(BUILD)API/Truc.class
-	$(JC) $(JFLAGS) $(SRC)API/Activable.java
-
 $(BUILD)API/ContientTrucs.class: $(SRC)API/ContientTrucs.java
 	$(JC) $(JFLAGS) $(SRC)API/ContientTrucs.java
 
 $(BUILD)API/Descriptible.class: $(SRC)API/Descriptible.java
 	$(JC) $(JFLAGS) $(SRC)API/Descriptible.java
+
+$(BUILD)API/Activable.class: $(SRC)API/Truc.java $(BUILD)API/Truc.class $(SRC)API/Activable.java
+	$(JC) $(JFLAGS) $(SRC)API/Activable.java
+
+$(BUILD)API/Truc.class: $(BUILD)API/Descriptible.class $(BUILD)API/TypeTruc.class $(BUILD)API/Activable.class $(SRC)API/Activable.java $(SRC)API/Truc.java
+	$(JC) $(JFLAGS) $(SRC)API/Truc.java
 
 $(BUILD)API/Direction.class: $(SRC)API/Direction.java
 	$(JC) $(JFLAGS) $(SRC)API/Direction.java
@@ -58,8 +61,8 @@ $(BUILD)API/PassagePieceFactory.class: $(SRC)API/PassagePieceFactory.java $(BUIL
 $(BUILD)API/Piece.class: $(SRC)API/Piece.java $(BUILD)API/Descriptible.class $(BUILD)MNP/ContientTrucsNP.class $(BUILD)API/Direction.class $(BUILD)API/Passage.class
 	$(JC) $(JFLAGS) $(SRC)API/Piece.java
 
-$(BUILD)API/Truc.class: $(SRC)API/Truc.java $(BUILD)API/Descriptible.class $(BUILD)API/TypeTruc.class $(BUILD)API/Activable.class
-	$(JC) $(JFLAGS) $(SRC)API/Truc.java
+#$(BUILD)API/Truc.class: $(SRC)API/Truc.java $(BUILD)API/Descriptible.class $(BUILD)API/TypeTruc.class $(BUILD)API/Activable.class
+	#$(JC) $(JFLAGS) $(SRC)API/Truc.java
 
 $(BUILD)API/TrucFactory.class: $(SRC)API/TrucFactory.java  $(BUILD)MNP/ContientTrucsNP.class $(BUILD)API/TypeTruc.class
 	$(JC) $(JFLAGS) $(SRC)API/TrucFactory.java

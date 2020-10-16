@@ -1,4 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
+import fr.iutfbleau.projetIHM2020FI2.VUE.*;
+import fr.iutfbleau.projetIHM2020FI2.API.*;
 import javax.swing.*;
 import java.awt.*;
 

@@ -55,12 +55,16 @@ allclass = \
 	$(BUILD)CONTROLEUR/CasePieceEvent.class \
 	$(BUILD)CONTROLEUR/EventPV.class \
 	$(BUILD)CONTROLEUR/GestionClavier.class \
-	$(BUILD)CONTROLEUR/Main.class
+	$(BUILD)test/Main.class \
+	$(BUILD)test/TestTexteMNP.class
 
 default: $(allclass)
 
-$(BUILD)CONTROLEUR/Main.class: $(SRC)CONTROLEUR/Main.java
-	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/Main.java
+$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class
+	$(JC) $(JFLAGS) $(SRC)test/Main.java
+
+$(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class
+	$(JC) $(JFLAGS) $(SRC)VUE/GameVue.java
 
 $(BUILD)CONTROLEUR/GestionClavier.class: $(SRC)CONTROLEUR/GestionClavier.java
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/GestionClavier.java
@@ -71,19 +75,19 @@ $(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/Piec
 $(BUILD)CONTROLEUR/DescriptionEvent.class: $(SRC)CONTROLEUR/DescriptionEvent.java $(BUILD)VUE/DialogDescription.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/DescriptionEvent.java
 
-$(BUILD)CONTROLEUR/CasePieceEvent.class: $(SRC)CONTROLEUR/CasePieceEvent.java
+$(BUILD)CONTROLEUR/CasePieceEvent.class: $(SRC)CONTROLEUR/CasePieceEvent.java $(BUILD)VUE/CasePiece.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/CasePieceEvent.java
 
-$(BUILD)CONTROLEUR/CaseInventaireEvent.class: $(SRC)CONTROLEUR/CaseInventaireEvent.java
+$(BUILD)CONTROLEUR/CaseInventaireEvent.class: $(SRC)CONTROLEUR/CaseInventaireEvent.java $(BUILD)VUE/CaseInventaire.class $(BUILD)VUE/InventaireMenuContextuel.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/CaseInventaireEvent.java
 
 $(BUILD)MODEL/ConnectionBD.class: $(SRC)MODEL/ConnectionBD.java
 	$(JC) $(JFLAGS) $(SRC)MODEL/ConnectionBD.java
 
-$(BUILD)VUE/CaseInventaire.class: $(SRC)VUE/CaseInventaire.java $(BUILD)VUE/InventaireMenuContextuel.class
+$(BUILD)VUE/CaseInventaire.class: $(SRC)VUE/CaseInventaire.java $(BUILD)VUE/InventaireMenuContextuel.class $(BUILD)API/TypeTruc.class
 	$(JC) $(JFLAGS) $(SRC)VUE/CaseInventaire.java
 
-$(BUILD)VUE/CasePiece.class: $(SRC)VUE/CasePiece.java
+$(BUILD)VUE/CasePiece.class: $(SRC)VUE/CasePiece.java $(BUILD)VUE/PieceMenuContextuel.class
 	$(JC) $(JFLAGS) $(SRC)VUE/CasePiece.java
 
 $(BUILD)VUE/CelluleCarte.class: $(SRC)VUE/CelluleCarte.java
@@ -94,9 +98,6 @@ $(BUILD)VUE/ChangementThread.class: $(SRC)VUE/ChangementThread.java
 
 $(BUILD)VUE/DialogDescription.class: $(SRC)VUE/DialogDescription.java
 	$(JC) $(JFLAGS) $(SRC)VUE/DialogDescription.java 
-
-$(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class
-	$(JC) $(JFLAGS) $(SRC)VUE/GameVue.java
 
 $(BUILD)VUE/ImageDonjon.class: $(SRC)VUE/ImageDonjon.java
 	$(JC) $(JFLAGS) $(SRC)VUE/ImageDonjon.java
@@ -113,7 +114,7 @@ $(BUILD)VUE/MiniCarteVue.class: $(SRC)VUE/MiniCarteVue.java $(BUILD)VUE/CelluleC
 $(BUILD)VUE/PanelNom.class: $(SRC)VUE/PanelNom.java $(BUILD)VUE/CaseInventaire.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PanelNom.java
 
-$(BUILD)VUE/PieceContenueVue.class: $(SRC)VUE/PieceContenueVue.java $(BUILD)VUE/PanelNom.class $(BUILD)VUE/CaseInventaire.class
+$(BUILD)VUE/PieceContenueVue.class: $(SRC)VUE/PieceContenueVue.java $(BUILD)VUE/PanelNom.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)VUE/CaseInventaire.class $(BUILD)VUE/CasePiece.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceContenueVue.java
 
 $(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java
@@ -128,11 +129,11 @@ $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
 $(BUILD)VUE/Window.class: $(SRC)VUE/Window.java $(BUILD)VUE/GameVue.class
 	$(JC) $(JFLAGS) $(SRC)VUE/Window.java
 
-$(BUILD)TEST/testVUE.class: $(SRC)TEST/testVUE.java
-	$(JC) $(JFLAGS) $(SRC)TEST/testVUE.java
+$(BUILD)test/testVUE.class: $(SRC)test/testVUE.java
+	$(JC) $(JFLAGS) $(SRC)test/testVUE.java
 
-$(BUILD)TEST/TestTexteMNP.class: $(SRC)TEST/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
-	$(JC) $(JFLAGS) $(SRC)TEST/TestTexteMNP.java
+$(BUILD)test/TestTexteMNP.class: $(SRC)test/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
+	$(JC) $(JFLAGS) $(SRC)test/TestTexteMNP.java
 
 $(BUILD)API/Activable.class: $(SRC)API/Activable.java
 	$(JC) $(JFLAGS) $(SRC)API/Activable.java $(SRC)API/Truc.java $(SRC)API/Descriptible.java $(SRC)API/TypeTruc.java
@@ -191,11 +192,14 @@ $(BUILD)MNP/TrucFactoryNP.class: $(SRC)MNP/TrucFactoryNP.java $(BUILD)API/TrucFa
 $(BUILD)MNP/TrucNP.class: $(SRC)MNP/TrucNP.java $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)MNP/TrucNP.java
 
-run : 
-	java -classpath build fr.iutfbleau.projetIHM2020FI2.TEST.TestTexteMNP
+runtextuel : 
+	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
+
+rungraph : 
+	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.Main
 
 jar:
-	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.TEST.TestTexteMNP -C build fr -C res images
+	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP -C build fr -C res images
 
 runjar:
 	java -jar $(Name).jar

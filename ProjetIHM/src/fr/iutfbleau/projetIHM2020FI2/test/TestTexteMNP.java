@@ -1,4 +1,4 @@
-package fr.iutfbleau.projetIHM2020FI2.TEST;
+package fr.iutfbleau.projetIHM2020FI2.test;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import fr.iutfbleau.projetIHM2020FI2.MNP.*;
 public class TestTexteMNP{
@@ -6,7 +6,7 @@ public class TestTexteMNP{
 	public static void main(String[] args) {
 		// morceaux de modèle
 		
-		// Une usinePassagePiece à produire les pièces et passage du dongeon (sert de constructeur et de mémoire pour les pièces et passage).
+		// blablaUne usinePassagePiece à produire les pièces et passage du dongeon (sert de constructeur et de mémoire pour les pièces et passage).
 		PassagePieceFactory usinePassagePiece = new PassagePieceFactoryNP();
 		
 		//    Illustration de l'exemple de dongeon 
