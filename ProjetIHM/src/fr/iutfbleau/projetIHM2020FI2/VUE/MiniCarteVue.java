@@ -15,6 +15,12 @@ public class MiniCarteVue extends JPanel {
 	private final static char PIECE = 2;
 	private final static char INCONNU = 3;
 
+	//-------
+	private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+	private final ImageIcon imagePiece = new ImageIcon(loader.getResource("images/miniCarte/piece.png"));
+	private final ImageIcon imageVousEtesIci = new ImageIcon(loader.getResource("images/miniCarte/vous_etes_ici.png"));
+	private final ImageIcon imageInconnu = new ImageIcon(loader.getResource("images/miniCarte/inconnu.png"));
+
 	public MiniCarteVue(){
 	   
 	   	this.setPreferredSize(new Dimension(300, 300));
