@@ -3,9 +3,9 @@ Name = ProjetIHM
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp" -cp ".:/mariadb-client.jar"
+DBFLAGS = -cp ".:/mariadb-client.jar"
 else
-JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp" -cp ".;/mariadb-client.jar"
+DBFLAGS = -cp ".;/mariadb-client.jar"
 endif
 
 JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp"
@@ -51,6 +51,7 @@ allclass = \
 	$(BUILD)VUE/CelluleCarte.class \
 	$(BUILD)VUE/CasePiece.class \
 	$(BUILD)MODEL/ConnectionBD.class \
+	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
 	$(BUILD)CONTROLEUR/CasePieceEvent.class \
 	$(BUILD)CONTROLEUR/EventPV.class \
@@ -58,7 +59,13 @@ allclass = \
 	$(BUILD)test/Main.class \
 	$(BUILD)test/TestTexteMNP.class
 
+allTest = \
+	TestBaseDeDonne
+
 default: $(allclass)
+
+$(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java
+	$(JC) $(JFLAGS) $(SRC)test/TestBaseDeDonne.java
 
 $(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
@@ -195,14 +202,17 @@ $(BUILD)MNP/TrucNP.class: $(SRC)MNP/TrucNP.java $(BUILD)API/Truc.class
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
 
-rungraph : 
-	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.Main
+run : 
+	java $(DBFLAGS) -classpath build fr.iutfbleau.projetIHM2020FI2.test.Main
 
 jar:
-	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP -C build fr -C res images
+	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.Main -C build fr -C res images
 
 runjar:
-	java -jar $(Name).jar
+	java $(DBFLAGS) -jar $(Name).jar
+
+runtest :
+	java $(DBFLAGS) -classpath build fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
 
 clean:
 	rm -rf $(BUILD)
