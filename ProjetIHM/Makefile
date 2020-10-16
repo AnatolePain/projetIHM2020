@@ -1,9 +1,17 @@
 Name = ProjetIHM
 
-JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp"
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp" -cp ".:/mariadb-client.jar"
+else
+JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp" -cp ".;/mariadb-client.jar"
+endif
+
 SRC = src/fr/iutfbleau/projetIHM2020FI2/
 BUILD = build/fr/iutfbleau/projetIHM2020FI2/
 JC = javac 
+
 allclass = \
 	$(BUILD)API/Activable.class \
 	$(BUILD)API/ContientTrucs.class \
@@ -24,12 +32,14 @@ allclass = \
 	$(BUILD)MNP/PieceNP.class \
 	$(BUILD)MNP/TrucFactoryNP.class \
 	$(BUILD)MNP/TrucNP.class \
-	$(BUILD)test/TestTexteMNP.class
+	$(BUILD)TEST/TestTexteMNP.class \
+	$(BUILD)TEST/testVUE.class \
+
 
 default: $(allclass)
 
-$(BUILD)test/TestTexteMNP.class: $(SRC)test/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
-	$(JC) $(JFLAGS) $(SRC)test/TestTexteMNP.java
+$(BUILD)TEST/TestTexteMNP.class: $(SRC)TEST/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
+	$(JC) $(JFLAGS) $(SRC)TEST/TestTexteMNP.java
 
 $(BUILD)API/Activable.class: $(SRC)API/Activable.java 
 	$(JC) $(JFLAGS) $(SRC)API/Activable.java
@@ -89,10 +99,10 @@ $(BUILD)MNP/TrucNP.class: $(SRC)MNP/TrucNP.java $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)MNP/TrucNP.java
 
 run : 
-	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
+	java -classpath build fr.iutfbleau.projetIHM2020FI2.TEST.TestTexteMNP
 
 jar:
-	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP -C build fr -C res images
+	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.TEST.TestTexteMNP -C build fr -C res images
 
 runjar:
 	java -jar $(Name).jar

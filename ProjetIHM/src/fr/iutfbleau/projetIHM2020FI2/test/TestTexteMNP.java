@@ -1,4 +1,4 @@
-package fr.iutfbleau.projetIHM2020FI2.test;
+package fr.iutfbleau.projetIHM2020FI2.TEST;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import fr.iutfbleau.projetIHM2020FI2.MNP.*;
 public class TestTexteMNP{

@@ -31,7 +31,7 @@ public class PieceContenueVue extends JPanel
 		this.setLayout(new GridBagLayout());
 		this.jcomplN = new PanelNom(new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panelText.png"),this.nom);
 		this.jPanelCasep.setLayout(this.pieceLayout);
-		this.jPanelCasep.setBackground(Color.lightGray);
+		this.jPanelCasep.setBackground(new Color(97,99,116));
 		for(int i = 0 ; i < caseP.length;i++)
 		{
 			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog);

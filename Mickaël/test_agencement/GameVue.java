@@ -13,6 +13,8 @@ public class GameVue  extends  JPanel{
 
 	    GridBagLayout theLayout = new GridBagLayout();
 	    this.setLayout(theLayout);
+	    Color nuanceGris = new Color(92, 99, 116);
+	    this.setBackground(Color.lightGray);
 
 	    //Vue en fausse 3D
 	    //JButton b = new JButton("0");
@@ -26,7 +28,7 @@ public class GameVue  extends  JPanel{
 		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
 		gbc.weightx = 1.0;  // souhaite plus de largeur si possible
 		gbc.weighty = 1.0;  // n'a pas besoin de hauteur supplémentaire
-		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
+		gbc.insets = new Insets(16, 16, 0, 0);    // laisse 5 pixels de vide autour du composant
 		this.add(b, gbc);
 
 		//Mini-carte
@@ -41,7 +43,7 @@ public class GameVue  extends  JPanel{
 		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
 		gbc01.weightx = 0.0;  // souhaite plus de largeur si possible
 		gbc01.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
-		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
+		gbc01.insets = new Insets(16, 16, 0, 16);    // laisse 5 pixels de vide autour du composant
 		this.add(c, gbc01);
 
 
@@ -58,7 +60,7 @@ public class GameVue  extends  JPanel{
 		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
 		gbc02.weightx = 0.0;  // souhaite plus de largeur si possible
 		gbc02.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
-		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
+		gbc02.insets = new Insets(16, 16, 16, 16);    // laisse 5 pixels de vide autour du composant
 		
 		d.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
         d.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
@@ -68,7 +70,6 @@ public class GameVue  extends  JPanel{
         d.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
         d.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 		this.add(d, gbc02);
-
 
 		//Contenu de la pièce
 		//JButton e = new JButton("3");
@@ -83,7 +84,7 @@ public class GameVue  extends  JPanel{
 		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
 		gbc03.weightx = 0.0;  // souhaite plus de largeur si possible
 		gbc03.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
-		//gbc.insets = new Insets(5, 5, 5, 5);    // laisse 5 pixels de vide autour du composant
+		gbc03.insets = new Insets(16, 16, 16, 0);    // laisse 5 pixels de vide autour du composant
 		this.add(e, gbc03);
 
 		e.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
