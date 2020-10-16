@@ -11,7 +11,7 @@ public class ConnectionBD
 	public ConnectionBD()
 	{
 		ConnectionBD.cbd = this;
-		/*try
+		try
 		{
 			Class.forName("org.mariadb.jdbc.Driver");
 		}
@@ -19,7 +19,7 @@ public class ConnectionBD
 		{
             System.err.println(cnf);
             return;
-		}*/
+		}
 
 		try
 		{

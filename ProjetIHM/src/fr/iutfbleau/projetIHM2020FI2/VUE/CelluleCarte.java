@@ -8,6 +8,11 @@ public class CelluleCarte extends JComponent {
 	private final static char VOUSETESICI = 1;
 	private final static char PIECE = 2;
 	private final static char INCONNU = 3;
+	private final static String LOCATIONIMAGE = "../../ProjetIHM/res/images/miniCarte/";
+	private ImageIcon imageBase;
+	private final static ImageIcon imagePiece = new ImageIcon(LOCATIONIMAGE + "piece.png");
+	private final static ImageIcon imageVousEtesIci = new ImageIcon(LOCATIONIMAGE + "vous_etes_ici.png");
+	private final static ImageIcon imageInconnu = new ImageIcon(LOCATIONIMAGE + "inconnu.png");
 	private int status;
 
 	public CelluleCarte(int s){
@@ -24,9 +29,6 @@ public class CelluleCarte extends JComponent {
 	}
 
 	public CelluleCarte(){
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		System.out.println("loader.toString() = " + loader.getResource("images/miniCarte/inconnu.png"));
-
 		this.status = this.INCONNU;
 		this.imageBase = this.imageInconnu;
 	}
@@ -61,3 +63,5 @@ public class CelluleCarte extends JComponent {
 	}
 
 }
+/*ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		System.out.println("loader.toString() = " + loader.getResource("images/miniCarte/inconnu.png"));*/

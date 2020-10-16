@@ -3,11 +3,13 @@ Name = ProjetIHM
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-DBFLAGS = -cp ".:/mariadb-client.jar"
+DBFLAGS = "mariadb-client.jar:."
 else
-DBFLAGS = -cp ".;/mariadb-client.jar"
+DBFLAGS = "mariadb-client.jar;."
 endif
 
+JAVAUNIT = "junit-4.10.jar" org.junit.runner.JUnitCore
+JUFLAGS = "junit-4.10.jar"
 JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp"
 SRC = src/fr/iutfbleau/projetIHM2020FI2/
 BUILD = build/fr/iutfbleau/projetIHM2020FI2/
@@ -64,8 +66,8 @@ allTest = \
 
 default: $(allclass)
 
-$(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java
-	$(JC) $(JFLAGS) $(SRC)test/TestBaseDeDonne.java
+$(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java $(BUILD)MODEL/ConnectionBD.class
+	$(JC) $(JFLAGS) -cp $(JUFLAGS) $(SRC)test/TestBaseDeDonne.java
 
 $(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
@@ -203,16 +205,16 @@ runtextuel :
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
 
 run : 
-	java $(DBFLAGS) -classpath build fr.iutfbleau.projetIHM2020FI2.test.Main
+	java -cp $(DBFLAGS) -classpath build fr.iutfbleau.projetIHM2020FI2.test.Main
 
 jar:
 	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.Main -C build fr -C res images
 
 runjar:
-	java $(DBFLAGS) -jar $(Name).jar
+	java -cp $(DBFLAGS) -jar $(Name).jar
 
 runtest :
-	java $(DBFLAGS) -classpath build fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
+	java -classpath build -cp $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
 
 clean:
 	rm -rf $(BUILD)
