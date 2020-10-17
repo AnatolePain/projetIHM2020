@@ -24,15 +24,15 @@ public class PieceContenueVue extends JPanel
 	public PieceContenueVue(DialogDescription dialog)
 	{
 		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
-		this.item.put(TypeTruc.CLE,new ImageIcon("../../ProjetIHM/res/images/UI/items/cle.png"));
-		this.item.put(TypeTruc.ALCOOL,new ImageIcon("../../ProjetIHM/res/images/UI/items/alcool.png"));
-		this.item.put(TypeTruc.EAU,new ImageIcon("../../ProjetIHM/res/images/UI/items/eau.png"));
-		this.item.put(TypeTruc.GOODIES,new ImageIcon("../../ProjetIHM/res/images/UI/items/tresors.png"));
+		this.item.put(TypeTruc.CLE,ImageClassLoader.getImage("images/UI/items/cle.png"));
+		this.item.put(TypeTruc.ALCOOL,ImageClassLoader.getImage("images/UI/items/alcool.png"));
+		this.item.put(TypeTruc.EAU,ImageClassLoader.getImage("images/UI/items/eau.png"));
+		this.item.put(TypeTruc.GOODIES,ImageClassLoader.getImage("images/UI/items/tresors.png"));
 
-		this.imageBase = new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panel.png");
-		this.imageSelect = new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panelSelect.png");
+		this.imageBase = ImageClassLoader.getImage("images/UI/cadre/panel.png");
+		this.imageSelect = ImageClassLoader.getImage("images/UI/cadre/panelSelect.png");
 		this.setLayout(new GridBagLayout());
-		this.jcomplN = new PanelNom(new ImageIcon("../../ProjetIHM/res/images/UI/cadre/panelText.png"),this.nom);
+		this.jcomplN = new PanelNom(ImageClassLoader.getImage("images/UI/cadre/panelText.png"),this.nom);
 		this.jPanelCasep.setLayout(this.pieceLayout);
 		this.jPanelCasep.setBackground(new Color(97,99,116));
 		for(int i = 0 ; i < caseP.length;i++)

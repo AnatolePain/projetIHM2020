@@ -6,13 +6,12 @@ import java.awt.*;
 
 public class GameVue  extends  JPanel{
 
+	private ImageClassLoader icl = new ImageClassLoader();
 
-	public GameVue(JFrame f){
-
+	public GameVue(JFrame f)
+	{
 		//JPanel panPrincipale =  new JPanel();
 	    //this.add(panPrincipale);
-
-
 
 	    GridBagLayout theLayout = new GridBagLayout();
 	    this.setLayout(theLayout);

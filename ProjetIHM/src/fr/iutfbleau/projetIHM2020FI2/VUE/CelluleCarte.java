@@ -5,44 +5,26 @@ import java.util.*;
 
 public class CelluleCarte extends JComponent {
 
-	private final static char VOUSETESICI = 1;
-	private final static char PIECE = 2;
-	private final static char INCONNU = 3;
-	private final static String LOCATIONIMAGE = "../../ProjetIHM/res/images/miniCarte/";
 	private ImageIcon imageBase;
-	private final static ImageIcon imagePiece = new ImageIcon(LOCATIONIMAGE + "piece.png");
-	private final static ImageIcon imageVousEtesIci = new ImageIcon(LOCATIONIMAGE + "vous_etes_ici.png");
-	private final static ImageIcon imageInconnu = new ImageIcon(LOCATIONIMAGE + "inconnu.png");
+	private Map<Integer, ImageIcon> carteImage;
 	private int status;
 
-	public CelluleCarte(int s){
-
+	public CelluleCarte(Map<Integer, ImageIcon> ci, int s){
 		this.status = s;
-		if(this.status == this.VOUSETESICI){
-	   		this.imageBase = this.imageVousEtesIci;
-	   }else if(this.status == this.PIECE){
-	   		this.imageBase = this.imagePiece;
-	   }else if(this.status == this.INCONNU){
-	   		this.imageBase = this.imageInconnu;
-	   }
-
+		this.carteImage = ci;
+		this.imageBase = this.carteImage.get(this.status);
 	}
 
-	public CelluleCarte(){
-		this.status = this.INCONNU;
-		this.imageBase = this.imageInconnu;
+	public CelluleCarte(Map<Integer, ImageIcon> ci)
+	{
+		this.carteImage = ci;
+		this.status = 3;
+		this.imageBase = this.carteImage.get(this.status);
 	}
 
 	public void changeStatus(int s){
 	   this.status = s;
-	   if(this.status == this.VOUSETESICI){
-	   		this.imageBase = this.imageVousEtesIci;
-	   }else if(this.status == this.PIECE){
-	   		this.imageBase = this.imagePiece;
-	   }else if(this.status == this.INCONNU){
-	   		this.imageBase = this.imageInconnu;
-	   }
-
+	   this.imageBase = this.carteImage.get(this.status);
 	   this.repaint();
 		
 	}
@@ -63,5 +45,3 @@ public class CelluleCarte extends JComponent {
 	}
 
 }
-/*ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		System.out.println("loader.toString() = " + loader.getResource("images/miniCarte/inconnu.png"));*/

@@ -52,6 +52,7 @@ allclass = \
 	$(BUILD)VUE/ChangementThread.class \
 	$(BUILD)VUE/CelluleCarte.class \
 	$(BUILD)VUE/CasePiece.class \
+	$(BUILD)VUE/ImageClassLoader.class \
 	$(BUILD)MODEL/ConnectionBD.class \
 	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
@@ -66,13 +67,16 @@ allTest = \
 
 default: $(allclass)
 
+$(BUILD)VUE/ImageClassLoader.class: $(SRC)VUE/ImageClassLoader.java
+	$(JC) $(JFLAGS) $(SRC)VUE/ImageClassLoader.java
+
 $(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java $(BUILD)MODEL/ConnectionBD.class
 	$(JC) $(JFLAGS) -cp $(JUFLAGS) $(SRC)test/TestBaseDeDonne.java
 
 $(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
 
-$(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class
+$(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class
 	$(JC) $(JFLAGS) $(SRC)VUE/GameVue.java
 
 $(BUILD)CONTROLEUR/GestionClavier.class: $(SRC)CONTROLEUR/GestionClavier.java
@@ -111,7 +115,7 @@ $(BUILD)VUE/DialogDescription.class: $(SRC)VUE/DialogDescription.java
 $(BUILD)VUE/ImageDonjon.class: $(SRC)VUE/ImageDonjon.java
 	$(JC) $(JFLAGS) $(SRC)VUE/ImageDonjon.java
 
-$(BUILD)VUE/InventaireContenueVue.class: $(SRC)VUE/InventaireContenueVue.java $(BUILD)VUE/PanelNom.class $(BUILD)VUE/CaseInventaire.class $(BUILD)CONTROLEUR/CaseInventaireEvent.class
+$(BUILD)VUE/InventaireContenueVue.class: $(SRC)VUE/InventaireContenueVue.java $(BUILD)VUE/PanelNom.class $(BUILD)VUE/CaseInventaire.class $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)VUE/ImageClassLoader.class
 	$(JC) $(JFLAGS) $(SRC)VUE/InventaireContenueVue.java
 
 $(BUILD)VUE/InventaireMenuContextuel.class: $(SRC)VUE/InventaireMenuContextuel.java $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)VUE/DialogDescription.class 

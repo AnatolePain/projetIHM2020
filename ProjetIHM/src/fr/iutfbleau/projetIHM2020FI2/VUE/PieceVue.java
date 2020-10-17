@@ -25,12 +25,12 @@ public class PieceVue extends JPanel
 		this.setLayout(this.cardl);
 		for(int i = 0; i < 16;i++)
 		{
-			swapChain[i] = new ImageDonjon(new ImageIcon("../../ProjetIHM/res/images/Salles/image"+i+".png"));
+			swapChain[i] = new ImageDonjon(ImageClassLoader.getImage("images/Salles/image"+i+".png"));
 			this.add(swapChain[i],"image"+i);
 		}
 		for(int i = 0; i < 5;i++)
 		{
-			rocher[i] = new ImageIcon("../../ProjetIHM/res/images/Salles/fermer"+i+".png");
+			rocher[i] = ImageClassLoader.getImage("images/Salles/fermer"+i+".png");
 		}
 		this.cardl.next(this);
 		this.cardl.next(this);
