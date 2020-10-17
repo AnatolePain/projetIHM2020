@@ -127,13 +127,13 @@ $(BUILD)VUE/MiniCarteVue.class: $(SRC)VUE/MiniCarteVue.java $(BUILD)VUE/CelluleC
 $(BUILD)VUE/PanelNom.class: $(SRC)VUE/PanelNom.java $(BUILD)VUE/CaseInventaire.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PanelNom.java
 
-$(BUILD)VUE/PieceContenueVue.class: $(SRC)VUE/PieceContenueVue.java $(BUILD)VUE/PanelNom.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)VUE/CaseInventaire.class $(BUILD)VUE/CasePiece.class
+$(BUILD)VUE/PieceContenueVue.class: $(SRC)VUE/PieceContenueVue.java $(BUILD)VUE/PanelNom.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)VUE/CaseInventaire.class $(BUILD)VUE/CasePiece.class $(BUILD)VUE/ImageClassLoader.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceContenueVue.java
 
 $(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceMenuContextuel.java
 
-$(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class
+$(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceVue.java $(SRC)CONTROLEUR/EventPV.java $(SRC)VUE/TransitionThread.java $(SRC)VUE/ChangementThread.java 
 
 $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
