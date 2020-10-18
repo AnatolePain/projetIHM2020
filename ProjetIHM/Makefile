@@ -3,15 +3,15 @@ Name = ProjetIHM
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-DBFLAGS = "mariadb-client.jar:."
+DBFLAGS = -classpath "build:mariadb-client.jar"
+JAVAUNIT = -classpath "build:mariadb-client.jar:junit-4.10.jar:hamcrest-core.jar" org.junit.runner.JUnitCore
+JUFLAGS = -implicit:none -d build -classpath "build:junit-4.10.jar" -sourcepath "src:tmp"
 else
-DBFLAGS = "mariadb-client.jar;."
+DBFLAGS = -classpath "build;mariadb-client.jar;"
+JAVAUNIT = -classpath "build;mariadb-client.jar;junit-4.10.jar;hamcrest-core.jar;" org.junit.runner.JUnitCore
+JUFLAGS = -implicit:none -d build -classpath "build;junit-4.10.jar;" -sourcepath "src:tmp"
 endif
 
-DB = -cp .:/d/Anatole/informatique/ConnecteurJava/mariadb-java-client-2.6.2.jar
-
-JAVAUNIT = "junit-4.10.jar" org.junit.runner.JUnitCore
-JUFLAGS = "junit-4.10.jar"
 JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp"
 SRC = src/fr/iutfbleau/projetIHM2020FI2/
 BUILD = build/fr/iutfbleau/projetIHM2020FI2/
@@ -63,20 +63,31 @@ allclass = \
 	$(BUILD)CONTROLEUR/GestionClavier.class \
 	$(BUILD)test/Main.class \
 	$(BUILD)test/TestTexteMNP.class \
-	$(BUILD)test/ConnexionBD.class
+	$(BUILD)CONTROLEUR/ControlleurJeux.class \
+	$(BUILD)MODEL/JoueurBD.class \
+	$(BUILD)MODEL/ContientTrucsBD.class
 
 allTest = \
 	TestBaseDeDonne
 
 default: $(allclass)
 
+$(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)API/ContientTrucs.class $(BUILD)API/Truc.class
+	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java
+
+$(BUILD)MODEL/JoueurBD.class: $(SRC)MODEL/JoueurBD.java $(BUILD)MODEL/ConnectionBD.class $(BUILD)API/Piece.class $(BUILD)MODEL/ContientTrucsBD.class
+	$(JC) $(JFLAGS) $(SRC)MODEL/JoueurBD.java
+
+$(BUILD)CONTROLEUR/ControlleurJeux.class: $(SRC)CONTROLEUR/ControlleurJeux.java $(BUILD)MODEL/JoueurBD.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/ControlleurJeux.java
+
 $(BUILD)VUE/ImageClassLoader.class: $(SRC)VUE/ImageClassLoader.java
 	$(JC) $(JFLAGS) $(SRC)VUE/ImageClassLoader.java
 
 $(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java $(BUILD)MODEL/ConnectionBD.class
-	$(JC) $(JFLAGS) -cp $(JUFLAGS) $(SRC)test/TestBaseDeDonne.java
+	$(JC) $(JUFLAGS) $(SRC)test/TestBaseDeDonne.java
 
-$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class
+$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)CONTROLEUR/ControlleurJeux.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
 
 $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class
@@ -208,27 +219,20 @@ $(BUILD)MNP/TrucFactoryNP.class: $(SRC)MNP/TrucFactoryNP.java $(BUILD)API/TrucFa
 $(BUILD)MNP/TrucNP.class: $(SRC)MNP/TrucNP.java $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)MNP/TrucNP.java
 
-$(BUILD)test/ConnexionBD.class: $(SRC)test/ConnexionBD.java
-	$(JC) $(JFLAGS) $(SRC)test/ConnexionBD.java
-
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
 
 run : 
-	java -cp $(DBFLAGS) -classpath build fr.iutfbleau.projetIHM2020FI2.test.Main
+	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.Main
 
 jar:
 	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.Main -C build fr -C res images
 
 runjar:
-	java -cp $(DBFLAGS) -jar $(Name).jar
+	java $(DBFLAGS) -jar $(Name).jar
 
 runtest :
-	java -classpath build -cp $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
-
-runbd:
-#java -classpath "build;res/mariadb/mariadb-client.jar" fr.iutfbleau.projetIHM2020FI2.test.ConnexionBD
-	java -classpath "build;mariadb-client.jar" fr.iutfbleau.projetIHM2020FI2.test.ConnexionBD
+	java $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
 
 clean:
 	rm -rf $(BUILD)

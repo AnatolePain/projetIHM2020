@@ -1,5 +1,5 @@
 package fr.iutfbleau.projetIHM2020FI2.test;
-//import fr.iutfbleau.projetIHM2020FI2.MODEL.*;
+import fr.iutfbleau.projetIHM2020FI2.MODEL.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -17,8 +17,7 @@ public class TestBaseDeDonne
 	@Test
 	public void baseDeDonne()
 	{
-		//ConnectionBD baseDonne = new ConnectionBD();
-		//assertFalse(ConnectionBD.getConnection() == null);
-		assertTrue(true);
+		ConnectionBD baseDonne = new ConnectionBD();
+		assertFalse(ConnectionBD.getConnection() == null);
 	}
 }
