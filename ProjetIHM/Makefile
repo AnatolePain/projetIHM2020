@@ -8,6 +8,8 @@ else
 DBFLAGS = "mariadb-client.jar;."
 endif
 
+DB = -cp .:/d/Anatole/informatique/ConnecteurJava/mariadb-java-client-2.6.2.jar
+
 JAVAUNIT = "junit-4.10.jar" org.junit.runner.JUnitCore
 JUFLAGS = "junit-4.10.jar"
 JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp"
@@ -60,7 +62,8 @@ allclass = \
 	$(BUILD)CONTROLEUR/EventPV.class \
 	$(BUILD)CONTROLEUR/GestionClavier.class \
 	$(BUILD)test/Main.class \
-	$(BUILD)test/TestTexteMNP.class
+	$(BUILD)test/TestTexteMNP.class \
+	$(BUILD)test/ConnexionBD.class
 
 allTest = \
 	TestBaseDeDonne
@@ -205,6 +208,9 @@ $(BUILD)MNP/TrucFactoryNP.class: $(SRC)MNP/TrucFactoryNP.java $(BUILD)API/TrucFa
 $(BUILD)MNP/TrucNP.class: $(SRC)MNP/TrucNP.java $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)MNP/TrucNP.java
 
+$(BUILD)test/ConnexionBD.class: $(SRC)test/ConnexionBD.java
+	$(JC) $(JFLAGS) $(SRC)test/ConnexionBD.java
+
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
 
@@ -219,6 +225,10 @@ runjar:
 
 runtest :
 	java -classpath build -cp $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
+
+runbd:
+#java -classpath "build;res/mariadb/mariadb-client.jar" fr.iutfbleau.projetIHM2020FI2.test.ConnexionBD
+	java -classpath "build;mariadb-client.jar" fr.iutfbleau.projetIHM2020FI2.test.ConnexionBD
 
 clean:
 	rm -rf $(BUILD)
