@@ -16,6 +16,7 @@ JFLAGS = -implicit:none -d build -classpath build -sourcepath "src:tmp"
 SRC = src/fr/iutfbleau/projetIHM2020FI2/
 BUILD = build/fr/iutfbleau/projetIHM2020FI2/
 JC = javac 
+JTEST = java $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.
 
 allclass = \
 	$(BUILD)VUE/DialogDescription.class \
@@ -63,6 +64,7 @@ allclass = \
 	$(BUILD)CONTROLEUR/GestionClavier.class \
 	$(BUILD)test/Main.class \
 	$(BUILD)test/TestTexteMNP.class \
+	$(BUILD)test/TestVUE.class \
 	$(BUILD)CONTROLEUR/ControlleurJeux.class \
 	$(BUILD)MODEL/JoueurBD.class \
 	$(BUILD)MODEL/ContientTrucsBD.class \
@@ -73,7 +75,8 @@ allclass = \
 	$(BUILD)MODEL/TrucFactoryBD.class
 
 allTest = \
-	TestBaseDeDonne
+	$(JTEST)TestBaseDeDonne; \
+	$(JTEST)TestVUE;
 
 default: $(allclass)
 
@@ -176,8 +179,8 @@ $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
 $(BUILD)VUE/Window.class: $(SRC)VUE/Window.java $(BUILD)VUE/GameVue.class
 	$(JC) $(JFLAGS) $(SRC)VUE/Window.java
 
-$(BUILD)test/testVUE.class: $(SRC)test/testVUE.java
-	$(JC) $(JFLAGS) $(SRC)test/testVUE.java
+$(BUILD)test/TestVUE.class: $(SRC)test/TestVUE.java
+	$(JC) $(JUFLAGS) $(SRC)test/TestVUE.java
 
 $(BUILD)test/TestTexteMNP.class: $(SRC)test/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)test/TestTexteMNP.java
@@ -252,7 +255,7 @@ runjar:
 	java $(DBFLAGS) -jar $(Name).jar
 
 runtest :
-	java $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.$(allTest)
+	$(allTest)
 
 clean:
 	rm -rf $(BUILD)
