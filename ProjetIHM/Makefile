@@ -65,12 +65,32 @@ allclass = \
 	$(BUILD)test/TestTexteMNP.class \
 	$(BUILD)CONTROLEUR/ControlleurJeux.class \
 	$(BUILD)MODEL/JoueurBD.class \
-	$(BUILD)MODEL/ContientTrucsBD.class
+	$(BUILD)MODEL/ContientTrucsBD.class \
+	$(BUILD)MODEL/PassageBD.class \
+	$(BUILD)MODEL/PassagePieceFactoryBD.class \
+	$(BUILD)MODEL/PieceBD.class \
+	$(BUILD)MODEL/TrucBD.class \
+	$(BUILD)MODEL/TrucFactoryBD.class
 
 allTest = \
 	TestBaseDeDonne
 
 default: $(allclass)
+
+$(BUILD)MODEL/PassageBD.class: $(SRC)MODEL/PassageBD.java
+	$(JC) $(JFLAGS)  $(SRC)MODEL/PassageBD.java
+
+$(BUILD)MODEL/PassagePieceFactoryBD.class: $(SRC)MODEL/PassagePieceFactoryBD.java $(BUILD)MODEL/PieceBD.class
+	$(JC) $(JFLAGS) $(SRC)MODEL/PassagePieceFactoryBD.java
+
+$(BUILD)MODEL/PieceBD.class: $(SRC)MODEL/PieceBD.java
+	$(JC) $(JFLAGS) $(SRC)MODEL/PieceBD.java
+
+$(BUILD)MODEL/TrucBD.class: $(SRC)MODEL/TrucBD.java
+	$(JC) $(JFLAGS) $(SRC)MODEL/TrucBD.java
+
+$(BUILD)MODEL/TrucFactoryBD.class: $(SRC)MODEL/TrucFactoryBD.java
+	$(JC) $(JFLAGS) $(SRC)MODEL/TrucFactoryBD.java
 
 $(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)API/ContientTrucs.class $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java
