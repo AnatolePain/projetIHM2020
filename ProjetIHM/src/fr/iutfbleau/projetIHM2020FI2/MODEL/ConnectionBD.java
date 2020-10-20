@@ -1,40 +1,40 @@
 package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import java.sql.*;
-import javax.swing.*;
 import java.awt.*;
 
 public class ConnectionBD
 {
-	private static ConnectionBD cbd;
-	private Connection cnx;
-
-	public ConnectionBD()
-	{
-		ConnectionBD.cbd = this;
-		try
-		{
-			Class.forName("org.mariadb.jdbc.Driver");
-		}
-		catch(ClassNotFoundException cnf)
-		{
-            System.err.println(cnf);
-            return;
-		}
-
-		try
-		{
-            this.cnx = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/pain","pain","phpMyAdmin40");
-        }
-        catch(SQLException se)
-		{
-			System.err.println(se);
-			return;
-        }
-	}
+	private static Connection cnx;
 
 	public static Connection getConnection()
 	{
-		return ConnectionBD.cbd.cnx;
+		if(ConnectionBD.cnx != null)
+		{
+			return ConnectionBD.cnx;
+		}
+		else
+		{
+			try
+			{
+				Class.forName("org.mariadb.jdbc.Driver");
+			}
+			catch(ClassNotFoundException cnf)
+			{
+           		System.err.println(cnf);
+            	return null;
+			}
+
+			try
+			{
+            	ConnectionBD.cnx = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/pain","pain","phpMyAdmin40");
+        	}
+        	catch(SQLException se)
+			{
+				System.err.println(se);
+				return null;
+        	}
+        	return ConnectionBD.cnx;
+		}
 	}
 
 	public static void deconnection()

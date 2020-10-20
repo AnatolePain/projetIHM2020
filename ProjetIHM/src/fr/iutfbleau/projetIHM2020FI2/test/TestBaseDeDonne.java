@@ -11,13 +11,53 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import java.sql.*;
 
 public class TestBaseDeDonne 
 {
 	@Test
-	public void baseDeDonne()
+	public void baseDeDonneConnection()
 	{
-		ConnectionBD baseDonne = new ConnectionBD();
 		assertFalse(ConnectionBD.getConnection() == null);
+	}
+
+	@Test
+	public void baseDeDonneDeconnection()
+	{
+		ConnectionBD.deconnection();
+		assertFalse(ConnectionBD.getConnection() == null);
+	}
+
+	@Test
+	public void baseDeDonneCreateTuple()
+	{
+		/*Connection cnx;
+		PreparedStatement nouveauJoueur;
+		ResultSet rs;
+		cnx = ConnectionBD.getConnection();
+        if(cnx != null)
+        {
+            try
+            {
+                nouveauJoueur = ConnectionBD.getConnection().prepareStatement("INSERT INTO `Joueur` (`id`, `nom`, `idPieceActuelle`) VALUES ('?', '?', '?')");
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            }   
+        }
+
+        if(nouveauJoueur != null)
+        {
+            try
+            {
+                rs = nouveauJoueur.executeQuery();
+                rs.close();
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+        }*/
 	}
 }
