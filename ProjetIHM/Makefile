@@ -64,7 +64,7 @@ allclass = \
 	$(BUILD)CONTROLEUR/GestionClavier.class \
 	$(BUILD)test/Main.class \
 	$(BUILD)test/TestTexteMNP.class \
-	$(BUILD)test/TestVUE.class \
+	$(BUILD)test/TestVUEMiniCarte.class \
 	$(BUILD)CONTROLEUR/ControlleurJeux.class \
 	$(BUILD)MODEL/JoueurBD.class \
 	$(BUILD)MODEL/ContientTrucsBD.class \
@@ -76,7 +76,7 @@ allclass = \
 
 allTest = \
 	$(JTEST)TestBaseDeDonne; \
-	$(JTEST)TestVUE;
+	$(JTEST)TestVUEMiniCarte;
 
 default: $(allclass)
 
@@ -179,8 +179,8 @@ $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
 $(BUILD)VUE/Window.class: $(SRC)VUE/Window.java $(BUILD)VUE/GameVue.class
 	$(JC) $(JFLAGS) $(SRC)VUE/Window.java
 
-$(BUILD)test/TestVUE.class: $(SRC)test/TestVUE.java
-	$(JC) $(JUFLAGS) $(SRC)test/TestVUE.java
+$(BUILD)test/TestVUEMiniCarte.class: $(SRC)test/TestVUEMiniCarte.java
+	$(JC) $(JUFLAGS) $(SRC)test/TestVUEMiniCarte.java
 
 $(BUILD)test/TestTexteMNP.class: $(SRC)test/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)test/TestTexteMNP.java

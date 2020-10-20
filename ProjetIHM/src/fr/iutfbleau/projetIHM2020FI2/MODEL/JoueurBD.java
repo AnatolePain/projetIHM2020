@@ -2,7 +2,7 @@ package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import java.util.*;
 /**
- * Implémentation non persistante d'un Joueur
+ * ImplÃ©mentation non persistante d'un Joueur
  */
 public class JoueurBD extends ContientTrucsBD implements Joueur
 {
@@ -11,15 +11,15 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
     //piece actuelle
     private Piece p;
 
-    // conteneur de Pièces.
+    // conteneur de PiÃ¨ces.
     private List<Piece> cerveau;
     
     /**
     * Constructeur
     * 
-    * On utilise un ensemble LinkedList pour gérer la chronologie.
+    * On utilise un ensemble LinkedList pour gÃ©rer la chronologie.
     *
-    * Le joueur n'est pas dans une pièce à sa création.
+    * Le joueur n'est pas dans une piÃ¨ce Ã  sa crÃ©ation.
     * @see setPiece() 
     */
     public JoueurBD(){
@@ -31,7 +31,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 
    /** 
      * @return la piece dans laquelle le joueur se trouve
-     * (null si la pièce n'est pas renseignée)
+     * (null si la piÃ¨ce n'est pas renseignÃ©e)
     */
    @Override
     public Piece getPiece(){
@@ -39,9 +39,9 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
     }
 	
 	/** 
-     * Met à jour la piece dans laquelle le joueur se trouve
-     * Demande l'ajout de l'ancienne pièce au "cerveau".
-     * NB. il n'y a pas de vérification dans Joueur.
+     * Met Ã  jour la piece dans laquelle le joueur se trouve
+     * Demande l'ajout de l'ancienne piÃ¨ce au "cerveau".
+     * NB. il n'y a pas de vÃ©rification dans Joueur.
     */
    @Override
     public void setPiece(Piece next){
@@ -51,7 +51,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
     }
     
     /**
-     * @return les pieces que le joueur a deja visité.
+     * @return les pieces que le joueur a deja visitÃ©.
      */
     @Override
     public Iterator<Piece> getVisited(){
@@ -59,33 +59,33 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
     }
     
     /**
-     * Ajoute la Piece si nécessaire (si l'itérateur retourné par 
-     * getVisited ne permet pas d'itérer sur la Piece).
-     * Une pièce devient visitée quand on la quitte.
-     * @param  p Pièce qu'on vient de (re)visiter
-     * @throws NullPointerException la Piece ne peut pas être null
+     * Ajoute la Piece si nÃ©cessaire (si l'itÃ©rateur retournÃ© par 
+     * getVisited ne permet pas d'itÃ©rer sur la Piece).
+     * Une piÃ¨ce devient visitÃ©e quand on la quitte.
+     * @param  p PiÃ¨ce qu'on vient de (re)visiter
+     * @throws NullPointerException la Piece ne peut pas Ãªtre null
      * @return vrai si il fallait l'ajouter et faux sinon.
      */
     @Override
     public boolean addVisited(Piece p){
-    	Objects.requireNonNull(p,"On ne peut pas ajouter une pièce null.");
+    	Objects.requireNonNull(p,"On ne peut pas ajouter une piÃ¨ce null.");
     	return this.cerveau.add(p);
     }
     
     /**
- 	* Teste si piece a été visitée
- 	* @param  p pièce
- 	* @throws NullPointerException si la pièce est null 
- 	* @return vrai si la pièce est connue.
+ 	* Teste si piece a Ã©tÃ© visitÃ©e
+ 	* @param  p piÃ¨ce
+ 	* @throws NullPointerException si la piÃ¨ce est null 
+ 	* @return vrai si la piÃ¨ce est connue.
  	*/
     @Override
     public boolean isVisited(Piece p){
-    	Objects.requireNonNull(p,"On ne peut pas connaître une pièce null.");
+    	Objects.requireNonNull(p,"On ne peut pas connaÃ®tre une piÃ¨ce null.");
     	return this.cerveau.contains(p);
     }
 	
 	/**
-     * Accesseur pour la description textuelle du sac à dos.
+     * Accesseur pour la description textuelle du sac Ã  dos.
      * @return description
      */
     @Override
@@ -94,10 +94,10 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         StringBuilder sb = new StringBuilder("");
         int goodies = super.combienTrucs();
         if (goodies == 0)
-        	sb.append("\n"+"Le sac à dos ne contient pas d'objet. ");
+        	sb.append("\n"+"Le sac Ã  dos ne contient pas d'objet. ");
         else if (goodies == 1)	
-        	sb.append("\n"+"Le sac à dos contient un objet : ");
-        else sb.append("\n"+ "Le sac à dos contient "+ super.combienTrucs()+" objets : ");
+        	sb.append("\n"+"Le sac Ã  dos contient un objet : ");
+        else sb.append("\n"+ "Le sac Ã  dos contient "+ super.combienTrucs()+" objets : ");
         Iterator<Truc> goods = super.getTrucs();
         while (goods.hasNext()){
         	Truc t = goods.next();
@@ -107,9 +107,9 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         return sb.toString();
     }
     /**
-     * Le joueur non persistent n'est pas tout à fait comme le buveur du petit prince.
-     * Il ne boit pas du rhum pour oublier qu'il en boit mais pour oublier les pièces qu'il connaît.
-     * @param  t un truc que le joueur doit posséder
+     * Le joueur non persistent n'est pas tout Ã  fait comme le buveur du petit prince.
+     * Il ne boit pas du rhum pour oublier qu'il en boit mais pour oublier les piÃ¨ces qu'il connaÃ®t.
+     * @param  t un truc que le joueur doit possÃ©der
      * @throws IllegalStateException  sinon
      * @return vrai si l'objet a un effet sur le joueur
      */

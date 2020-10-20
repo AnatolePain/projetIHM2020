@@ -2,26 +2,26 @@ package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import java.util.*;
 /**
- * Implémentation non persistante.
- * Il s'agit en fait à peu de chose près d'une façade sur Set<Truc>.
+ * ImplÃ©mentation non persistante.
+ * Il s'agit en fait Ã  peu de chose prÃ¨s d'une faÃ§ade sur Set<Truc>.
  */
 public class ContientTrucsBD implements ContientTrucs{
 
     /**
-     * Conformément aux recommandations de la documentation de l'interface, il faut un ensemble.
+     * ConformÃ©ment aux recommandations de la documentation de l'interface, il faut un ensemble.
      */
 	private Set<Truc> contenu;
 
     /**
      * Constructeur.
-     * On utilise un LinkedHashSet qui permet de garantir que l'ordre des trucs reste le même.
+     * On utilise un LinkedHashSet qui permet de garantir que l'ordre des trucs reste le mÃªme.
      */
     public ContientTrucsBD(){
         this.contenu= new LinkedHashSet<Truc>();	
     }
    
     /**
-     * permet d'accéder aux trucs.
+     * permet d'accÃ©der aux trucs.
      * @return Iterator sur les trucs.
      */
     @Override
@@ -30,8 +30,8 @@ public class ContientTrucsBD implements ContientTrucs{
     }
     
     /**
-     * Ajoute le truc si nécessaire
-     * @param  t Truc à ajouter
+     * Ajoute le truc si nÃ©cessaire
+     * @param  t Truc Ã  ajouter
      * @return   vrai si il fallait l'ajouter et faux sinon.
      * @throws NullPointerException si t est null
      */
@@ -42,8 +42,8 @@ public class ContientTrucsBD implements ContientTrucs{
     }
 
     /**
-     * Enlève le truc si nécessaire
-     * @param  t Truc à enleverer
+     * EnlÃ¨ve le truc si nÃ©cessaire
+     * @param  t Truc Ã  enleverer
      * @return   vrai si il fallait l'enlever et faux sinon.
      * @throws NullPointerException si t est null
      */
