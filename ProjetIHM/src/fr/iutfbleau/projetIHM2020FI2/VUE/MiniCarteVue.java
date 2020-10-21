@@ -65,7 +65,7 @@ public class MiniCarteVue extends JPanel {
 
 		this.setFocusable(true);
 		this.requestFocusInWindow();
-		GestionClavier clavier = new GestionClavier(this);
+		MiniCarteEvent clavier = new MiniCarteEvent(this);
 		this.addKeyListener(clavier);
 
 	}

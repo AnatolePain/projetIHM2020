@@ -60,8 +60,7 @@ allclass = \
 	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
 	$(BUILD)CONTROLEUR/CasePieceEvent.class \
-	$(BUILD)CONTROLEUR/MiniCarteEvent.class \
-	$(BUILD)CONTROLEUR/GestionClavier.class \
+	$(BUILD)CONTROLEUR/EventPV.class \
 	$(BUILD)test/Main.class \
 	$(BUILD)test/TestTexteMNP.class \
 	$(BUILD)test/TestVUEMiniCarte.class \
@@ -72,7 +71,8 @@ allclass = \
 	$(BUILD)MODEL/PassagePieceFactoryBD.class \
 	$(BUILD)MODEL/PieceBD.class \
 	$(BUILD)MODEL/TrucBD.class \
-	$(BUILD)MODEL/TrucFactoryBD.class
+	$(BUILD)MODEL/TrucFactoryBD.class \
+	$(BUILD)CONTROLEUR/MiniCarteEvent.class \
 
 allTest = \
 	$(JTEST)TestBaseDeDonne; \
@@ -116,8 +116,14 @@ $(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)C
 $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class
 	$(JC) $(JFLAGS) $(SRC)VUE/GameVue.java
 
-$(BUILD)CONTROLEUR/MiniCarteEvent.class: $(SRC)CONTROLEUR/MiniCarteEvent.java $(BUILD)VUE/PieceVue.class
+#$(BUILD)CONTROLEUR/GestionClavier.class: $(SRC)CONTROLEUR/GestionClavier.java
+#	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/GestionClavier.java
+
+$(BUILD)CONTROLEUR/MiniCarteEvent.class: $(SRC)CONTROLEUR/MiniCarteEvent.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/MiniCarteVue.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/MiniCarteEvent.java
+
+$(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/PieceVue.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/EventPV.java
 
 $(BUILD)CONTROLEUR/DescriptionEvent.class: $(SRC)CONTROLEUR/DescriptionEvent.java $(BUILD)VUE/DialogDescription.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/DescriptionEvent.java
@@ -156,7 +162,7 @@ $(BUILD)VUE/InventaireMenuContextuel.class: $(SRC)VUE/InventaireMenuContextuel.j
 	$(JC) $(JFLAGS) $(SRC)VUE/InventaireMenuContextuel.java
 
 $(BUILD)VUE/MiniCarteVue.class: $(SRC)VUE/MiniCarteVue.java $(BUILD)VUE/CelluleCarte.class
-	$(JC) $(JFLAGS) $(SRC)VUE/MiniCarteVue.java $(SRC)CONTROLEUR/GestionClavier.java
+	$(JC) $(JFLAGS) $(SRC)VUE/MiniCarteVue.java $(SRC)CONTROLEUR/MiniCarteEvent.java
 
 $(BUILD)VUE/PanelNom.class: $(SRC)VUE/PanelNom.java $(BUILD)VUE/CaseInventaire.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PanelNom.java
@@ -168,7 +174,7 @@ $(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceMenuContextuel.java
 
 $(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class
-	$(JC) $(JFLAGS) $(SRC)VUE/PieceVue.java $(SRC)CONTROLEUR/MiniCarteEvent.java $(SRC)VUE/TransitionThread.java $(SRC)VUE/ChangementThread.java 
+	$(JC) $(JFLAGS) $(SRC)VUE/PieceVue.java $(SRC)CONTROLEUR/EventPV.java $(SRC)VUE/TransitionThread.java $(SRC)VUE/ChangementThread.java 
 
 $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
 	$(JC) $(JFLAGS) $(SRC)VUE/TransitionThread.java
