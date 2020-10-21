@@ -43,6 +43,24 @@ public class TestTexteMNP{
 		Passage p6p7 = usinePassagePiece.newPassage(Direction.EST,p6,Direction.OUEST,p7);
 		Passage p7p8 = usinePassagePiece.newPassage(Direction.EST,p7,Direction.OUEST,p8);
 		Passage p8p9 = usinePassagePiece.newPassage(Direction.NORD,p8,Direction.SUD,p9);	
+		//-----------------------TEST MINICARTE------------------------------
+		//MiniCarteVue carte = new MiniCarteVue();
+		//
+		//---AJOUT DES PIECES---
+		//carte.addPieceDeDepart(p0);
+		//carte.addPiece(p1);
+		//carte.addPiece(p2);
+		//carte.addPiece(p3);
+		//carte.addPiece(p4);
+		//carte.addPiece(p5);
+		//
+		//---AJOUT DES PASSAGES---
+		//carte.addPassage()
+		//carte.addPassage()
+		//carte.addPassage()
+		//carte.addPassage()
+		//carte.addPassage()
+		//
 		System.out.print("Création du dongeon.\n");
 		
 		Joueur j = new JoueurNP();

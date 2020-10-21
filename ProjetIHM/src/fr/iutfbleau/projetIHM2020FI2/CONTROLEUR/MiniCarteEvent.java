@@ -2,19 +2,19 @@ package fr.iutfbleau.projetIHM2020FI2.CONTROLEUR;
 import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import java.awt.event.*;
 
-public class GestionClavier implements KeyListener {
+public class MiniCarteEvent implements KeyListener {
 
 
 	private MiniCarteVue miniCarte;
 
-	public GestionClavier(MiniCarteVue mc){
+	public MiniCarteEvent(MiniCarteVue mc){
 		this.miniCarte = mc;
 	}
 
 
 	//Invoked when a key has been pressed.
 	@Override
-	public void 	keyPressed(KeyEvent e){
+	public void keyPressed(KeyEvent e){
 		//VK_UP VK_DOWN VK_LEFT VK_RIGHT
 		if(e.getKeyCode()== KeyEvent.VK_UP ){
 			this.miniCarte.moveUp();
