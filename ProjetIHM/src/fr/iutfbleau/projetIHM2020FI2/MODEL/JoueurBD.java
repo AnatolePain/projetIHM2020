@@ -24,8 +24,8 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
             try
             {
-                this.nouveauJoueur = ConnectionBD.getConnection().prepareStatement("INSERT INTO `Joueur` (`id`, `nom`, `idPieceActuelle`) VALUES ('?', '?', '?')");
-                //this.setCerveau  = ConnectionBD.getConnection().prepareStatement("SELECT * FROM `Joueur` WHERE 1");
+                this.nouveauJoueur = ConnectionBD.getConnection().prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('?', '?')");
+                //this.setCerveau  = ConnectionBD.getConnection().prepareStatement("SELECT * FROM `API_Joueur` WHERE 1");
             }
             catch(SQLException se)
             {
