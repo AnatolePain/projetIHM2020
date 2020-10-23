@@ -8,9 +8,11 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
     private Piece p;
     private Connection cnx;
     private PreparedStatement nouveauJoueur;
-    private PreparedStatement getJoueur;
+    private PreparedStatement getPiece;
+	private PreparedStatement setPiece;
     private PreparedStatement getCerveau;
-    private PreparedStatement setCerveau;
+	private PreparedStatement deleteJoueur;
+	private int idJoueur = 0;
     private ResultSet rs;
 
     private List<Piece> cerveau;
@@ -24,8 +26,11 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
             try
             {
-                this.nouveauJoueur = ConnectionBD.getConnection().prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('?', '?')");
-                //this.setCerveau  = ConnectionBD.getConnection().prepareStatement("SELECT * FROM `API_Joueur` WHERE 1");
+                this.nouveauJoueur = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('?', '?')");
+				this.getPiece = this.cnx.prepareStatement("SELECT idPieceActuelle FROM `API_Joueur` WHERE id = ?");
+				this.setPiece = this.cnx.prepareStatement("UPDATE API_Joueur SET idPieceActuelle = ? WHERE id = ?");
+				this.getCerveau = this.cnx.prepareStatement("SELECT id,Visite FROM `API_Piece` WHERE idJoueur = ?");
+				this.deleteJoueur = this.cnx.prepareStatement("DELETE from API_Joueur WHERE id = ?");
             }
             catch(SQLException se)
             {
