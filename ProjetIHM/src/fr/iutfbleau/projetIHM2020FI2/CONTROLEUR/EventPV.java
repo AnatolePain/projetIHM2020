@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class EventPV implements MouseListener 
 {
     private PieceVue pieceV;
-	private int[] indice = new int[4];
+	private int[] indice = new int[4];//tableaux aléatore qui permet de savoir si une pièce est bloqué ou non (à modifier)
 
 	public EventPV(PieceVue p)
 	{
@@ -16,17 +16,20 @@ public class EventPV implements MouseListener
 	
     public void mouseClicked(MouseEvent evenement)
     {
-		if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)
+		if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)//clique milieu donc fondu 
 		{
-			for(int i = 0; i < indice.length;i++)
+			for(int i = 0; i < indice.length;i++) //place les cailloux en random
 			{
-				indice[i] = (int)(Math.random()*100)%2;
+				indice[i] = (int)(Math.random()*100)%2;//remplis le tableaux de valeur aléatore : 0 pièce bloqué , 1 pièce accéssible 
 			}
-			this.pieceV.transition(indice);
+			this.pieceV.transition(indice);//gère le fondu et change de salle au milieu de ce fondu 
 		}
-		else
+		else//clique droite ou gauche 
 		{
-			this.pieceV.changementThread(evenement.getX() > this.pieceV.getWidth()/2);
+			//if(agir == n)
+			//------------------------------------------------------------------------//Change Modèle
+			this.pieceV.changementThread(evenement.getX() > this.pieceV.getWidth()/2);//change Vue Image
+			//------------------------------------------------------------------------//Change Vue carte
 		}
     }
 

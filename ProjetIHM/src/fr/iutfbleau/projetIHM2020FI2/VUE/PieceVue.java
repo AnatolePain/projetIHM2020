@@ -83,7 +83,7 @@ public class PieceVue extends JPanel
 		}
     }
 
-	public void transition(int[] direction)
+	public void transition(int[] direction)//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
 	{
 		if(!inTransition)
 		{
@@ -96,13 +96,14 @@ public class PieceVue extends JPanel
 	{
 		for(int i = 0; i < 16;i++)
 		{
-			swapChain[i].clearImagePlus();
+			swapChain[i].clearImagePlus(); //enlève toute les pierres sur les images 
 		}
+
 		for(int i = 0; i < direction.length;i++)
 		{
 			if(direction[i] > 0)
 			{
-				bloquer(i);
+				bloquer(i);//mets les images des nouvelles pierres au bonne endroit celon le tableaux des pièces bloqués
 			}
 		}
 		for(int i = 0; i < 16;i++)
