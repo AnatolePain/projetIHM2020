@@ -3,7 +3,7 @@ package fr.iutfbleau.projetIHM2020FI2.VUE;
 public class ChangementThread  implements Runnable 
 {
     private PieceVue pieceV;
-    private boolean state;
+    private boolean state;// true = droite, false = gauche 
     private long wait = 0;
 	private int nbNext = 0;
 	private int indice = 0;

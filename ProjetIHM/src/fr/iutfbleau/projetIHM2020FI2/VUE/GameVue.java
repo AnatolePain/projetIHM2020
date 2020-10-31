@@ -1,6 +1,7 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
 import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
+import fr.iutfbleau.projetIHM2020FI2.MNP.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,32 +11,69 @@ public class GameVue  extends  JPanel{
 
 	public GameVue(JFrame f)
 	{
-		//JPanel panPrincipale =  new JPanel();
-	    //this.add(panPrincipale);
+
+
+
+		//-------------------- CHARGEMENT DU MODELE NON PERSISTANT -------------------
+
+
+		PassagePieceFactory usinePassagePiece = new PassagePieceFactoryNP();
+		    
+		Piece p0 = usinePassagePiece.newPiece();
+		Piece p1 = usinePassagePiece.newPiece();
+		Piece p2 = usinePassagePiece.newPiece();
+		Piece p3 = usinePassagePiece.newPiece();
+		Piece p4 = usinePassagePiece.newPiece();
+		Piece p5 = usinePassagePiece.newPiece();
+		Piece p6 = usinePassagePiece.newPiece();
+		Piece p7 = usinePassagePiece.newPiece();
+		Piece p8 = usinePassagePiece.newPiece();	
+		Piece p9 = usinePassagePiece.newPiece();
+
+		Passage p0p1 = usinePassagePiece.newPassage(Direction.OUEST,p0,Direction.EST,p1);
+		Passage p0p2 = usinePassagePiece.newPassage(Direction.NORD,p0,Direction.SUD,p2);
+		Passage p0p3 = usinePassagePiece.newPassage(Direction.EST,p0,Direction.OUEST,p3);
+		//p0p3.setEtatPassage(EtatPassage.OPEN);
+		//p0p3.setEtatPassage(EtatPassage.LOCKED);
+		Passage p1p5 = usinePassagePiece.newPassage(Direction.SUD,p1,Direction.NORD,p5);
+		Passage p2p4 = usinePassagePiece.newPassage(Direction.EST,p2,Direction.OUEST,p4);
+		Passage p3p9 = usinePassagePiece.newPassage(Direction.EST,p3,Direction.OUEST,p9);
+		Passage p4p3 = usinePassagePiece.newPassage(Direction.SUD,p4,Direction.NORD,p3);
+		Passage p5p6 = usinePassagePiece.newPassage(Direction.EST,p5,Direction.OUEST,p6);
+		Passage p6p7 = usinePassagePiece.newPassage(Direction.EST,p6,Direction.OUEST,p7);
+		Passage p7p8 = usinePassagePiece.newPassage(Direction.EST,p7,Direction.OUEST,p8);
+		Passage p8p9 = usinePassagePiece.newPassage(Direction.NORD,p8,Direction.SUD,p9);	
+		System.out.print("Création du dongeon.\n");
+		
+		Joueur j = new JoueurNP();
+		j.setPiece(p0);
+		System.out.print("Création du joueur.\n");
+
+		//Une usinePassagePiece pour produire des trucs.
+		TrucFactory usineTruc = new TrucFactoryNP();
+		Truc t0 = usineTruc.newTruc(TypeTruc.ALCOOL,"une bouteille de rhum hors d'âge");
+		Truc t1 = usineTruc.newTruc(TypeTruc.CLE,"une clé en bronze");
+		Truc t2 = usineTruc.newTruc(TypeTruc.EAU,"une cruche d'eau");
+		Truc t3 = usineTruc.newTruc(TypeTruc.EAU,"une gourde d'eau");
+		Truc t4 = usineTruc.newTruc(TypeTruc.GOODIES,"une bourse en cuir avec 10 euros");	
+		Truc t5 = usineTruc.newTruc(TypeTruc.GOODIES,"une bourse en cuir avec 10 euros");
+		System.out.print("Création des objets.\n");
+
+		if (p0.addTruc(t0)&&p0.addTruc(t1)&&p0.addTruc(t2)&&p1.addTruc(t3)&&p2.addTruc(t4)&&p1.addTruc(t4)&&p3.addTruc(t5))
+			System.out.print("Ajout des objets dans les pièces du dongeon.\n");
+
+		//-------------------------------------------------------------------------
+
+
 
 	    GridBagLayout theLayout = new GridBagLayout();
 	    this.setLayout(theLayout);
 	    Color nuanceGris = new Color(92, 99, 116);
 	    this.setBackground(Color.lightGray);
 
-	    //Vue en fausse 3D
-	    //JButton b = new JButton("0");
-	    PieceVue b = new PieceVue();
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;      // la plage de cellules commence à la première colonne
-		gbc.gridy = 0;      // la plage de cellules commence à la deuxième ligne
-		gbc.gridwidth = 1;  // la plage de cellules englobe deux colonnes
-		gbc.gridheight = 2; // la plage de cellules englobe une seule ligne
-		gbc.fill = GridBagConstraints.BOTH;     // n'occupe pas tout l'espace de la plage
-		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
-		gbc.weightx = 1.0;  // souhaite plus de largeur si possible
-		gbc.weighty = 1.0;  // n'a pas besoin de hauteur supplémentaire
-		gbc.insets = new Insets(16, 16, 0, 0);    // laisse 5 pixels de vide autour du composant
-		this.add(b, gbc);
 
 		//Mini-carte
-		//JButton c = new JButton("1");ù
-		MiniCarteVue c = new MiniCarteVue();
+		MiniCarteVue mcv = new MiniCarteVue();
 		GridBagConstraints gbc01 = new GridBagConstraints();
 		gbc01.gridx = 1;      // la plage de cellules commence à la première colonne
 		gbc01.gridy = 0;      // la plage de cellules commence à la deuxième ligne
@@ -46,13 +84,26 @@ public class GameVue  extends  JPanel{
 		gbc01.weightx = 0.0;  // souhaite plus de largeur si possible
 		gbc01.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
 		gbc01.insets = new Insets(16, 16, 0, 16);    // laisse 5 pixels de vide autour du composant
-		this.add(c, gbc01);
+		this.add(mcv, gbc01);
 
+	    //Vue en fausse 3D
+	    PieceVue pv = new PieceVue(j, mcv);
+		GridBagConstraints gbc00 = new GridBagConstraints();
+		gbc00.gridx = 0;      // la plage de cellules commence à la première colonne
+		gbc00.gridy = 0;      // la plage de cellules commence à la deuxième ligne
+		gbc00.gridwidth = 1;  // la plage de cellules englobe deux colonnes
+		gbc00.gridheight = 2; // la plage de cellules englobe une seule ligne
+		gbc00.fill = GridBagConstraints.BOTH;     // n'occupe pas tout l'espace de la plage
+		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
+		gbc00.weightx = 1.0;  // souhaite plus de largeur si possible
+		gbc00.weighty = 1.0;  // n'a pas besoin de hauteur supplémentaire
+		gbc00.insets = new Insets(16, 16, 0, 0);    // laisse 5 pixels de vide autour du composant
+		this.add(pv, gbc00);
 
 		//Inventaire joueur
 		DialogDescription dialog = new DialogDescription(f);
-		InventaireContenueVue d = new InventaireContenueVue(dialog);
-		d.setPreferredSize(new Dimension(300, 200));
+		InventaireContenueVue icv = new InventaireContenueVue(dialog);
+		icv.setPreferredSize(new Dimension(300, 200));
 		GridBagConstraints gbc02 = new GridBagConstraints();
 		gbc02.gridx = 1;      // la plage de cellules commence à la première colonne
 		gbc02.gridy = 1;      // la plage de cellules commence à la deuxième ligne
@@ -64,19 +115,18 @@ public class GameVue  extends  JPanel{
 		gbc02.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
 		gbc02.insets = new Insets(16, 16, 16, 16);    // laisse 5 pixels de vide autour du composant
 		
-		d.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
-        d.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
-        d.addTruc(TypeTruc.EAU,"Gourde d'eau");
-        d.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
-        d.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-        d.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
-        d.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-		this.add(d, gbc02);
+		icv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
+        icv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
+        icv.addTruc(TypeTruc.EAU,"Gourde d'eau");
+        icv.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
+        icv.addTruc(TypeTruc.GOODIES,"500 piece d'or");
+        icv.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
+        icv.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		this.add(icv, gbc02);
 
 		//Contenu de la pièce
-		//JButton e = new JButton("3");
-        PieceContenueVue e = new PieceContenueVue(dialog);
-		e.setPreferredSize(new Dimension(800, 250));
+        PieceContenueVue pcv = new PieceContenueVue(dialog);
+		pcv.setPreferredSize(new Dimension(800, 250));
 		GridBagConstraints gbc03 = new GridBagConstraints();
 		gbc03.gridx = 0;      // la plage de cellules commence à la première colonne
 		gbc03.gridy = 2;      // la plage de cellules commence à la deuxième ligne
@@ -87,15 +137,15 @@ public class GameVue  extends  JPanel{
 		gbc03.weightx = 0.0;  // souhaite plus de largeur si possible
 		gbc03.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
 		gbc03.insets = new Insets(16, 16, 16, 0);    // laisse 5 pixels de vide autour du composant
-		this.add(e, gbc03);
+		this.add(pcv, gbc03);
 
-		e.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
-        e.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
-        e.addTruc(TypeTruc.EAU,"Gourde d'eau");
-        e.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
-        e.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-        e.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
-        e.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		pcv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
+        pcv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
+        pcv.addTruc(TypeTruc.EAU,"Gourde d'eau");
+        pcv.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
+        pcv.addTruc(TypeTruc.GOODIES,"500 piece d'or");
+        pcv.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
+        pcv.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 
 	}
 

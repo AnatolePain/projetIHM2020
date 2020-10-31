@@ -73,6 +73,8 @@ allclass = \
 	$(BUILD)MODEL/TrucBD.class \
 	$(BUILD)MODEL/TrucFactoryBD.class \
 	$(BUILD)CONTROLEUR/MiniCarteEvent.class \
+	$(BUILD)VUE/ChargeCarte.class \
+
 
 allTest = \
 	$(JTEST)TestBaseDeDonne; \
@@ -113,7 +115,7 @@ $(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java $(BUILD)MODE
 $(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)CONTROLEUR/ControlleurJeux.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
 
-$(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class
+$(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenueVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenueVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class 
 	$(JC) $(JFLAGS) $(SRC)VUE/GameVue.java
 
 #$(BUILD)CONTROLEUR/GestionClavier.class: $(SRC)CONTROLEUR/GestionClavier.java
@@ -122,7 +124,7 @@ $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(B
 $(BUILD)CONTROLEUR/MiniCarteEvent.class: $(SRC)CONTROLEUR/MiniCarteEvent.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/MiniCarteVue.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/MiniCarteEvent.java
 
-$(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/PieceVue.class
+$(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/PieceVue.class $(BUILD)API/Joueur.class $(BUILD)API/Passage.class $(BUILD)VUE/MiniCarteVue.class 
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/EventPV.java
 
 $(BUILD)CONTROLEUR/DescriptionEvent.class: $(SRC)CONTROLEUR/DescriptionEvent.java $(BUILD)VUE/DialogDescription.class
@@ -173,7 +175,7 @@ $(BUILD)VUE/PieceContenueVue.class: $(SRC)VUE/PieceContenueVue.java $(BUILD)VUE/
 $(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceMenuContextuel.java
 
-$(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class
+$(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/Joueur.class 
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceVue.java $(SRC)CONTROLEUR/EventPV.java $(SRC)VUE/TransitionThread.java $(SRC)VUE/ChangementThread.java 
 
 $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
@@ -244,6 +246,9 @@ $(BUILD)MNP/TrucFactoryNP.class: $(SRC)MNP/TrucFactoryNP.java $(BUILD)API/TrucFa
 
 $(BUILD)MNP/TrucNP.class: $(SRC)MNP/TrucNP.java $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)MNP/TrucNP.java
+
+$(BUILD)VUE/ChargeCarte.class: $(SRC)VUE/ChargeCarte.java $(BUILD)API/Piece.class $(BUILD)VUE/MiniCarteVue.class
+	$(JC) $(JFLAGS) $(SRC)VUE/ChargeCarte.java
 
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP

@@ -12,12 +12,12 @@ public class TransitionThread  implements Runnable
 	private int[] direction;
 	private float sinusPi;
 
-    public TransitionThread(ImageDonjon g,float s,PieceVue pv,int[] d) //ImageDonjon , pour appliquer la bonne transition 
+    public TransitionThread(ImageDonjon g,float s,PieceVue pv/*,int[] d*/) //ImageDonjon , pour appliquer la bonne transition 
     {
         this.gc = g;
         this.speed = s;
 		this.pieceV = pv;
-		this.direction = d;
+		//this.direction = d;
     }
  
     public void run() 
@@ -33,7 +33,7 @@ public class TransitionThread  implements Runnable
 			this.pi +=  Math.PI * this.speed * this.delta_time;
 			if(this.sinusPi == 1)//quand le fondu est tout noir je change les images de pièces 
 			{
-				this.pieceV.reCreate(this.direction);
+				this.pieceV.reCreate(/*this.direction*/);
 			}
 		}
 		this.pieceV.setTransition(false);

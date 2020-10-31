@@ -1,5 +1,7 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
 import fr.iutfbleau.projetIHM2020FI2.CONTROLEUR.*;
+import fr.iutfbleau.projetIHM2020FI2.API.*;
+import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,10 +17,13 @@ public class PieceVue extends JPanel
 	private boolean inAnimChange = false;
 	private boolean inTransition = false;
 	private EventPV mouse;
+	private Joueur joueurPrincipal;
 
-	public PieceVue()
+	public PieceVue(Joueur j, MiniCarteVue mcv)
 	{
-		mouse = new EventPV(this);
+		this.joueurPrincipal = j;
+
+		this.mouse = new EventPV(this, joueurPrincipal, mcv);
 		this.addMouseListener(mouse);
 
 		this.cardl = new CardLayout();
@@ -34,6 +39,8 @@ public class PieceVue extends JPanel
 		}
 		this.cardl.next(this);
 		this.cardl.next(this);
+
+		this.reCreate();
 	}
 
 	public JPanel getPanel()
@@ -83,29 +90,39 @@ public class PieceVue extends JPanel
 		}
     }
 
-	public void transition(int[] direction)//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
+	public void transition(/*int[] direction*/)//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
 	{
 		if(!inTransition)
 		{
-			thread = new Thread(new TransitionThread(swapChain[indice],threadTSpeed,this,direction));
+			thread = new Thread(new TransitionThread(swapChain[indice],threadTSpeed,this/*,direction)*/));
 			thread.start();
 		}
 	}
 
-	public void reCreate(int[] direction)//test a modifier apres
+	public void reCreate(/*int[] direction*/)//test a modifier apres
 	{
 		for(int i = 0; i < 16;i++)
 		{
 			swapChain[i].clearImagePlus(); //enlève toute les pierres sur les images 
 		}
 
-		for(int i = 0; i < direction.length;i++)
-		{
-			if(direction[i] > 0)
-			{
-				bloquer(i);//mets les images des nouvelles pierres au bonne endroit celon le tableaux des pièces bloqués
+		// for(int i = 0; i < direction.length;i++)
+		// {
+		// 	System.out.println("direction["+i+"] = " + direction[i]);
+		// 	if(direction[i] > 0)
+		// 	{
+		// 		bloquer(i);//mets les images des nouvelles pierres au bonne endroit celon le tableaux des pièces bloqués
+		// 		//System.out.println("je suis dans le if (Picevue");
+		// 	}
+		// }
+		int numDirection = 0;
+		for (Direction dir : Direction.values()) {
+			if(this.joueurPrincipal.getPiece().getPassage(dir) == null){
+				bloquer(numDirection);
 			}
+			numDirection++;
 		}
+
 		for(int i = 0; i < 16;i++)
 		{
 			swapChain[i].repaint();

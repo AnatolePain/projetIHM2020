@@ -30,13 +30,16 @@ public class TestTexteMNP{
 		Piece p8 = usinePassagePiece.newPiece();	
 		Piece p9 = usinePassagePiece.newPiece();
 
+		Piece[] tabPiece = {p0, p1, p2, p3, p4, p5, p6, p7, p8, p9};
+
 		Passage p0p1 = usinePassagePiece.newPassage(Direction.OUEST,p0,Direction.EST,p1);
 		//p0p3.setEtatPassage(EtatPassage.OPEN);
 		Passage p0p2 = usinePassagePiece.newPassage(Direction.NORD,p0,Direction.SUD,p2);
 		Passage p0p3 = usinePassagePiece.newPassage(Direction.EST,p0,Direction.OUEST,p3);
 		p0p3.setEtatPassage(EtatPassage.LOCKED);
 		Passage p1p5 = usinePassagePiece.newPassage(Direction.SUD,p1,Direction.NORD,p5);
-		Passage p2p4 = usinePassagePiece.newPassage(Direction.OUEST,p2,Direction.EST,p4);
+		//Passage p2p4 = usinePassagePiece.newPassage(Direction.EST,p2,Direction.OUEST,p4);
+		/*erreur shéma *///Passage p2p4 = usinePassagePiece.newPassage(Direction.OUEST,p2,Direction.EST,p4);
 		Passage p3p9 = usinePassagePiece.newPassage(Direction.EST,p3,Direction.OUEST,p9);
 		Passage p4p3 = usinePassagePiece.newPassage(Direction.SUD,p4,Direction.NORD,p3);
 		Passage p5p6 = usinePassagePiece.newPassage(Direction.EST,p5,Direction.OUEST,p6);
@@ -88,6 +91,7 @@ public class TestTexteMNP{
 		// Pour l'instant, nous n'avons ni vue, ni controleur, mais nous pouvons faire semblant en interagissant avec le modèle via l'API. 
 
 		System.out.println("==========================");
+		System.out.println("==========================");
 		//description pièce du joueur et son sac à dos.
 		System.out.print(j.getPiece().getDescription());
 		System.out.print(j.getDescription());
@@ -109,6 +113,32 @@ public class TestTexteMNP{
 		//déplacement
 		System.out.print("Le joueur va à l'ouest.\n");
 		j.setPiece(p.getAutrePiece(j.getPiece()));       // le joueur est dans la pièce p1
+		//----------------------------------------------
+		System.out.println("------------------------");
+
+		//System.out.print("\n quellePiece(Piece[] tabPiece, Piece reel)= \n" + p.getAutrePiece(j.getPiece()));
+
+		System.out.println("piece actuel du joueur = " + quellePiece(tabPiece,j.getPiece()) );
+		System.out.println("autre pièce = " + quellePiece(tabPiece, p.getAutrePiece(p1)) );
+		
+		System.out.println("----- BOUCLE ------");
+		System.out.println("autre pièce en partant de p0");
+		/*for(int i = 0; i < 10; i++){
+			System.out.println("autre pièce ("+i+") = " + quellePiece(tabPiece, p.getAutrePiece(tabPiece[i])));
+		}*/
+
+		System.out.println("----- TEST METHODE ------");
+		Piece[] tabAEteParcouru = new Piece[50];
+		//parcoursGraphe(null, p0,tabAEteParcouru, 0, tabPiece);
+
+
+
+
+
+		System.out.print("\n-----CHANGEMENT1------.\n");
+
+		System.out.println("------------------------");
+		//---------------------------------------------
 		System.out.print(j.getPiece().getDescription());
 		System.out.print(j.getDescription());
 		System.out.println("==========================");
@@ -146,4 +176,17 @@ public class TestTexteMNP{
 		System.out.print(j.getDescription());
 		System.out.println("==========================");
 	}
-}
+
+	public static String quellePiece(Piece[] tabPiece, Piece reel){
+
+		int i = 0;
+
+		while(reel != tabPiece[i]){
+			i++;
+		}
+
+		return "piece"+i;
+	}
+
+
+}	

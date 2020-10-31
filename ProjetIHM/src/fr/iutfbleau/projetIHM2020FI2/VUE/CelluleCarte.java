@@ -7,6 +7,7 @@ public class CelluleCarte extends JComponent {
 
 	private ImageIcon imageBase;
 	private Map<Integer, ImageIcon> carteImage;
+	private final static int PASSAGE = 6;
 	private int status;
 
 	public CelluleCarte(Map<Integer, ImageIcon> ci, int s){
@@ -30,6 +31,9 @@ public class CelluleCarte extends JComponent {
 	}
 
 	public int getStatus(){
+		if(status == 4 || status == 5){ //si status == passage horizontale ou verticale
+			return this.PASSAGE;		//return passage
+		}
 		return this.status;
 	}
 
