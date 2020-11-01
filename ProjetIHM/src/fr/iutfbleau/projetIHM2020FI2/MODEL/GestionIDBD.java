@@ -28,4 +28,14 @@ public class GestionIDBD
 	{
 		return GestionIDBD.passageID.get(p);
 	}
+
+	public static void putTrucID(Truc p,int id)
+	{
+		GestionIDBD.trucID.put(p,id);
+	}
+
+	public static int getIdTruc(Truc p)
+	{
+		return GestionIDBD.trucID.get(p);
+	}
 }

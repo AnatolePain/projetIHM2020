@@ -12,13 +12,26 @@ public class ContientTrucsBD implements ContientTrucs{
      * Conformément aux recommandations de la documentation de l'interface, il faut un ensemble.
      */
 	private Set<Truc> contenu;
-
+	private Connection cnx;
+	private PreparedStatement addTrucPS;
     /**
      * Constructeur.
      * On utilise un LinkedHashSet qui permet de garantir que l'ordre des trucs reste le même.
      */
     public ContientTrucsBD(){
         this.contenu= new LinkedHashSet<Truc>();	
+		this.cnx = ConnectionBD.getConnection();
+        if(this.cnx != null)
+        {
+            try
+            {
+				this.addTrucPS = this.cnx.prepareStatement("UPDATE API_Truc SET idPiecePos = ?,has = ? WHERE API_Truc.id = ? AND API_Truc.idJoueur = ?;");
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            }   
+        }
     }
    
     /**

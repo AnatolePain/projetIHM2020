@@ -15,8 +15,10 @@ public class TrucBD implements Truc {
 	private PreparedStatement getDescriptionTrucPS;
 	private PreparedStatement getTypeTrucPS;
 	private PreparedStatement nouveauTrucPS;
+	private PreparedStatement getTrucIDPS;
 	private PreparedStatement deleteTrucPS;
 	private ResultSet rs;
+	private int idTruc = 0;
 	/**
 	 * type de l'objet
 	 * @return type
@@ -49,10 +51,10 @@ public class TrucBD implements Truc {
         {
             try
             {
-                this.nouveauTrucPS = this.cnx.prepareStatement("INSERT INTO `API_Truc` (`id`, `idJoueur`, `idPiecePos`, `Description`, `TypeTruc`) VALUES (?, ?, ?, ?, ?);");
+                this.nouveauTrucPS = this.cnx.prepareStatement("INSERT INTO `API_Truc` (`id`, `idJoueur`, `idPiecePos`, `Description`, `TypeTruc`, `has`) VALUES (0, ?, 0, ?, ?, 0);");
 				this.getDescriptionTrucPS = this.cnx.prepareStatement("SELECT Description FROM `API_Truc` WHERE id = ?");
-				this.deleteTrucPS = this.cnx.prepareStatement("DELETE FROM `API_Truc` WHERE `API_Truc`.`id` = ?");
 				this.getTypeTrucPS = this.cnx.prepareStatement("SELECT TypeTruc FROM `API_Truc` WHERE id = ?");
+				this.getTrucIDPS = this.cnx.prepareStatement("SELECT MAX(id) FROM API_Truc");
             }
             catch(SQLException se)
             {
@@ -64,5 +66,29 @@ public class TrucBD implements Truc {
 		this.description=d;
     }
 
+	private void newtrucBD(TypeTruc tt, String d)
+	{
+		if(this.nouveauTrucPS != null && this.getTrucIDPS != null)
+        {
+            try
+            {
+				this.nouveauTrucPS.setInt(1,JoueurBD.getIdJoueur());
+				this.nouveauTrucPS.setString(2,d);
+				this.nouveauTrucPS.setString(3,tt.toString());
+                this.nouveauTrucPS.executeUpdate();
+				this.rs = this.getTrucIDPS.executeQuery();
+				while(rs.next())
+				{
+					this.idTruc = rs.getInt(1);
+				}
+				GestionIDBD.putTrucID(this,this.idTruc);
+				this.rs.close();
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+        }		
+	}
     
 }
