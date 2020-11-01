@@ -5,6 +5,11 @@ import java.awt.*;
 public class ConnectionBD
 {
 	private static Connection cnx;
+	private static boolean reset = true;
+	private static PreparedStatement deleteALLTrucPS;
+	private static PreparedStatement deleteALLPiecePS;
+	private static PreparedStatement deleteALLPassagePS;
+	private static PreparedStatement deleteALLJoueurPS;
 
 	public static Connection getConnection()
 	{
@@ -33,8 +38,41 @@ public class ConnectionBD
 				System.err.println(se);
 				return null;
         	}
+			if(ConnectionBD.cnx != null && ConnectionBD.reset)
+			{
+				try
+				{
+					ConnectionBD.deleteALLTrucPS = ConnectionBD.cnx.prepareStatement("DELETE FROM API_Truc");
+					ConnectionBD.deleteALLPiecePS = ConnectionBD.cnx.prepareStatement("DELETE FROM API_Piece");
+					ConnectionBD.deleteALLPassagePS = ConnectionBD.cnx.prepareStatement("DELETE FROM API_Passage");
+					ConnectionBD.deleteALLJoueurPS = ConnectionBD.cnx.prepareStatement("DELETE FROM API_Joueur");
+					executeQueryPS(ConnectionBD.deleteALLTrucPS);
+					executeQueryPS(ConnectionBD.deleteALLPiecePS);
+					executeQueryPS(ConnectionBD.deleteALLPassagePS);
+					executeQueryPS(ConnectionBD.deleteALLJoueurPS);
+
+				}
+				catch(SQLException se)
+				{
+					System.err.println(se);
+				}   
+			}
         	return ConnectionBD.cnx;
 		}
+	}
+
+	private static void executeQueryPS(PreparedStatement ps)
+	{
+		try
+		{
+			ResultSet rs;
+			rs = ps.executeQuery();
+            rs.close();
+		}
+		catch(SQLException se)
+		{
+			System.err.println(se);
+		}   
 	}
 
 	public static void deconnection()

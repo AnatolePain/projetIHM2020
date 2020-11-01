@@ -1,5 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
+import java.sql.*;
 import java.util.*;
 /**
  * Permet de gérer la topologie du dongeon en créant et manipulant des objets 
@@ -17,6 +18,9 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 	private Set<Piece> vertices;
 
 	private Set<Passage> edges;
+
+	//SQL
+	private Connection cnx;
 
 	/**
 	 * constructeur

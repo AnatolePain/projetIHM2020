@@ -1,5 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.test;
 import fr.iutfbleau.projetIHM2020FI2.MODEL.*;
+import fr.iutfbleau.projetIHM2020FI2.API.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -18,6 +19,7 @@ public class TestBaseDeDonne
     Connection cnx;
     PreparedStatement nouveauJoueur;
     PreparedStatement resetAutoIncremente;
+	 PreparedStatement tess;
     ResultSet rs;
 
 	@Test
@@ -72,4 +74,5 @@ public class TestBaseDeDonne
             System.err.println(se);
         } 
     }
+
 }

@@ -1,5 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
+import java.sql.*;
 import java.util.*;
 /**
  * Implémentation non persistante.

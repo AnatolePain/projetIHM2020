@@ -57,6 +57,7 @@ allclass = \
 	$(BUILD)VUE/CasePiece.class \
 	$(BUILD)VUE/ImageClassLoader.class \
 	$(BUILD)MODEL/ConnectionBD.class \
+	$(BUILD)MODEL/GestionIDBD.class \
 	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
 	$(BUILD)CONTROLEUR/CasePieceEvent.class \
@@ -81,6 +82,9 @@ allTest = \
 	$(JTEST)TestVUEMiniCarte;
 
 default: $(allclass)
+
+$(BUILD)MODEL/GestionIDBD.class: $(SRC)MODEL/GestionIDBD.java
+	$(JC) $(JFLAGS)  $(SRC)MODEL/GestionIDBD.java
 
 $(BUILD)MODEL/PassageBD.class: $(SRC)MODEL/PassageBD.java
 	$(JC) $(JFLAGS)  $(SRC)MODEL/PassageBD.java

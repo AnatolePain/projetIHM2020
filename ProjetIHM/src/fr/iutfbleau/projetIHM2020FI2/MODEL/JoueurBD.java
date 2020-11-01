@@ -7,12 +7,11 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 {
     private Piece p;
     private Connection cnx;
-    private PreparedStatement nouveauJoueur;
-    private PreparedStatement getPiece;
-	private PreparedStatement setPiece;
-    private PreparedStatement getCerveau;
-	private PreparedStatement deleteJoueur;
-	private int idJoueur = 0;
+    private PreparedStatement nouveauJoueurPS;
+    private PreparedStatement getPiecePS;
+	private PreparedStatement setPiecePS;
+    private PreparedStatement getCerveauPS;
+	private static int idJoueur = 0;
     private ResultSet rs;
 
     private List<Piece> cerveau;
@@ -26,27 +25,33 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
             try
             {
-                this.nouveauJoueur = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('?', '?')");
-				this.getPiece = this.cnx.prepareStatement("SELECT idPieceActuelle FROM `API_Joueur` WHERE id = ?");
-				this.setPiece = this.cnx.prepareStatement("UPDATE API_Joueur SET idPieceActuelle = ? WHERE id = ?");
-				this.getCerveau = this.cnx.prepareStatement("SELECT id,Visite FROM `API_Piece` WHERE idJoueur = ?");
-				this.deleteJoueur = this.cnx.prepareStatement("DELETE from API_Joueur WHERE id = ?");
+                this.nouveauJoueurPS = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('0', '0')");
+				this.getPiecePS = this.cnx.prepareStatement("SELECT idPieceActuelle FROM `API_Joueur` WHERE id = ?");
+				this.setPiecePS = this.cnx.prepareStatement("UPDATE API_Joueur SET idPieceActuelle = ? WHERE id = ?");
+				this.getCerveauPS = this.cnx.prepareStatement("SELECT id,Visite FROM `API_Piece` WHERE idJoueur = ?");
             }
             catch(SQLException se)
             {
                 System.err.println(se);
             }   
         }
+		newJoueurBD();
    }
 
-   private void chargementDonneBD()
+   public static int getIdJoueur()
    {
-        if(this.nouveauJoueur != null)
+		/*Connection cnxstatic = ConnectionBD.getConnection();
+		PreparedStatement getIdPS = cnxstatic.prepareStatement("");*/
+		return JoueurBD.idJoueur;
+   }
+
+   private void newJoueurBD()
+   {
+        if(this.nouveauJoueurPS != null)
         {
             try
             {
-                this.rs = nouveauJoueur.executeQuery();
-                this.rs.close();
+                this.nouveauJoueurPS.executeUpdate();
             }
             catch(SQLException se)
             {
@@ -56,12 +61,39 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
    }
 
    @Override
-    public Piece getPiece(){
+    public Piece getPiece()
+	{
+		if(this.getPiecePS != null)
+        {
+			try
+            {
+                this.rs = getPiecePS.executeQuery();
+                this.rs.close();
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+		}
         return this.p;
     }
 
    @Override
-    public void setPiece(Piece next){
+    public void setPiece(Piece next)
+	{
+		if(this.setPiecePS != null)
+        {
+			try
+            {
+				this.setPiecePS.setInt(1,GestionIDBD.getIdPiece(next));
+				this.setPiecePS.setInt(2,idJoueur);
+                this.setPiecePS.executeUpdate();
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+		}
         if (this.getPiece() != null) 
             this.addVisited(this.getPiece());
         this.p=next;

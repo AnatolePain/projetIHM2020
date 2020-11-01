@@ -1,5 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
+import java.sql.*;
 import java.util.*;
 /**
  * Permet de modéliser un conteneur d'objets (qu'on appelle des trucs pour bien faire la différence avec Object).
@@ -8,6 +9,9 @@ import java.util.*;
  * @see Joueur, Piece, Truc
  */
 public class TrucFactoryBD implements TrucFactory {
+
+	private Connection cnx;
+
     // univers de tous les trucs
     private ContientTrucsBD univers = new ContientTrucsBD();
 
