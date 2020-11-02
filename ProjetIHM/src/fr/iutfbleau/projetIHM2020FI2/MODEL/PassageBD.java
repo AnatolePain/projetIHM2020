@@ -1,5 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.MODEL;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
+import java.sql.*;
 import java.util.*;
 // Un passage relie deux pièces.
 // Le passage est ouvert, fermé (par défaut) ou fermé à clé.
@@ -12,6 +13,12 @@ public class PassageBD implements Passage
 
 	private EtatPassage e;
 
+	//SQL
+	private Connection cnx;
+	private PreparedStatement nouveauPassagePS;
+	private PreparedStatement getPassageIDPS;
+	private ResultSet rs;
+	private int idPassage = 0;
 
 	/**
 	 * constructeur
@@ -20,15 +27,54 @@ public class PassageBD implements Passage
 	 * @param  p2 pièce distincte
 	 * @throws IllegalArgumentException si pièces identiques.
 	 */
-	public PassageBD(Piece p1, Piece p2){
+	public PassageBD(Piece p1, Piece p2)
+	{
 		Objects.requireNonNull(p1,"On ne peut pas construire un passage vers une pièce null.");
 		Objects.requireNonNull(p1,"On ne peut pas construire un passage vers une pièce null.");
 		if(p1.equals(p2))
 			throw new IllegalArgumentException("Les pièces ne peuvent pas être identiques");
         pieces = new LinkedList<Piece>();
+		this.cnx = ConnectionBD.getConnection();
+		if(this.cnx != null)
+        {
+            try
+            {
+				this.nouveauPassagePS = this.cnx.prepareStatement("INSERT INTO `API_Passage`(`id`, `idJoueur`, `idPieceA`, `DirectionA`, `idPieceB`, `DirectionB`) VALUES (0,?,?,0,?,0)");
+				this.getPassageIDPS = this.cnx.prepareStatement("SELECT MAX(id) FROM API_Passage");
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            }   
+        }
+
+		newPassageBd(GestionIDBD.getIdPiece(p1),GestionIDBD.getIdPiece(p2));
+
 		this.pieces.add(p1);
 		this.pieces.add(p2);
 		this.e = EtatPassage.CLOSED;
+	}
+
+	private void newPassageBd(int idPieceA,int idPieceB)
+	{
+		try
+		{
+			int idJoueur = JoueurBD.getIdJoueur();
+			this.nouveauPassagePS.setInt(1,idJoueur);
+			this.rs = this.nouveauPassagePS.executeQuery();
+            this.rs.close();
+			this.rs = getPassageIDPS.executeQuery();
+			while(rs.next())
+			{
+				this.idPassage = rs.getInt(1);
+			}
+			this.rs.close();
+			GestionIDBD.putPassageID(this,idPassage);
+		}
+		catch(SQLException se)
+		{
+			System.err.println(se);
+		}   
 	}
 
 	/**

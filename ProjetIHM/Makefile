@@ -57,6 +57,7 @@ allclass = \
 	$(BUILD)VUE/CasePiece.class \
 	$(BUILD)VUE/ImageClassLoader.class \
 	$(BUILD)MODEL/ConnectionBD.class \
+	$(BUILD)MODEL/GestionIDBD.class \
 	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
 	$(BUILD)CONTROLEUR/CasePieceEvent.class \
@@ -83,6 +84,9 @@ allTest = \
 
 default: $(allclass)
 
+$(BUILD)MODEL/GestionIDBD.class: $(SRC)MODEL/GestionIDBD.java
+	$(JC) $(JFLAGS)  $(SRC)MODEL/GestionIDBD.java
+
 $(BUILD)MODEL/PassageBD.class: $(SRC)MODEL/PassageBD.java
 	$(JC) $(JFLAGS)  $(SRC)MODEL/PassageBD.java
 
@@ -99,7 +103,7 @@ $(BUILD)MODEL/TrucFactoryBD.class: $(SRC)MODEL/TrucFactoryBD.java
 	$(JC) $(JFLAGS) $(SRC)MODEL/TrucFactoryBD.java
 
 $(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)API/ContientTrucs.class $(BUILD)API/Truc.class
-	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java
+	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java $(SRC)MODEL/PieceBD.java $(SRC)MODEL/JoueurBD.java
 
 $(BUILD)MODEL/JoueurBD.class: $(SRC)MODEL/JoueurBD.java $(BUILD)MODEL/ConnectionBD.class $(BUILD)API/Piece.class $(BUILD)MODEL/ContientTrucsBD.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/JoueurBD.java
