@@ -30,6 +30,7 @@ public class PieceBD extends ContientTrucsBD implements Piece{
     public PieceBD(){
         super();
         this.sortie=new EnumMap<Direction,Passage>(Direction.class);
+		piece = this;
 		this.cnx = ConnectionBD.getConnection();
 		if(this.cnx != null)
         {

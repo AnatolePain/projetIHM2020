@@ -102,7 +102,7 @@ $(BUILD)MODEL/TrucFactoryBD.class: $(SRC)MODEL/TrucFactoryBD.java
 	$(JC) $(JFLAGS) $(SRC)MODEL/TrucFactoryBD.java
 
 $(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)API/ContientTrucs.class $(BUILD)API/Truc.class
-	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java
+	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java $(SRC)MODEL/PieceBD.java $(SRC)MODEL/JoueurBD.java
 
 $(BUILD)MODEL/JoueurBD.class: $(SRC)MODEL/JoueurBD.java $(BUILD)MODEL/ConnectionBD.class $(BUILD)API/Piece.class $(BUILD)MODEL/ContientTrucsBD.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/JoueurBD.java

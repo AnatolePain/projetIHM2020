@@ -14,6 +14,9 @@ public class ContientTrucsBD implements ContientTrucs{
 	private Set<Truc> contenu;
 	private Connection cnx;
 	private PreparedStatement addTrucPS;
+	private ResultSet rs;
+	protected PieceBD piece;
+	protected JoueurBD joueur;
     /**
      * Constructeur.
      * On utilise un LinkedHashSet qui permet de garantir que l'ordre des trucs reste le même.
@@ -52,7 +55,21 @@ public class ContientTrucsBD implements ContientTrucs{
     @Override
     public boolean addTruc(Truc t){
     	Objects.requireNonNull(t,"On ne peut pas ajouter un truc null.");
-    	return this.contenu.add(t);
+
+		try
+        {
+			this.addTrucPS.setInt(1,(piece != null) ? GestionIDBD.getIdPiece(piece) : 0);
+			this.addTrucPS.setInt(2,joueur != null ? 1 : 0);
+			this.addTrucPS.setInt(3,GestionIDBD.getIdTruc(t));
+			this.addTrucPS.setInt(4,JoueurBD.getIdJoueur());
+			this.addTrucPS.executeUpdate();
+        }
+        catch(SQLException se)
+        {
+			System.err.println(se);
+        }   
+
+		return this.contenu.add(t);
     }
 
     /**

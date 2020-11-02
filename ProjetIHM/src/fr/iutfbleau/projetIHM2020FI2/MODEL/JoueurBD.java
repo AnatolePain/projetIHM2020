@@ -12,6 +12,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 	private PreparedStatement setPiecePS;
     private PreparedStatement getCerveauPS;
 	private static int idJoueur = 0;
+	private static int idPosPiece = 0;
     private ResultSet rs;
 
     private List<Piece> cerveau;
@@ -20,6 +21,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
     {
         super();
         this.cerveau = new LinkedList<Piece>();
+		joueur = this;
         this.cnx = ConnectionBD.getConnection();
         if(this.cnx != null)
         {
@@ -63,11 +65,20 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
    @Override
     public Piece getPiece()
 	{
+        return this.p;
+    }
+
+	public int getPieceID()
+	{
 		if(this.getPiecePS != null)
         {
 			try
             {
                 this.rs = getPiecePS.executeQuery();
+				while(this.rs.next())
+				{
+					JoueurBD.idPosPiece = this.rs.getInt(1);
+				}
                 this.rs.close();
             }
             catch(SQLException se)
@@ -75,8 +86,8 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
                 System.err.println(se);
             } 
 		}
-        return this.p;
-    }
+		return JoueurBD.idPosPiece;
+	}
 
    @Override
     public void setPiece(Piece next)
@@ -85,7 +96,8 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
 			try
             {
-				this.setPiecePS.setInt(1,GestionIDBD.getIdPiece(next));
+				JoueurBD.idPosPiece = GestionIDBD.getIdPiece(next);
+				this.setPiecePS.setInt(1,JoueurBD.idPosPiece);
 				this.setPiecePS.setInt(2,idJoueur);
                 this.setPiecePS.executeUpdate();
             }
