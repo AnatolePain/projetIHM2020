@@ -30,6 +30,7 @@ public class CasePieceEvent implements MouseListener
 		{
 			this.pm = this.caseP.GetPopupMenu();
 			this.pm.show(evenement.getComponent(), evenement.getX(), evenement.getY() );
+			System.out.println("test");
 		}
 	}
 	@Override public void mouseReleased(MouseEvent evenement){}

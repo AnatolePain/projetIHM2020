@@ -1,6 +1,7 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import fr.iutfbleau.projetIHM2020FI2.CONTROLEUR.*;
+import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +14,7 @@ public class CaseInventaire extends JComponent
 	private ImageIcon object; 
 	private boolean select = false;
 	private Map<TypeTruc, ImageIcon> itemImage;
-	private InventaireMenuContextuel popupMenu;  
+	private InventaireMenuContextuel popupMenu; 
 
 	public CaseInventaire(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
 	{
@@ -50,6 +51,7 @@ public class CaseInventaire extends JComponent
     }
 
 	public boolean isEmpty()
+	
 	{
 		return object == null;
 	}

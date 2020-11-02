@@ -1,11 +1,12 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
+import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import fr.iutfbleau.projetIHM2020FI2.CONTROLEUR.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class PieceContenueVue extends JPanel
+public class PieceContenuVue extends JPanel
 {
 	private String nom = "Piece";
 	private GridLayout pieceLayout = new GridLayout(3,16);
@@ -20,9 +21,13 @@ public class PieceContenueVue extends JPanel
 	private ImageIcon imageSelect;
 	private Map<TypeTruc, ImageIcon> item;
 	private int indice = 0;
+	private Joueur joueurPrincipal;
 
-	public PieceContenueVue(DialogDescription dialog)
+	public PieceContenuVue(DialogDescription dialog, Joueur j)
 	{
+
+		this.joueurPrincipal = j;
+
 		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
 		this.item.put(TypeTruc.CLE,ImageClassLoader.getImage("images/UI/items/cle.png"));
 		this.item.put(TypeTruc.ALCOOL,ImageClassLoader.getImage("images/UI/items/alcool.png"));
@@ -37,7 +42,7 @@ public class PieceContenueVue extends JPanel
 		this.jPanelCasep.setBackground(new Color(97,99,116));
 		for(int i = 0 ; i < caseP.length;i++)
 		{
-			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog);
+			this.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog,this);
 			this.casePEvent[i] = new CasePieceEvent(this.caseP[i]);
 			this.caseP[i].addMouseListener(this.casePEvent[i]);
 			this.jPanelCasep.add(this.caseP[i]);
@@ -60,11 +65,13 @@ public class PieceContenueVue extends JPanel
 
 		this.add(this.jcomplN, gbcPanelN);
 		this.add(this.jPanelCasep, gbcPanelCasep);
+
+		this.chargerTrucsPiece(j.getPiece());
 	}
 
-	public void addTruc(TypeTruc type, String description)
+	public void addTrucPiece(Truc t)
 	{
-		this.caseP[indice++%NOMBRESCASES].setObject(type,description);
+		this.caseP[indice++%NOMBRESCASES].setObject(t);
 	}
 
 	public void clear()
@@ -75,4 +82,22 @@ public class PieceContenueVue extends JPanel
 			this.caseP[i].clearObject();
 		}
 	}
+
+	public void chargerTrucsPiece(Piece p){
+
+		this.clear();
+		for (Iterator<Truc> i = p.getTrucs(); i.hasNext(); ){
+       		Truc t = i.next();
+       		this.addTrucPiece(t);
+       	}
+	}
+
+	public void ramasser(CasePiece cp ){
+
+		joueurPrincipal.getPiece().removeTruc(cp.getTrucCase());
+		joueurPrincipal.addTruc(cp.getTrucCase()); 
+		cp.clearObject();
+
+	}
+
 }

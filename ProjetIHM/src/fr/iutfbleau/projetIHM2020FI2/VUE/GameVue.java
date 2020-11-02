@@ -65,7 +65,6 @@ public class GameVue  extends  JPanel{
 		//-------------------------------------------------------------------------
 
 
-
 	    GridBagLayout theLayout = new GridBagLayout();
 	    this.setLayout(theLayout);
 	    Color nuanceGris = new Color(92, 99, 116);
@@ -86,23 +85,10 @@ public class GameVue  extends  JPanel{
 		gbc01.insets = new Insets(16, 16, 0, 16);    // laisse 5 pixels de vide autour du composant
 		this.add(mcv, gbc01);
 
-	    //Vue en fausse 3D
-	    PieceVue pv = new PieceVue(j, mcv);
-		GridBagConstraints gbc00 = new GridBagConstraints();
-		gbc00.gridx = 0;      // la plage de cellules commence à la première colonne
-		gbc00.gridy = 0;      // la plage de cellules commence à la deuxième ligne
-		gbc00.gridwidth = 1;  // la plage de cellules englobe deux colonnes
-		gbc00.gridheight = 2; // la plage de cellules englobe une seule ligne
-		gbc00.fill = GridBagConstraints.BOTH;     // n'occupe pas tout l'espace de la plage
-		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
-		gbc00.weightx = 1.0;  // souhaite plus de largeur si possible
-		gbc00.weighty = 1.0;  // n'a pas besoin de hauteur supplémentaire
-		gbc00.insets = new Insets(16, 16, 0, 0);    // laisse 5 pixels de vide autour du composant
-		this.add(pv, gbc00);
 
 		//Inventaire joueur
 		DialogDescription dialog = new DialogDescription(f);
-		InventaireContenueVue icv = new InventaireContenueVue(dialog);
+		InventaireContenuVue icv = new InventaireContenuVue(dialog);
 		icv.setPreferredSize(new Dimension(300, 200));
 		GridBagConstraints gbc02 = new GridBagConstraints();
 		gbc02.gridx = 1;      // la plage de cellules commence à la première colonne
@@ -115,17 +101,20 @@ public class GameVue  extends  JPanel{
 		gbc02.weighty = 0.0;  // n'a pas besoin de hauteur supplémentaire
 		gbc02.insets = new Insets(16, 16, 16, 16);    // laisse 5 pixels de vide autour du composant
 		
-		icv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
-        icv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
-        icv.addTruc(TypeTruc.EAU,"Gourde d'eau");
-        icv.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
-        icv.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-        icv.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
-        icv.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		//icv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
+  		//icv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
+  		//icv.addTruc(TypeTruc.EAU,"Gourde d'eau");
+  		//icv.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
+  		//icv.addTruc(TypeTruc.GOODIES,"500 piece d'or");
+  		//icv.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
+  		//icv.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 		this.add(icv, gbc02);
 
+		j.addTruc(t2);
+		icv.addTruc(t2.getTypeTruc(),t2.getDescription());
+
 		//Contenu de la pièce
-        PieceContenueVue pcv = new PieceContenueVue(dialog);
+        PieceContenuVue pcv = new PieceContenuVue(dialog, j);
 		pcv.setPreferredSize(new Dimension(800, 250));
 		GridBagConstraints gbc03 = new GridBagConstraints();
 		gbc03.gridx = 0;      // la plage de cellules commence à la première colonne
@@ -139,13 +128,28 @@ public class GameVue  extends  JPanel{
 		gbc03.insets = new Insets(16, 16, 16, 0);    // laisse 5 pixels de vide autour du composant
 		this.add(pcv, gbc03);
 
-		pcv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
-        pcv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
-        pcv.addTruc(TypeTruc.EAU,"Gourde d'eau");
-        pcv.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
-        pcv.addTruc(TypeTruc.GOODIES,"500 piece d'or");
-        pcv.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
-        pcv.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		// pcv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 516");
+  //       pcv.addTruc(TypeTruc.CLE,"Cle qui ouvre une porte, il est indiquer porte 517");
+  //       pcv.addTruc(TypeTruc.EAU,"Gourde d'eau");
+  //       pcv.addTruc(TypeTruc.ALCOOL,"Du bon Rhum");
+  //       pcv.addTruc(TypeTruc.GOODIES,"500 piece d'or");
+  //       pcv.addTruc(TypeTruc.ALCOOL,"Du vieux vin");
+  //       pcv.addTruc(TypeTruc.EAU,"AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+
+	    //Vue en fausse 3D
+	    PieceVue pv = new PieceVue(j, mcv, pcv);
+		GridBagConstraints gbc00 = new GridBagConstraints();
+		gbc00.gridx = 0;      // la plage de cellules commence à la première colonne
+		gbc00.gridy = 0;      // la plage de cellules commence à la deuxième ligne
+		gbc00.gridwidth = 1;  // la plage de cellules englobe deux colonnes
+		gbc00.gridheight = 2; // la plage de cellules englobe une seule ligne
+		gbc00.fill = GridBagConstraints.BOTH;     // n'occupe pas tout l'espace de la plage
+		//gbc.anchor = GridBagConstraints.CENTER; // se place au centre de la plage
+		gbc00.weightx = 1.0;  // souhaite plus de largeur si possible
+		gbc00.weighty = 1.0;  // n'a pas besoin de hauteur supplémentaire
+		gbc00.insets = new Insets(16, 16, 0, 0);    // laisse 5 pixels de vide autour du composant
+		this.add(pv, gbc00);
+
 
 	}
 

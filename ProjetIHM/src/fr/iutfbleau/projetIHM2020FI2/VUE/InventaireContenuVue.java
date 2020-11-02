@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class InventaireContenueVue extends JPanel
+public class InventaireContenuVue extends JPanel
 {
 	private String nom = "Inventaire";
 	private GridLayout pieceLayout = new GridLayout(9,3);
@@ -21,7 +21,7 @@ public class InventaireContenueVue extends JPanel
 	private Map<TypeTruc, ImageIcon> item;
 	private int indice = 0;
 
-	public InventaireContenueVue(DialogDescription dialog)
+	public InventaireContenuVue(DialogDescription dialog)
 	{
 		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
 		this.item.put(TypeTruc.CLE,ImageClassLoader.getImage("images/UI/items/cle.png"));

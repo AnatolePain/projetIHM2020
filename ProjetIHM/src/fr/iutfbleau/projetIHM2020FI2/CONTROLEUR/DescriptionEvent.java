@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class DescriptionEvent implements ActionListener
+public class DescriptionEvent implements ActionListener//appelé par InventaireMenuContextuel
 {	
 	private DialogDescription dialog;
 	private String description;

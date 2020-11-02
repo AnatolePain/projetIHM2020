@@ -4,6 +4,7 @@ import fr.iutfbleau.projetIHM2020FI2.API.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class EventPV implements MouseListener 
 {
@@ -14,17 +15,20 @@ public class EventPV implements MouseListener
 	private MiniCarteVue miniCarte;
 	// private Passage passageChoisie;
 	private Joueur joueurPrincipal;
+	private PieceContenuVue inventairePiece;
 
-	public EventPV(PieceVue pv, Joueur j, MiniCarteVue mcv/*, Passage p*/)
+	public EventPV(PieceVue pv, Joueur j, MiniCarteVue mcv, PieceContenuVue pcv/*, Passage p*/)
 	{
         this.pieceV = pv;
         this.saveNumDirection = 0;
 		this.joueurPrincipal = j;
 		this.saveDirection = Direction.NORD;
 		this.miniCarte = mcv;
+		this.inventairePiece = pcv;
 		// this.passageChoisie = p;
 	}
 	
+	@Override
     public void mouseClicked(MouseEvent evenement)
     {
 		if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)//clique milieu donc fondu 
@@ -41,13 +45,14 @@ public class EventPV implements MouseListener
 			if (passageChoisie != null){ //si le passage choisie existe 
 				this.joueurPrincipal.addVisited(joueurPrincipal.getPiece());//la pièce est maintenant visité
 				this.joueurPrincipal.setPiece(passageChoisie.getAutrePiece(joueurPrincipal.getPiece()));//change la pièce dans le modèle (=déplacement du joueur)
-				this.miniCarte.move(saveDirection);//déplacement dans la mini-carte 
+				this.miniCarte.move(saveDirection);//déplacement dans la vue mini-carte 
 				if( !(joueurPrincipal.isVisited(this.joueurPrincipal.getPiece())) ){ //si la pièce n'a pas déjà été visité on affiche les passages
 					this.miniCarte.affichePassage(this.joueurPrincipal.getPiece());
 				}
+				this.inventairePiece.chargerTrucsPiece(this.joueurPrincipal.getPiece());//charge les trucs de la pièce
 				this.pieceV.transition(/*indice*/);//gère le fondu et change de salle au milieu de ce fondu 
 			}else{
-				System.out.println("le passage est n'éxiste pas ");
+				System.out.println("le passage n'éxiste pas ");
 			};
 
 		}		//déplacement

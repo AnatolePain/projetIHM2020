@@ -19,11 +19,11 @@ public class PieceVue extends JPanel
 	private EventPV mouse;
 	private Joueur joueurPrincipal;
 
-	public PieceVue(Joueur j, MiniCarteVue mcv)
+	public PieceVue(Joueur j, MiniCarteVue mcv, PieceContenuVue pcv)
 	{
 		this.joueurPrincipal = j;
 
-		this.mouse = new EventPV(this, joueurPrincipal, mcv);
+		this.mouse = new EventPV(this, joueurPrincipal, mcv, pcv);
 		this.addMouseListener(mouse);
 
 		this.cardl = new CardLayout();

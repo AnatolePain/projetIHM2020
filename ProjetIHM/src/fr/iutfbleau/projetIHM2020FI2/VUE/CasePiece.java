@@ -15,20 +15,22 @@ public class CasePiece extends JComponent
 	private boolean select = false;
 	private Map<TypeTruc, ImageIcon> itemImage;
 	private PieceMenuContextuel popupMenu;  
+	private Truc trucPiece;
 
-	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
+	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd,PieceContenuVue pcv)
 	{
 		this.imageBase = b;
 		this.imageSlect = s;
 		this.itemImage = iI;
-		this.popupMenu = new PieceMenuContextuel(dd);
+		this.popupMenu = new PieceMenuContextuel(dd,pcv, this);
 	}
 
-	public void setObject(TypeTruc tt,String description)
+	public void setObject(Truc t)
 	{
-		this.object = this.itemImage.get(tt);
-		this.setToolTipText(description);
-		this.popupMenu.getDescriptionEvent().setDescription(description);
+		this.trucPiece = t;
+		this.object = this.itemImage.get(t.getTypeTruc());
+		this.setToolTipText(t.getDescription());
+		this.popupMenu.getDescriptionEvent().setDescription(t.getDescription());
 		repaint();
 	}
 
@@ -55,6 +57,16 @@ public class CasePiece extends JComponent
 		return object == null;
 	}
 
+	public Truc getTrucCase(){
+		if(this.isEmpty()){
+			return null;
+		}else{
+			return this.trucPiece;
+		}
+
+	}
+	
+
 	protected void paintComponent(Graphics pinceau) 
   	{
 		Graphics secondPinceau = pinceau.create();
@@ -76,4 +88,5 @@ public class CasePiece extends JComponent
 			secondPinceau.drawImage(object.getImage(), 0, 0, getWidth(), getHeight(), this);
 		}
 	}
+
 }
