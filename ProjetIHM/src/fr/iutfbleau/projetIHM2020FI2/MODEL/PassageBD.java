@@ -16,7 +16,7 @@ public class PassageBD implements Passage
 	//SQL
 	private Connection cnx;
 	private PreparedStatement nouveauPassagePS;
-	private PreparedStatement getPassageIDPS;
+	private PreparedStatement getAutrePassagePS;
 	private ResultSet rs;
 	private int idPassage = 0;
 
@@ -41,6 +41,7 @@ public class PassageBD implements Passage
             try
             {
 				this.nouveauPassagePS = this.cnx.prepareStatement("INSERT INTO `API_Passage`(`id`, `idJoueur`, `idPieceA`, `DirectionA`, `idPieceB`, `DirectionB`) VALUES (?,?,?,0,?,0)");
+				this.getAutrePassagePS = this.cnx.prepareStatement("SELECT idPieceA,idPieceB FROM API_Passage WHERE id = ? AND idJoueur = ?");
             }
             catch(SQLException se)
             {
@@ -57,19 +58,22 @@ public class PassageBD implements Passage
 
 	private void newPassageBd(int idPieceA,int idPieceB)
 	{
-		try
+		if(this.nouveauPassagePS != null)
 		{
-			int idJoueur = JoueurBD.getIdJoueur();
-			this.nouveauPassagePS.setInt(1,idPassage);
-			this.nouveauPassagePS.setInt(2,idJoueur);
-			this.nouveauPassagePS.setInt(3,idPieceA);
-			this.nouveauPassagePS.setInt(4,idPieceB);
-			this.nouveauPassagePS.executeUpdate();
+			try
+			{
+				int idJoueur = JoueurBD.getIdJoueur();
+				this.nouveauPassagePS.setInt(1,idPassage);
+				this.nouveauPassagePS.setInt(2,idJoueur);
+				this.nouveauPassagePS.setInt(3,idPieceA);
+				this.nouveauPassagePS.setInt(4,idPieceB);
+				this.nouveauPassagePS.executeUpdate();
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}
 		}
-		catch(SQLException se)
-		{
-			System.err.println(se);
-		}   
 	}
 
 	/**
@@ -79,12 +83,44 @@ public class PassageBD implements Passage
      * @return l'autre pièce que le passage relie à p.
      */
     @Override
-    public Piece getAutrePiece(Piece p){
-    	if (!this.reliePiece(p))
-    		throw new IllegalArgumentException("La pièce p ne relie pas ce passage.");
-    	else if (this.pieces.get(0).equals(p))
-    		return this.pieces.get(1);
-    	else return this.pieces.get(0);
+    public Piece getAutrePiece(Piece p)
+	{
+		int argPiece = GestionIDBD.getID(p);
+		if(this.getAutrePassagePS != null)
+		{
+			try
+			{
+				int idJoueur = JoueurBD.getIdJoueur();
+				this.getAutrePassagePS.setInt(1,idPassage);
+				this.getAutrePassagePS.setInt(1,idJoueur);
+				this.rs = this.getAutrePassagePS.executeQuery();
+				int idPA = 0;
+				int idPB = 0;
+				while(this.rs.next())
+				{
+					idPA = this.rs.getInt(1);
+					idPB = this.rs.getInt(2);
+				}
+				this.rs.close();
+				if(idPA == argPiece)
+				{
+					return (Piece)GestionIDBD.getElement(idPB,"Piece");
+				}
+				else if(idPB == argPiece)
+				{
+					return (Piece)GestionIDBD.getElement(idPA,"Piece");
+				}
+				else
+				{
+					throw new IllegalArgumentException("La pièce p ne relie pas ce passage.");
+				}
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}
+		}
+		throw new IllegalStateException("PreparedStatement getAutrePassagePS dans PassageBD n'est pas initialiser");
     }
 
     /**
