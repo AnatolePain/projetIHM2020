@@ -58,9 +58,9 @@ public class ContientTrucsBD implements ContientTrucs{
 
 		try
         {
-			this.addTrucPS.setInt(1,(piece != null) ? GestionIDBD.getIdPiece(piece) : 0);
+			this.addTrucPS.setInt(1,(piece != null) ? GestionIDBD.getID(piece) : 0);
 			this.addTrucPS.setInt(2,joueur != null ? 1 : 0);
-			this.addTrucPS.setInt(3,GestionIDBD.getIdTruc(t));
+			this.addTrucPS.setInt(3,GestionIDBD.getID(t));
 			this.addTrucPS.setInt(4,JoueurBD.getIdJoueur());
 			this.addTrucPS.executeUpdate();
         }

@@ -27,7 +27,7 @@ public class PassageBD implements Passage
 	 * @param  p2 pièce distincte
 	 * @throws IllegalArgumentException si pièces identiques.
 	 */
-	public PassageBD(Piece p1, Piece p2)
+	public PassageBD(Piece p1, Piece p2,int id)
 	{
 		Objects.requireNonNull(p1,"On ne peut pas construire un passage vers une pièce null.");
 		Objects.requireNonNull(p1,"On ne peut pas construire un passage vers une pièce null.");
@@ -35,12 +35,12 @@ public class PassageBD implements Passage
 			throw new IllegalArgumentException("Les pièces ne peuvent pas être identiques");
         pieces = new LinkedList<Piece>();
 		this.cnx = ConnectionBD.getConnection();
+		this.idPassage = id;
 		if(this.cnx != null)
         {
             try
             {
-				this.nouveauPassagePS = this.cnx.prepareStatement("INSERT INTO `API_Passage`(`id`, `idJoueur`, `idPieceA`, `DirectionA`, `idPieceB`, `DirectionB`) VALUES (0,?,?,0,?,0)");
-				this.getPassageIDPS = this.cnx.prepareStatement("SELECT MAX(id) FROM API_Passage");
+				this.nouveauPassagePS = this.cnx.prepareStatement("INSERT INTO `API_Passage`(`id`, `idJoueur`, `idPieceA`, `DirectionA`, `idPieceB`, `DirectionB`) VALUES (?,?,?,0,?,0)");
             }
             catch(SQLException se)
             {
@@ -48,8 +48,8 @@ public class PassageBD implements Passage
             }   
         }
 
-		newPassageBd(GestionIDBD.getIdPiece(p1),GestionIDBD.getIdPiece(p2));
-
+		newPassageBd(GestionIDBD.getID(p1),GestionIDBD.getID(p2));
+		GestionIDBD.put(this,idPassage);
 		this.pieces.add(p1);
 		this.pieces.add(p2);
 		this.e = EtatPassage.CLOSED;
@@ -60,16 +60,11 @@ public class PassageBD implements Passage
 		try
 		{
 			int idJoueur = JoueurBD.getIdJoueur();
-			this.nouveauPassagePS.setInt(1,idJoueur);
-			this.rs = this.nouveauPassagePS.executeQuery();
-            this.rs.close();
-			this.rs = getPassageIDPS.executeQuery();
-			while(rs.next())
-			{
-				this.idPassage = rs.getInt(1);
-			}
-			this.rs.close();
-			GestionIDBD.putPassageID(this,idPassage);
+			this.nouveauPassagePS.setInt(1,idPassage);
+			this.nouveauPassagePS.setInt(2,idJoueur);
+			this.nouveauPassagePS.setInt(3,idPieceA);
+			this.nouveauPassagePS.setInt(4,idPieceB);
+			this.nouveauPassagePS.executeUpdate();
 		}
 		catch(SQLException se)
 		{

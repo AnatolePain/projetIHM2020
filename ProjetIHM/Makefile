@@ -57,6 +57,7 @@ allclass = \
 	$(BUILD)VUE/CasePiece.class \
 	$(BUILD)VUE/ImageClassLoader.class \
 	$(BUILD)MODEL/ConnectionBD.class \
+	$(BUILD)MODEL/IDObject.class \
 	$(BUILD)MODEL/GestionIDBD.class \
 	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
@@ -84,7 +85,10 @@ allTest = \
 
 default: $(allclass)
 
-$(BUILD)MODEL/GestionIDBD.class: $(SRC)MODEL/GestionIDBD.java
+$(BUILD)MODEL/IDObject.class: $(SRC)MODEL/IDObject.java
+	$(JC) $(JFLAGS)  $(SRC)MODEL/IDObject.java
+
+$(BUILD)MODEL/GestionIDBD.class: $(SRC)MODEL/GestionIDBD.java $(BUILD)MODEL/IDObject.class
 	$(JC) $(JFLAGS)  $(SRC)MODEL/GestionIDBD.java
 
 $(BUILD)MODEL/PassageBD.class: $(SRC)MODEL/PassageBD.java

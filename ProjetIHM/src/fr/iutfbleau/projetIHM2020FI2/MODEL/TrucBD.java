@@ -15,7 +15,6 @@ public class TrucBD implements Truc {
 	private PreparedStatement getDescriptionTrucPS;
 	private PreparedStatement getTypeTrucPS;
 	private PreparedStatement nouveauTrucPS;
-	private PreparedStatement getTrucIDPS;
 	private PreparedStatement deleteTrucPS;
 	private ResultSet rs;
 	private int idTruc = 0;
@@ -42,11 +41,12 @@ public class TrucBD implements Truc {
 	 * @param  d sa description
 	 * @throws NullPointerException si un paramètre est null
 	 */
-    public TrucBD(TypeTruc tt, String d)
+    public TrucBD(TypeTruc tt, String d, int id)
 	{
 		Objects.requireNonNull(tt,"On ne peut pas créer un truc avec un TypeTruc null.");
 		Objects.requireNonNull(d,"On ne peut pas créer un truc avec une description null.");
 		this.cnx = ConnectionBD.getConnection();
+		this.idTruc = id;
 		if(this.cnx != null)
         {
             try
@@ -54,21 +54,20 @@ public class TrucBD implements Truc {
                 this.nouveauTrucPS = this.cnx.prepareStatement("INSERT INTO `API_Truc` (`id`, `idJoueur`, `idPiecePos`, `Description`, `TypeTruc`, `has`) VALUES (0, ?, 0, ?, ?, 0);");
 				this.getDescriptionTrucPS = this.cnx.prepareStatement("SELECT Description FROM `API_Truc` WHERE id = ?");
 				this.getTypeTrucPS = this.cnx.prepareStatement("SELECT TypeTruc FROM `API_Truc` WHERE id = ?");
-				this.getTrucIDPS = this.cnx.prepareStatement("SELECT MAX(id) FROM API_Truc");
             }
             catch(SQLException se)
             {
                 System.err.println(se);
             }   
         }
-
+		GestionIDBD.put(this,this.idTruc);
 		this.tt=tt;
 		this.description=d;
     }
 
 	private void newtrucBD(TypeTruc tt, String d)
 	{
-		if(this.nouveauTrucPS != null && this.getTrucIDPS != null)
+		if(this.nouveauTrucPS != null)
         {
             try
             {
@@ -76,13 +75,6 @@ public class TrucBD implements Truc {
 				this.nouveauTrucPS.setString(2,d);
 				this.nouveauTrucPS.setString(3,tt.toString());
                 this.nouveauTrucPS.executeUpdate();
-				this.rs = this.getTrucIDPS.executeQuery();
-				while(rs.next())
-				{
-					this.idTruc = rs.getInt(1);
-				}
-				GestionIDBD.putTrucID(this,this.idTruc);
-				this.rs.close();
             }
             catch(SQLException se)
             {

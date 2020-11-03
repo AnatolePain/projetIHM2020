@@ -21,6 +21,8 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 
 	//SQL
 	private Connection cnx;
+	private int autoIncrementIDPiece = 0;
+	private int autoIncrementIDPassage = 0;
 
 	/**
 	 * constructeur
@@ -39,7 +41,7 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 	 */
 	@Override
 	public Piece newPiece(){
-		Piece p = new PieceBD();
+		Piece p = new PieceBD(autoIncrementIDPiece++);
 		this.vertices.add(p);
 		return p;
 	}
@@ -107,7 +109,7 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 			throw new IllegalArgumentException("La direction d1 n'est pas libre dans la pièce p1");
 		if (p2.getPassage(d2) != null)
 			throw new IllegalArgumentException("La direction d2 n'est pas libre dans la pièce p2");
-		Passage p = new PassageBD(p1,p2);//throws IllegalArgumentException si pièces identiques
+		Passage p = new PassageBD(p1,p2,autoIncrementIDPassage++);//throws IllegalArgumentException si pièces identiques
 		p1.setPassage(d1,p);
 		p2.setPassage(d2,p);
 		this.edges.add(p);

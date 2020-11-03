@@ -4,38 +4,46 @@ import java.util.*;
 
 public class GestionIDBD
 {
-	private static Map<Piece, Integer> pieceID = new HashMap<Piece, Integer>();
-	private static Map<Joueur, Integer> joueurID = new HashMap<Joueur, Integer>();
-	private static Map<Passage, Integer> passageID = new HashMap<Passage, Integer>();
-	private static Map<Truc, Integer> trucID = new HashMap<Truc, Integer>();
-
-	public static void putPieceID(Piece p,int id)
+	private static List<IDObject> idobj = new ArrayList<IDObject>();
+	
+	public static void put(Object element,Integer i)
 	{
-		GestionIDBD.pieceID.put(p,id);
+		boolean find = false;
+		for(IDObject idElements : GestionIDBD.idobj)
+		{
+			if(idElements.sameClass(element.getClass().getName()))
+			{
+				find = true;
+				idElements.put(element,i);
+			}
+		}
+		if(!find)
+		{
+			GestionIDBD.idobj.add(new IDObject(element,i));
+		}
 	}
 
-	public static int getIdPiece(Piece p)
+	public static int getID(Object element)
 	{
-		return GestionIDBD.pieceID.get(p);
+		for(IDObject idElements : GestionIDBD.idobj)
+		{
+			if(idElements.sameClass(element.getClass().getName()))
+			{
+				return idElements.getID(element);
+			}
+		}
+		return 0;
 	}
 
-	public static void putPassageID(Passage p,int id)
+	public static Object getElement(int i,String classObj)
 	{
-		GestionIDBD.passageID.put(p,id);
-	}
-
-	public static int getIdPassage(Passage p)
-	{
-		return GestionIDBD.passageID.get(p);
-	}
-
-	public static void putTrucID(Truc p,int id)
-	{
-		GestionIDBD.trucID.put(p,id);
-	}
-
-	public static int getIdTruc(Truc p)
-	{
-		return GestionIDBD.trucID.get(p);
+		for(IDObject idElements : GestionIDBD.idobj)
+		{
+			if(idElements.sameClass(classObj))
+			{
+				return idElements.getObj(i);
+			}
+		}
+		return null;
 	}
 }

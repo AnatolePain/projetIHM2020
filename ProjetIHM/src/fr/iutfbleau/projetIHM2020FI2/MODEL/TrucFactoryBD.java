@@ -11,6 +11,7 @@ import java.util.*;
 public class TrucFactoryBD implements TrucFactory {
 
 	private Connection cnx;
+	private int autoIncrementeTruc = 0;
 
     // univers de tous les trucs
     private ContientTrucsBD univers = new ContientTrucsBD();
@@ -64,7 +65,7 @@ public class TrucFactoryBD implements TrucFactory {
      * @return Truc        le nouvel objet
      */
     public Truc newTruc(TypeTruc tt, String description){
-        Truc t = new TrucBD(tt,description);
+        Truc t = new TrucBD(tt,description,autoIncrementeTruc++);
         this.addTruc(t);
         return t;
     }

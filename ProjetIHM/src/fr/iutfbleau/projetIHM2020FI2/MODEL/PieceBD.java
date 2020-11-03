@@ -16,9 +16,10 @@ public class PieceBD extends ContientTrucsBD implements Piece{
 	//SQL
 	private Connection cnx;
 	private PreparedStatement nouvellePiecePS;
-	private PreparedStatement getPieceIDPS;
 	private PreparedStatement setPassageAPS;
 	private PreparedStatement setPassageBPS;
+	private PreparedStatement getDescriptionPS;
+	private PreparedStatement getPassagePS;
 	private ResultSet rs;
 	private int idPiece = 0;
     /**
@@ -27,19 +28,21 @@ public class PieceBD extends ContientTrucsBD implements Piece{
      * On unitilise un map spécialisée pour les clés qui sont des enums. 
      * @return [description]
      */
-    public PieceBD(){
+    public PieceBD(int id){
         super();
         this.sortie=new EnumMap<Direction,Passage>(Direction.class);
 		piece = this;
+		this.idPiece = id;
 		this.cnx = ConnectionBD.getConnection();
 		if(this.cnx != null)
         {
             try
             {
-				this.nouvellePiecePS = this.cnx.prepareStatement("INSERT INTO `API_Piece` (`id`, `idJoueur`, `Visite`) VALUES ('0', '?', '0');");
-				this.getPieceIDPS = this.cnx.prepareStatement("SELECT MAX(id) FROM API_Piece");
+				this.nouvellePiecePS = this.cnx.prepareStatement("INSERT INTO `API_Piece` (`id`, `idJoueur`, `Visite`) VALUES ('?', '?', '0');");
 				this.setPassageAPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionA` = ?  WHERE `API_Passage`.`idPieceA` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");
 				this.setPassageBPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionB` = ?  WHERE `API_Passage`.`idPieceB` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");
+				this.getDescriptionPS = this.cnx.prepareStatement("SELECT Description FROM API_Piece WHERE id = ? And idJoueur = ?");
+				this.getPassagePS = this.cnx.prepareStatement("SELECT id FROM `API_Passage` WHERE idJoueur = ? AND (idPieceA = ? AND DirectionA = ? or idPieceB = ? AND DirectionB = ?)");
             }
             catch(SQLException se)
             {
@@ -54,16 +57,11 @@ public class PieceBD extends ContientTrucsBD implements Piece{
 		try
 		{
 			int idJoueur = JoueurBD.getIdJoueur();
-			this.nouvellePiecePS.setInt(1,idJoueur);
+			this.nouvellePiecePS.setInt(1,this.idPiece);
+			this.nouvellePiecePS.setInt(2,idJoueur);
 			this.rs = this.nouvellePiecePS.executeQuery();
             this.rs.close();
-			this.rs = getPieceIDPS.executeQuery();
-			while(rs.next())
-			{
-				this.idPiece = rs.getInt(1);
-			}
-			this.rs.close();
-			GestionIDBD.putPieceID(this,this.idPiece);
+			GestionIDBD.put(this,this.idPiece);
 		}
 		catch(SQLException se)
 		{
@@ -94,11 +92,11 @@ public class PieceBD extends ContientTrucsBD implements Piece{
 			int idJoueur = JoueurBD.getIdJoueur();
 			this.setPassageAPS.setString(1,d.toString());
 			this.setPassageAPS.setInt(2,idPiece);
-			this.setPassageAPS.setInt(3,GestionIDBD.getIdPassage(p));
+			this.setPassageAPS.setInt(3,GestionIDBD.getID(p));
 			this.setPassageAPS.setInt(4,idJoueur);
 			this.setPassageBPS.setString(1,d.toString());
 			this.setPassageBPS.setInt(2,idPiece);
-			this.setPassageBPS.setInt(3,GestionIDBD.getIdPassage(p));
+			this.setPassageBPS.setInt(3,GestionIDBD.getID(p));
 			this.setPassageBPS.setInt(4,idJoueur);
 			this.setPassageAPS.executeUpdate();
 			this.setPassageBPS.executeUpdate();

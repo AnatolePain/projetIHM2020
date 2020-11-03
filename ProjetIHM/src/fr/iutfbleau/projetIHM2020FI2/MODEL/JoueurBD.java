@@ -27,7 +27,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
             try
             {
-                this.nouveauJoueurPS = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('0', '0')");
+                this.nouveauJoueurPS = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('?', '0')");
 				this.getPiecePS = this.cnx.prepareStatement("SELECT idPieceActuelle FROM `API_Joueur` WHERE id = ?");
 				this.setPiecePS = this.cnx.prepareStatement("UPDATE API_Joueur SET idPieceActuelle = ? WHERE id = ?");
 				this.getCerveauPS = this.cnx.prepareStatement("SELECT id,Visite FROM `API_Piece` WHERE idJoueur = ?");
@@ -53,6 +53,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
             try
             {
+				this.nouveauJoueurPS.setInt(1,JoueurBD.idJoueur);
                 this.nouveauJoueurPS.executeUpdate();
             }
             catch(SQLException se)
@@ -65,7 +66,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
    @Override
     public Piece getPiece()
 	{
-        return this.p;
+        return (Piece)GestionIDBD.getElement(this.getPieceID(),this.p.getClass().getName());
     }
 
 	public int getPieceID()
@@ -74,7 +75,8 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
 			try
             {
-                this.rs = getPiecePS.executeQuery();
+				this.getPiecePS.setInt(1,JoueurBD.idJoueur);
+                this.rs = this.getPiecePS.executeQuery();
 				while(this.rs.next())
 				{
 					JoueurBD.idPosPiece = this.rs.getInt(1);
@@ -96,16 +98,16 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         {
 			try
             {
-				JoueurBD.idPosPiece = GestionIDBD.getIdPiece(next);
+				JoueurBD.idPosPiece = GestionIDBD.getID(next);
 				this.setPiecePS.setInt(1,JoueurBD.idPosPiece);
-				this.setPiecePS.setInt(2,idJoueur);
+				this.setPiecePS.setInt(2,JoueurBD.idJoueur);
                 this.setPiecePS.executeUpdate();
             }
             catch(SQLException se)
             {
                 System.err.println(se);
             } 
-		}
+		}		
         if (this.getPiece() != null) 
             this.addVisited(this.getPiece());
         this.p=next;
