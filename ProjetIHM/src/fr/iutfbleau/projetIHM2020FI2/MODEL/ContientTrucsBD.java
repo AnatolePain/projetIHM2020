@@ -57,9 +57,11 @@ public class ContientTrucsBD implements ContientTrucs
 				this.getTrucsPS.setInt(1,JoueurBD.getIdJoueur());
 				this.getTrucsPS.setInt(2,joueur != null ? -2 : GestionIDBD.getID(piece));
 				this.rs = this.getTrucsPS.executeQuery();
+				//System.out.println("getTrucs()");
 				if(this.rs.next())
-				{					
-					contenuGT.add((Truc)GestionIDBD.getElement(this.rs.getInt(1),"Truc"));
+				{		
+					//System.out.println("Trucs");
+					contenuGT.add((Truc)GestionIDBD.getElement(this.rs.getInt(1),"fr.iutfbleau.projetIHM2020FI2.MODEL.TrucBD"));
 				}
 				this.rs.close();
 				return contenuGT.iterator();
@@ -83,7 +85,7 @@ public class ContientTrucsBD implements ContientTrucs
 	{
     	Objects.requireNonNull(t,"On ne peut pas ajouter un truc null.");
 		if(this.containsTruc(t))
-		{
+		{			
 			return false;
 		}
 		if(this.addTrucPS != null)

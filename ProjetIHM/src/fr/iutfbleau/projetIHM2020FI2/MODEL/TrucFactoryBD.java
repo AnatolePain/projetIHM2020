@@ -14,6 +14,7 @@ public class TrucFactoryBD implements TrucFactory {
 	private PreparedStatement getTrucsPS;
 	private PreparedStatement addRemoveTrucPS;
 	private PreparedStatement containsTrucPS;
+	private PreparedStatement combienTrucsPS;
     private ResultSet rs;
 	private int autoIncrementeTruc = 0;
 
@@ -25,6 +26,7 @@ public class TrucFactoryBD implements TrucFactory {
 			this.getTrucsPS = this.cnx.prepareStatement("SELECT id FROM `API_Truc` WHERE idJoueur = ? AND idPiecePos = -2 or idPiecePos >= -1");
 			this.addRemoveTrucPS = this.cnx.prepareStatement("UPDATE API_Truc SET idPiecePos = ? WHERE id = ? AND idJoueur = ?");
 			this.containsTrucPS = this.cnx.prepareStatement("SELECT COUNT(id) FROM `API_Truc` WHERE id = ? AND idJoueur = ?");
+			this.combienTrucsPS = this.cnx.prepareStatement("SELECT COUNT(id) FROM `API_Truc` WHERE idJoueur = ?");
 		}
         catch(SQLException se)
         {
@@ -46,7 +48,7 @@ public class TrucFactoryBD implements TrucFactory {
 				this.rs = this.getTrucsPS.executeQuery();
 				while(this.rs.next())
 				{
-					trucI.add((Truc)GestionIDBD.getElement(this.rs.getInt(1),"Truc"));
+					trucI.add((Truc)GestionIDBD.getElement(this.rs.getInt(1),"fr.iutfbleau.projetIHM2020FI2.MODEL.TrucBD"));
 				}
 				this.rs.close();
 			}
@@ -150,7 +152,27 @@ public class TrucFactoryBD implements TrucFactory {
      * le nombre de trucs contenus dans le sac à dos du joueur
      * @return un entier positif ou nul.
      */
-    public int combienTrucs(){
+    public int combienTrucs()
+	{
+		if(this.combienTrucsPS != null)
+		{
+			try
+			{
+				this.combienTrucsPS.setInt(1,JoueurBD.getIdJoueur());
+				this.rs = this.combienTrucsPS.executeQuery();
+				int valeur = 0;
+				while(this.rs.next())
+				{
+					valeur = this.rs.getInt(1);
+				}
+				this.rs.close();
+				return valeur;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}   
+		}
         return 0;//return this.univers.combienTrucs();
     }
     
@@ -162,7 +184,7 @@ public class TrucFactoryBD implements TrucFactory {
      */
     public Truc newTruc(TypeTruc tt, String description){
         Truc t = new TrucBD(tt,description,autoIncrementeTruc++);
-        this.addTruc(t);
+        //this.addTruc(t);
         return t;
     }
 }

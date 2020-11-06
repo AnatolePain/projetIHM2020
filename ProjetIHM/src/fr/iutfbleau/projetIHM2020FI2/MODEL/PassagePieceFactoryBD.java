@@ -13,25 +13,38 @@ import java.util.*;
  * Cette classe utilise de manière indépendante PieceBD et PassageBD.
  * L'implémentation actuelle est en fait quasi-générique et pourrait employer n'importe quelle classe implémentant les interfaces Piece et Passage.
  */
-public class PassagePieceFactoryBD implements PassagePieceFactory{
-
-	private Set<Piece> vertices;
-
-	private Set<Passage> edges;
+public class PassagePieceFactoryBD implements PassagePieceFactory
+{
 
 	//SQL
 	private Connection cnx;
+	private PreparedStatement contientPiecePS;
+	private PreparedStatement removePassagePS;
+	private PreparedStatement contientPassagePS;
+	private ResultSet rs;
 	private int autoIncrementIDPiece = 0;
 	private int autoIncrementIDPassage = 0;
 
 	/**
 	 * constructeur
 	 *
-	 * On utilise des linkedHashSet.
 	 */
-	public PassagePieceFactoryBD(){
-		this.vertices = new LinkedHashSet<Piece>();
-		this.edges = new LinkedHashSet<Passage>();
+	public PassagePieceFactoryBD()
+	{
+		this.cnx = ConnectionBD.getConnection();
+        if(this.cnx != null)
+        {
+            try
+            {                
+				this.contientPiecePS = this.cnx.prepareStatement("SELECT Count(id) FROM API_Piece WHERE id = ? AND idJoueur = ?");
+				this.contientPassagePS  = this.cnx.prepareStatement("SELECT Count(id) FROM API_Passage WHERE id = ? AND idJoueur = ?");
+				this.removePassagePS = this.cnx.prepareStatement("DELETE FROM API_Passage WHERE id = ? AND idJoueur = ?");
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            }   
+        }
 	}
 
 
@@ -42,7 +55,6 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 	@Override
 	public Piece newPiece(){
 		Piece p = new PieceBD(autoIncrementIDPiece++);
-		this.vertices.add(p);
 		return p;
 	}
 
@@ -56,7 +68,7 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 	public boolean removePiece(Piece p1){
 		Objects.requireNonNull(p1,"On ne peut pas enlever une pièce null.");
 		Piece p2;
-		if (this.vertices.remove(p1)){//on enlève le sommet de l'univers
+		if (this.containsPiece(p1)){//on enlève le sommet de l'univers
 			for (Direction d1 : Direction.values()){
             	if (p1.getPassage(d1) != null){//pour tout couloir qui sort
             		// On doit trouver la porte à murer dans l'autrePiece
@@ -67,9 +79,6 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
             				break;
             			}
             		}
-            		// on peut enlever l'arête de l'univers
-            		this.edges.remove(p1.getPassage(d1));
-            		// on peut enfin murer la porte dans la pièce.
             		p1.removePassage(d1);
             	}
             }	
@@ -78,15 +87,88 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 		else return false;
 	}
 
+	private boolean containsPiece(Piece p)
+	{
+    	Objects.requireNonNull(p,"On ne peut pas contenir une Piece null");
+		if(this.contientPiecePS != null)
+		{
+			try
+			{
+				this.contientPiecePS.setInt(1,GestionIDBD.getID(p));
+				this.contientPiecePS.setInt(2,JoueurBD.getIdJoueur());
+				this.rs = this.contientPiecePS.executeQuery();
+				boolean resultC = false;
+				while(this.rs.next() && !resultC)
+				{
+					resultC = this.rs.getInt(1) > 0;
+				}
+				this.rs.close();
+				return resultC;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}  			
+		}
+    	return false;
+    }  
+
 	/**
 	 * Enlève un passage.
 	 * @param  p passage à enlever
 	 * @return    vrai ssi le passage devait être enlevé.
 	 */
 	@Override
-	public boolean removePassage(Passage p){
-		throw new UnsupportedOperationException("Désolé, fonction non supportée.");
+	public boolean removePassage(Passage p)
+	{
+		Objects.requireNonNull(p,"On ne peut pas suprimer un Passage null");
+		if(!this.containsPassage(p))
+		{
+			return false;
+		}
+		if(this.removePassagePS != null)
+		{
+			try
+			{
+				this.removePassagePS.setInt(1,GestionIDBD.getID(p));
+				this.removePassagePS.setInt(2,JoueurBD.getIdJoueur());
+				this.removePassagePS.executeUpdate();
+				return true;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}  			
+		}
+		return false;
 	}
+
+	private boolean containsPassage(Passage p)
+	{
+    	Objects.requireNonNull(p,"On ne peut pas contenir un Passage null");
+		if(this.contientPassagePS != null)
+		{
+			try
+			{
+				this.contientPassagePS.setInt(1,GestionIDBD.getID(p));
+				this.contientPassagePS.setInt(2,JoueurBD.getIdJoueur());
+				this.rs = this.contientPassagePS.executeQuery();
+				boolean resultC = false;
+				while(this.rs.next() && !resultC)
+				{
+					resultC = this.rs.getInt(1) > 0;
+				}
+				this.rs.close();
+				return resultC;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}  			
+		}
+    	return false;
+    }  
+
 
 	/**
 	 * Ajoute et retourne un nouveau passage
@@ -100,7 +182,8 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 	 * @throws IllegalArgumentException si la direction d'une pièce n'est pas libre ou si les pièces sont identiques
 	 */
 	@Override
-	public Passage newPassage(Direction d1, Piece p1, Direction d2, Piece p2){
+	public Passage newPassage(Direction d1, Piece p1, Direction d2, Piece p2)
+	{
 		Objects.requireNonNull(p1,"La pièce p1 ne peut être null.");
 		Objects.requireNonNull(d1,"La direction d1 ne peut être null.");
 		Objects.requireNonNull(p2,"La pièce p2 ne peut être null.");
@@ -112,7 +195,6 @@ public class PassagePieceFactoryBD implements PassagePieceFactory{
 		Passage p = new PassageBD(p1,p2,autoIncrementIDPassage++);//throws IllegalArgumentException si pièces identiques
 		p1.setPassage(d1,p);
 		p2.setPassage(d2,p);
-		this.edges.add(p);
 		return p;
 	}
 

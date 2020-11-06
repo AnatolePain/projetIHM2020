@@ -98,9 +98,9 @@ public class TrucBD implements Truc
         {
             try
             {
-                this.nouveauTrucPS = this.cnx.prepareStatement("INSERT INTO `API_Truc` (`id`, `idJoueur`, `idPiecePos`, `Description`, `TypeTruc`) VALUES (0, ?, 0, ?, ?);");
-				this.getDescriptionTrucPS = this.cnx.prepareStatement("SELECT Description FROM `API_Truc` WHERE id = ? AND idJoueur = ?");//Joueur
-				this.getTypeTrucPS = this.cnx.prepareStatement("SELECT TypeTruc FROM `API_Truc` WHERE id = ?  AND idJoueur = ?");//Joueur
+                this.nouveauTrucPS = this.cnx.prepareStatement("INSERT INTO `API_Truc` (`id`, `idJoueur`, `idPiecePos`, `Description`, `TypeTruc`) VALUES (?, ?, 0, ?, ?);");
+				this.getDescriptionTrucPS = this.cnx.prepareStatement("SELECT Description FROM `API_Truc` WHERE id = ? AND idJoueur = ?");
+				this.getTypeTrucPS = this.cnx.prepareStatement("SELECT TypeTruc FROM `API_Truc` WHERE id = ?  AND idJoueur = ?");
             }
             catch(SQLException se)
             {
@@ -108,7 +108,10 @@ public class TrucBD implements Truc
             }   
         }
 		GestionIDBD.put(this,this.idTruc);
-		newtrucBD(tt,d);
+		if(!GameStart.get())
+		{
+			newtrucBD(tt,d);
+		}
     }
 
 	private void newtrucBD(TypeTruc tt, String d)
@@ -117,9 +120,10 @@ public class TrucBD implements Truc
         {
             try
             {
-				this.nouveauTrucPS.setInt(1,JoueurBD.getIdJoueur());
-				this.nouveauTrucPS.setString(2,d);
-				this.nouveauTrucPS.setString(3,tt.toString());
+				this.nouveauTrucPS.setInt(1,this.idTruc);
+				this.nouveauTrucPS.setInt(2,JoueurBD.getIdJoueur());
+				this.nouveauTrucPS.setString(3,d);
+				this.nouveauTrucPS.setString(4,tt.toString());
                 this.nouveauTrucPS.executeUpdate();
             }
             catch(SQLException se)

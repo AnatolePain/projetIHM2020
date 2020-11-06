@@ -57,6 +57,7 @@ allclass = \
 	$(BUILD)VUE/CasePiece.class \
 	$(BUILD)VUE/ImageClassLoader.class \
 	$(BUILD)MODEL/ConnectionBD.class \
+	$(BUILD)MODEL/GameStart.class \
 	$(BUILD)MODEL/IDObject.class \
 	$(BUILD)MODEL/GestionIDBD.class \
 	$(BUILD)test/TestBaseDeDonne.class \
@@ -65,6 +66,7 @@ allclass = \
 	$(BUILD)CONTROLEUR/EventPV.class \
 	$(BUILD)test/Main.class \
 	$(BUILD)test/TestTexteMNP.class \
+	$(BUILD)test/TestTexteBD.class \
 	$(BUILD)test/TestVUEMiniCarte.class \
 	$(BUILD)CONTROLEUR/ControlleurJeux.class \
 	$(BUILD)MODEL/JoueurBD.class \
@@ -85,6 +87,9 @@ allTest = \
 
 default: $(allclass)
 
+$(BUILD)MODEL/GameStart.class: $(SRC)MODEL/GameStart.java $(BUILD)MODEL/JoueurBD.class
+	$(JC) $(JFLAGS)  $(SRC)MODEL/GameStart.java
+
 $(BUILD)MODEL/IDObject.class: $(SRC)MODEL/IDObject.java
 	$(JC) $(JFLAGS)  $(SRC)MODEL/IDObject.java
 
@@ -94,23 +99,23 @@ $(BUILD)MODEL/GestionIDBD.class: $(SRC)MODEL/GestionIDBD.java $(BUILD)MODEL/IDOb
 $(BUILD)MODEL/PassageBD.class: $(SRC)MODEL/PassageBD.java
 	$(JC) $(JFLAGS)  $(SRC)MODEL/PassageBD.java
 
-$(BUILD)MODEL/PassagePieceFactoryBD.class: $(SRC)MODEL/PassagePieceFactoryBD.java $(BUILD)MODEL/PieceBD.class
+$(BUILD)MODEL/PassagePieceFactoryBD.class: $(SRC)MODEL/PassagePieceFactoryBD.java $(BUILD)MODEL/PieceBD.class $(BUILD)MODEL/PassageBD.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/PassagePieceFactoryBD.java
 
-$(BUILD)MODEL/PieceBD.class: $(SRC)MODEL/PieceBD.java
+$(BUILD)MODEL/PieceBD.class: $(SRC)MODEL/PieceBD.java $(BUILD)MODEL/GameStart.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/PieceBD.java
 
 $(BUILD)MODEL/TrucBD.class: $(SRC)MODEL/TrucBD.java
 	$(JC) $(JFLAGS) $(SRC)MODEL/TrucBD.java
 
-$(BUILD)MODEL/TrucFactoryBD.class: $(SRC)MODEL/TrucFactoryBD.java
+$(BUILD)MODEL/TrucFactoryBD.class: $(SRC)MODEL/TrucFactoryBD.java $(BUILD)MODEL/TrucBD.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/TrucFactoryBD.java
 
-$(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)API/ContientTrucs.class $(BUILD)API/Truc.class
-	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java $(SRC)MODEL/PieceBD.java $(SRC)MODEL/JoueurBD.java
+$(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)API/ContientTrucs.class $(BUILD)API/Truc.class $(BUILD)MODEL/GestionIDBD.class
+	$(JC) $(JFLAGS) $(SRC)MODEL/ContientTrucsBD.java $(SRC)MODEL/PieceBD.java $(SRC)MODEL/JoueurBD.java $(SRC)MODEL/GameStart.java
 
 $(BUILD)MODEL/JoueurBD.class: $(SRC)MODEL/JoueurBD.java $(BUILD)MODEL/ConnectionBD.class $(BUILD)API/Piece.class $(BUILD)MODEL/ContientTrucsBD.class
-	$(JC) $(JFLAGS) $(SRC)MODEL/JoueurBD.java
+	$(JC) $(JFLAGS) $(SRC)MODEL/JoueurBD.java $(SRC)MODEL/GameStart.java
 
 $(BUILD)CONTROLEUR/ControlleurJeux.class: $(SRC)CONTROLEUR/ControlleurJeux.java $(BUILD)MODEL/JoueurBD.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/ControlleurJeux.java
@@ -199,6 +204,9 @@ $(BUILD)test/TestVUEMiniCarte.class: $(SRC)test/TestVUEMiniCarte.java
 $(BUILD)test/TestTexteMNP.class: $(SRC)test/TestTexteMNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)test/TestTexteMNP.java
 
+$(BUILD)test/TestTexteBD.class: $(SRC)test/TestTexteBD.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Piece.class $(BUILD)API/Passage.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class $(BUILD)MODEL/PassagePieceFactoryBD.class $(BUILD)MODEL/TrucFactoryBD.class $(BUILD)MODEL/JoueurBD.class
+	$(JC) $(JFLAGS) $(SRC)test/TestTexteBD.java
+
 $(BUILD)API/Activable.class: $(SRC)API/Activable.java
 	$(JC) $(JFLAGS) $(SRC)API/Activable.java $(SRC)API/Truc.java $(SRC)API/Descriptible.java $(SRC)API/TypeTruc.java
 
@@ -264,6 +272,9 @@ $(BUILD)CONTROLEUR/PieceContenuEvent.class: $(SRC)CONTROLEUR/PieceContenuEvent.j
 
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
+
+runbd : 
+	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.TestTexteBD
 
 run : 
 	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.Main

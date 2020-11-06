@@ -47,8 +47,10 @@ public class PassageBD implements Passage
                 System.err.println(se);
             }   
         }
-
-		newPassageBd(GestionIDBD.getID(p1),GestionIDBD.getID(p2));
+		if(!GameStart.get())
+		{
+			newPassageBd(GestionIDBD.getID(p1),GestionIDBD.getID(p2));
+		}
 		GestionIDBD.put(this,idPassage);
 	}
 
@@ -89,7 +91,7 @@ public class PassageBD implements Passage
 			{
 				int idJoueur = JoueurBD.getIdJoueur();
 				this.getAutrePassagePS.setInt(1,idPassage);
-				this.getAutrePassagePS.setInt(1,idJoueur);
+				this.getAutrePassagePS.setInt(2,idJoueur);
 				this.rs = this.getAutrePassagePS.executeQuery();
 				int idPA = 0;
 				int idPB = 0;
@@ -101,11 +103,11 @@ public class PassageBD implements Passage
 				this.rs.close();
 				if(idPA == argPiece)
 				{
-					return (Piece)GestionIDBD.getElement(idPB,"Piece");
+					return (Piece)GestionIDBD.getElement(idPB,"fr.iutfbleau.projetIHM2020FI2.MODEL.PieceBD");
 				}
 				else if(idPB == argPiece)
 				{
-					return (Piece)GestionIDBD.getElement(idPA,"Piece");
+					return (Piece)GestionIDBD.getElement(idPA,"fr.iutfbleau.projetIHM2020FI2.MODEL.PieceBD");
 				}
 				else
 				{
@@ -136,11 +138,11 @@ public class PassageBD implements Passage
 			{
 				int idJoueur = JoueurBD.getIdJoueur();
 				this.getAutrePassagePS.setInt(1,idPassage);
-				this.getAutrePassagePS.setInt(1,idJoueur);
+				this.getAutrePassagePS.setInt(2,idJoueur);
 				this.rs = this.getAutrePassagePS.executeQuery();
 				while(this.rs.next())
 				{
-					piecesI.add((Piece)GestionIDBD.getElement(this.rs.getInt(1),"Piece"));
+					piecesI.add((Piece)GestionIDBD.getElement(this.rs.getInt(1),"fr.iutfbleau.projetIHM2020FI2.MODEL.PieceBD"));
 				}
 				this.rs.close();
 				return piecesI.iterator();
@@ -238,7 +240,7 @@ public class PassageBD implements Passage
 			{
 				this.setEtatPassagePS.setString(1,e.toString());
 				this.setEtatPassagePS.setInt(2,idPassage);
-				this.setEtatPassagePS.setInt(2,JoueurBD.getIdJoueur());
+				this.setEtatPassagePS.setInt(3,JoueurBD.getIdJoueur());
 				this.setEtatPassagePS.executeUpdate();
 			}
 			catch(SQLException se)

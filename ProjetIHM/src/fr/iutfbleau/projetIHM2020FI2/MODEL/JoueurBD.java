@@ -13,6 +13,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 	private PreparedStatement getVisitedPS;
 	private PreparedStatement setAddVisitedPS;
 	private PreparedStatement getIsVisitedPS;
+	private PreparedStatement contientThisJoueurPS;
 	private static int idJoueur = -1;
 	private static int idPosPiece = 0;
     private ResultSet rs;
@@ -40,7 +41,48 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
                 System.err.println(se);
             }   
         }
-		newJoueurBD();
+		if(!GameStart.get())
+		{
+			newJoueurBD();
+		}
+   }
+
+   public static boolean contientThisJoueur()
+   {
+		Connection cnx = ConnectionBD.getConnection();
+		PreparedStatement contientThisJoueurPS = null;
+		if(cnx != null)
+        {
+            try
+            {
+				contientThisJoueurPS = cnx.prepareStatement("SELECT COUNT(id) FROM `API_Joueur` WHERE nom = ?");
+		    }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            }   
+		}
+		ResultSet rs;
+		if(contientThisJoueurPS != null)
+        {
+            try
+            {
+				contientThisJoueurPS.setString(1,JoueurBD.nom);
+				rs = contientThisJoueurPS.executeQuery();
+				boolean resultB = false;
+				while(rs.next())
+				{
+					resultB = rs.getInt(1) > 0;
+				}
+				rs.close();
+				return resultB;
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            }   
+        }
+   	   return false;
    }
 
    public static int getIdJoueur()
@@ -55,6 +97,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 				getIdPS = cnxstatic.prepareStatement("SELECT id FROM `API_Joueur` WHERE nom = ?");
 				getIdPS.setString(1,JoueurBD.nom);
 				rsGetID = getIdPS.executeQuery();
+				JoueurBD.idJoueur = 0;
 				while(rsGetID.next())
 				{
 					JoueurBD.idJoueur = rsGetID.getInt(1);
@@ -72,6 +115,10 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 
    private void newJoueurBD()
    {
+		if(JoueurBD.contientThisJoueur())
+		{
+			return;
+		}
         if(this.nouveauJoueurPS != null)
         {
             try
@@ -90,7 +137,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
    @Override
     public Piece getPiece()
 	{
-        return (Piece)GestionIDBD.getElement(this.getPieceID(),"Piece");
+        return (Piece)GestionIDBD.getElement(this.getPieceID(),"fr.iutfbleau.projetIHM2020FI2.MODEL.PieceBD");
     }
 
 	public int getPieceID()
@@ -149,7 +196,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 				this.rs = this.getVisitedPS.executeQuery();
 				while(this.rs.next())
 				{
-					cervV.add((Piece)GestionIDBD.getElement(this.rs.getInt(1),"Piece"));
+					cervV.add((Piece)GestionIDBD.getElement(this.rs.getInt(1),"fr.iutfbleau.projetIHM2020FI2.MODEL.PieceBD"));
 				}
 				this.rs.close();
 				return cervV.iterator();

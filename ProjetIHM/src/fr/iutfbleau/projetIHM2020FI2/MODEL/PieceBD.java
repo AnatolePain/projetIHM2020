@@ -36,7 +36,7 @@ public class PieceBD extends ContientTrucsBD implements Piece
         {
             try
             {
-				this.nouvellePiecePS = this.cnx.prepareStatement("INSERT INTO `API_Piece` (`id`, `idJoueur`, `Visite`) VALUES ('?', '?', '0');");
+				this.nouvellePiecePS = this.cnx.prepareStatement("INSERT INTO `API_Piece` (`id`, `idJoueur`, `Visite`) VALUES (?, ?, 0);");
 				this.setPassageAPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionA` = ?  WHERE `API_Passage`.`idPieceA` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");
 				this.setPassageBPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionB` = ?  WHERE `API_Passage`.`idPieceB` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");				
 				this.getPassagePS = this.cnx.prepareStatement("SELECT id FROM `API_Passage` WHERE idJoueur = ? AND (idPieceA = ? AND DirectionA = ? or idPieceB = ? AND DirectionB = ?)");
@@ -49,7 +49,10 @@ public class PieceBD extends ContientTrucsBD implements Piece
             }   
         }
 		GestionIDBD.put(this,this.idPiece);
-		newPieceBD();
+		if(!GameStart.get())
+		{
+			newPieceBD();
+		}
     }
 
 	private void newPieceBD()
@@ -63,6 +66,7 @@ public class PieceBD extends ContientTrucsBD implements Piece
 		}
 		catch(SQLException se)
 		{
+			System.err.println("PieceBD:69");
 			System.err.println(se);
 		}   
 	}
@@ -154,13 +158,13 @@ public class PieceBD extends ContientTrucsBD implements Piece
 				this.getPassagePS.setInt(4,this.idPiece);
 				this.getPassagePS.setString(5,d.toString());
 				this.rs = this.getPassagePS.executeQuery();
-				int passageID = 0;
+				int passageID = -4;
 				while(this.rs.next())
 				{
 					passageID = this.rs.getInt(1);
 				}
 				this.rs.close();
-				return (Passage)GestionIDBD.getElement(passageID,"Passage");
+				return (Passage)GestionIDBD.getElement(passageID,"fr.iutfbleau.projetIHM2020FI2.MODEL.PassageBD");
 			}
 			catch(SQLException se)
 			{

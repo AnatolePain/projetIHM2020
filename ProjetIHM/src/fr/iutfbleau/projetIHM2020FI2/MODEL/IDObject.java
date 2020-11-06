@@ -17,6 +17,7 @@ public class IDObject<E>
 	{
 		this.objectToId.put(obj,i);
 		this.idToObject.put(i,obj);
+		element = obj;
 	}
 
 	public Integer getID(E obj)
@@ -31,6 +32,6 @@ public class IDObject<E>
 
 	public boolean sameClass(String classObj)
 	{
-		return this.element.getClass().getName() == classObj;
+		return this.element.getClass().getName().equals(classObj);
 	}
 }
