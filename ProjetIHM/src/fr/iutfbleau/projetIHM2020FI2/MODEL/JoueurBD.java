@@ -5,32 +5,35 @@ import java.util.*;
 
 public class JoueurBD extends ContientTrucsBD implements Joueur
 {
-    private Piece p;
     private Connection cnx;
     private PreparedStatement nouveauJoueurPS;
     private PreparedStatement getPiecePS;
 	private PreparedStatement setPiecePS;
     private PreparedStatement getCerveauPS;
-	private static int idJoueur = 0;
+	private PreparedStatement getVisitedPS;
+	private PreparedStatement setAddVisitedPS;
+	private PreparedStatement getIsVisitedPS;
+	private static int idJoueur = -1;
 	private static int idPosPiece = 0;
     private ResultSet rs;
-
-    private List<Piece> cerveau;
+	private static String nom = "JoueurBD";
 
     public JoueurBD()
     {
         super();
-        this.cerveau = new LinkedList<Piece>();
 		joueur = this;
         this.cnx = ConnectionBD.getConnection();
         if(this.cnx != null)
         {
             try
             {
-                this.nouveauJoueurPS = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`) VALUES ('?', '0')");
+                this.nouveauJoueurPS = this.cnx.prepareStatement("INSERT INTO `API_Joueur` (`id`, `idPieceActuelle`, `nom`) VALUES (?, '0', ?);");
 				this.getPiecePS = this.cnx.prepareStatement("SELECT idPieceActuelle FROM `API_Joueur` WHERE id = ?");
 				this.setPiecePS = this.cnx.prepareStatement("UPDATE API_Joueur SET idPieceActuelle = ? WHERE id = ?");
 				this.getCerveauPS = this.cnx.prepareStatement("SELECT id,Visite FROM `API_Piece` WHERE idJoueur = ?");
+				this.getVisitedPS = this.cnx.prepareStatement("SELECT id FROM `API_Piece` WHERE idJoueur = ? AND Visite = ?");
+				this.setAddVisitedPS = this.cnx.prepareStatement("UPDATE API_Piece SET Visite = ? WHERE id = ? AND idJoueur = ?");
+				this.getIsVisitedPS = this.cnx.prepareStatement("SELECT Visite FROM API_Piece WHERE id = ? AND idJoueur = ?");
             }
             catch(SQLException se)
             {
@@ -42,8 +45,28 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 
    public static int getIdJoueur()
    {
-		/*Connection cnxstatic = ConnectionBD.getConnection();
-		PreparedStatement getIdPS = cnxstatic.prepareStatement("");*/
+		if(JoueurBD.idJoueur < 0 )
+		{
+			Connection cnxstatic = ConnectionBD.getConnection();
+			PreparedStatement getIdPS;
+			ResultSet rsGetID;
+			try
+            {
+				getIdPS = cnxstatic.prepareStatement("SELECT id FROM `API_Joueur` WHERE nom = ?");
+				getIdPS.setString(1,JoueurBD.nom);
+				rsGetID = getIdPS.executeQuery();
+				while(rsGetID.next())
+				{
+					JoueurBD.idJoueur = rsGetID.getInt(1);
+				}
+				rsGetID.close();
+				return JoueurBD.idJoueur; 
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+		}
 		return JoueurBD.idJoueur;
    }
 
@@ -54,6 +77,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
             try
             {
 				this.nouveauJoueurPS.setInt(1,JoueurBD.idJoueur);
+				this.nouveauJoueurPS.setString(2,JoueurBD.nom);
                 this.nouveauJoueurPS.executeUpdate();
             }
             catch(SQLException se)
@@ -66,7 +90,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
    @Override
     public Piece getPiece()
 	{
-        return (Piece)GestionIDBD.getElement(this.getPieceID(),this.p.getClass().getName());
+        return (Piece)GestionIDBD.getElement(this.getPieceID(),"Piece");
     }
 
 	public int getPieceID()
@@ -82,6 +106,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 					JoueurBD.idPosPiece = this.rs.getInt(1);
 				}
                 this.rs.close();
+				return JoueurBD.idPosPiece;
             }
             catch(SQLException se)
             {
@@ -108,27 +133,87 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
                 System.err.println(se);
             } 
 		}		
-        if (this.getPiece() != null) 
-            this.addVisited(this.getPiece());
-        this.p=next;
     }
 
     @Override
-    public Iterator<Piece> getVisited(){
-        return this.cerveau.iterator();
+    public Iterator<Piece> getVisited()
+	{
+		List<Piece> cervV;
+		cervV = new LinkedList<Piece>();
+		if(this.getVisitedPS != null)
+		{
+			try
+            {
+				this.getVisitedPS.setInt(1,JoueurBD.getIdJoueur());
+				this.getVisitedPS.setInt(2,1);
+				this.rs = this.getVisitedPS.executeQuery();
+				while(this.rs.next())
+				{
+					cervV.add((Piece)GestionIDBD.getElement(this.rs.getInt(1),"Piece"));
+				}
+				this.rs.close();
+				return cervV.iterator();
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+		}
+        return cervV.iterator();
     }
 
     @Override
-    public boolean addVisited(Piece p){
+    public boolean addVisited(Piece p)
+	{
         Objects.requireNonNull(p,"On ne peut pas ajouter une pièce null.");
-        return this.cerveau.add(p);
+		if(isVisited(p))
+		{
+			return false;
+		}
+		if(this.setAddVisitedPS != null)
+		{
+			try
+            {
+				this.setAddVisitedPS.setInt(1,1);
+				this.setAddVisitedPS.setInt(2,GestionIDBD.getID(p));
+				this.setAddVisitedPS.setInt(3,JoueurBD.getIdJoueur());
+				this.setAddVisitedPS.executeUpdate();
+				return true;
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+		}
+        return false;
     }
     
 
     @Override
-    public boolean isVisited(Piece p){
+    public boolean isVisited(Piece p)
+	{
         Objects.requireNonNull(p,"On ne peut pas connaître une pièce null.");
-        return this.cerveau.contains(p);
+		if(this.getIsVisitedPS != null)
+		{
+			try
+            {
+				this.getIsVisitedPS.setInt(1,GestionIDBD.getID(p));
+				this.getIsVisitedPS.setInt(2,JoueurBD.getIdJoueur());
+				this.rs = this.getIsVisitedPS.executeQuery();
+				boolean resultB = false;
+				while(this.rs.next() && !resultB)
+				{
+					resultB = this.rs.getInt(1) == 1;
+				}
+				this.rs.close();
+				return resultB;
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+		}
+        return false;
     }
 
     @Override
@@ -156,17 +241,22 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
         if (t == null){
             return false;
         }
-        else if (super.containsTruc(t))
+		TypeTruc tta = t.getTypeTruc();
+        if (super.containsTruc(t))
+		{
             throw new IllegalStateException("le joueur ne porte pas l'objet");
-        else if (Objects.equals(t.getTypeTruc(),TypeTruc.ALCOOL)){
-            super.removeTruc(t);
-            this.cerveau.clear();
-            return true;
-        }
-        else if (Objects.equals(t.getTypeTruc(),TypeTruc.EAU)){
+		}
+        else if (Objects.equals(tta,TypeTruc.ALCOOL))
+		{
             super.removeTruc(t);
             return true;
         }
-        else return false;
+        else if (Objects.equals(tta,TypeTruc.EAU))
+		{
+            super.removeTruc(t);
+            return true;
+        }
+     
+		return false;
     }
 }

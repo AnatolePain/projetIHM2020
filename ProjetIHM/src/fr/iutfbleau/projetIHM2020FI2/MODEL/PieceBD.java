@@ -8,18 +8,16 @@ import java.util.*;
  *
  Une piece contient des objets (qu'on appelle des trucs pour bien faire la différence avec Object).
  */
-public class PieceBD extends ContientTrucsBD implements Piece{
-	
-    // Pour stocker les passages on utilise un dictionnaire.
-    private  Map<Direction, Passage> sortie;
-	
+public class PieceBD extends ContientTrucsBD implements Piece
+{
 	//SQL
 	private Connection cnx;
 	private PreparedStatement nouvellePiecePS;
 	private PreparedStatement setPassageAPS;
 	private PreparedStatement setPassageBPS;
-	private PreparedStatement getDescriptionPS;
 	private PreparedStatement getPassagePS;
+	private PreparedStatement getNBPassagePS;
+	private PreparedStatement setRemovePassagePS;
 	private ResultSet rs;
 	private int idPiece = 0;
     /**
@@ -28,9 +26,9 @@ public class PieceBD extends ContientTrucsBD implements Piece{
      * On unitilise un map spécialisée pour les clés qui sont des enums. 
      * @return [description]
      */
-    public PieceBD(int id){
+    public PieceBD(int id)
+	{
         super();
-        this.sortie=new EnumMap<Direction,Passage>(Direction.class);
 		piece = this;
 		this.idPiece = id;
 		this.cnx = ConnectionBD.getConnection();
@@ -40,15 +38,17 @@ public class PieceBD extends ContientTrucsBD implements Piece{
             {
 				this.nouvellePiecePS = this.cnx.prepareStatement("INSERT INTO `API_Piece` (`id`, `idJoueur`, `Visite`) VALUES ('?', '?', '0');");
 				this.setPassageAPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionA` = ?  WHERE `API_Passage`.`idPieceA` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");
-				this.setPassageBPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionB` = ?  WHERE `API_Passage`.`idPieceB` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");
-				this.getDescriptionPS = this.cnx.prepareStatement("SELECT Description FROM API_Piece WHERE id = ? And idJoueur = ?");
+				this.setPassageBPS = this.cnx.prepareStatement("UPDATE `API_Passage` SET `DirectionB` = ?  WHERE `API_Passage`.`idPieceB` = ? AND `API_Passage`.`id` = ? AND `API_Passage`.`idJoueur` = ?;");				
 				this.getPassagePS = this.cnx.prepareStatement("SELECT id FROM `API_Passage` WHERE idJoueur = ? AND (idPieceA = ? AND DirectionA = ? or idPieceB = ? AND DirectionB = ?)");
+				this.getNBPassagePS = this.cnx.prepareStatement("SELECT COUNT(id) FROM `API_Passage` WHERE idJoueur = ? AND (idPieceA = ? or idPieceB = ?)");
+				this.setRemovePassagePS = this.cnx.prepareStatement("DELETE FROM API_Passage WHERE idJoueur = ? AND (idPieceA = ? AND DirectionA = ? or idPieceB = ? AND DirectionB = ?)");
             }
             catch(SQLException se)
             {
                 System.err.println(se);
             }   
         }
+		GestionIDBD.put(this,this.idPiece);
 		newPieceBD();
     }
 
@@ -60,7 +60,6 @@ public class PieceBD extends ContientTrucsBD implements Piece{
 			this.nouvellePiecePS.setInt(1,this.idPiece);
 			this.nouvellePiecePS.setInt(2,idJoueur);
 			this.nouvellePiecePS.executeUpdate();            
-			GestionIDBD.put(this,this.idPiece);
 		}
 		catch(SQLException se)
 		{
@@ -82,10 +81,10 @@ public class PieceBD extends ContientTrucsBD implements Piece{
 	 * @param d direction du passage recherché
 	 */
     @Override
-    public void setPassage(Direction d, Passage p){
+    public void setPassage(Direction d, Passage p)
+	{
     	Objects.requireNonNull(d,"On ne peut pas ajouter un passage dans une direction null.");
     	Objects.requireNonNull(p,"On ne peut pas ajouter un passage null.");
-    	this.sortie.put(d,p);
 		if(this.setPassageAPS != null && this.setPassageBPS != null)
 		{
 			try
@@ -115,8 +114,25 @@ public class PieceBD extends ContientTrucsBD implements Piece{
      * @param d Direction dans laquelle on veut "annuler" le passage.
      */
     @Override
-    public void removePassage(Direction d){
-        this.sortie.remove(d);
+    public void removePassage(Direction d)
+	{
+		if(this.setRemovePassagePS != null)
+		{
+			try
+			{
+				int idJoueur = JoueurBD.getIdJoueur();
+				this.setRemovePassagePS.setInt(1,idJoueur);
+				this.setRemovePassagePS.setInt(2,idPiece);
+				this.setRemovePassagePS.setString(3,d.toString());
+				this.setRemovePassagePS.setInt(4,idPiece);
+				this.setRemovePassagePS.setString(5,d.toString());
+				this.setRemovePassagePS.executeUpdate();
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}
+		}
     }
 
 	/**
@@ -151,7 +167,7 @@ public class PieceBD extends ContientTrucsBD implements Piece{
 				System.err.println(se);
 			}
 		}
-    	return this.sortie.get(d);
+    	return null;
     } 
 
     /**
@@ -160,8 +176,29 @@ public class PieceBD extends ContientTrucsBD implements Piece{
      * @see Direction
      */
     @Override
-    public int combienPassages(){
-    	return this.sortie.size();
+    public int combienPassages()
+	{
+		if(this.getNBPassagePS != null)
+		{
+			try
+			{
+				int idJoueur = JoueurBD.getIdJoueur();
+				this.getNBPassagePS.setInt(1,idJoueur);
+				this.getNBPassagePS.setInt(2,idPiece);
+				this.getNBPassagePS.setInt(3,idPiece);
+				this.rs = this.getNBPassagePS.executeQuery();
+				while(this.rs.next())
+				{
+					return this.rs.getInt(1);
+				}
+				this.rs.close();
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}
+		}
+    	return 0;
     }
     
     /**

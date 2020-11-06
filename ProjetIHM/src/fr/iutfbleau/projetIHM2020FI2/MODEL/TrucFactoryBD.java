@@ -11,16 +11,51 @@ import java.util.*;
 public class TrucFactoryBD implements TrucFactory {
 
 	private Connection cnx;
+	private PreparedStatement getTrucsPS;
+	private PreparedStatement addRemoveTrucPS;
+	private PreparedStatement containsTrucPS;
+    private ResultSet rs;
 	private int autoIncrementeTruc = 0;
 
-    // univers de tous les trucs
-    private ContientTrucsBD univers = new ContientTrucsBD();
-
+	public TrucFactoryBD()
+	{
+		this.cnx = ConnectionBD.getConnection();
+		try
+		{
+			this.getTrucsPS = this.cnx.prepareStatement("SELECT id FROM `API_Truc` WHERE idJoueur = ? AND idPiecePos = -2 or idPiecePos >= -1");
+			this.addRemoveTrucPS = this.cnx.prepareStatement("UPDATE API_Truc SET idPiecePos = ? WHERE id = ? AND idJoueur = ?");
+			this.containsTrucPS = this.cnx.prepareStatement("SELECT COUNT(id) FROM `API_Truc` WHERE id = ? AND idJoueur = ?");
+		}
+        catch(SQLException se)
+        {
+			System.err.println(se);
+        }   
+	}
      /**
      * permet d'accéder aux trucs.
      */
-    public Iterator<Truc> getTrucs(){
-        return this.univers.getTrucs();
+    public Iterator<Truc> getTrucs()
+	{
+		List<Truc> trucI; 
+		trucI = new LinkedList<Truc>();
+		if(this.getTrucsPS != null)
+		{
+			try
+			{
+				this.getTrucsPS.setInt(1,JoueurBD.getIdJoueur());
+				this.rs = this.getTrucsPS.executeQuery();
+				while(this.rs.next())
+				{
+					trucI.add((Truc)GestionIDBD.getElement(this.rs.getInt(1),"Truc"));
+				}
+				this.rs.close();
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}   
+		}
+    	return trucI.iterator();
     }
 
     /**
@@ -28,8 +63,28 @@ public class TrucFactoryBD implements TrucFactory {
      * Ajoute le truc si nécessaire.
      * retourne vrai si il fallait l'ajouter et faux sinon.
      */
-    public boolean addTruc(Truc t){
-        return this.univers.addTruc(t);
+    public boolean addTruc(Truc t)
+	{
+		if(this.containsTruc(t))
+		{
+			return false;
+		}
+		if(this.addRemoveTrucPS != null)
+		{
+			try
+			{
+				this.addRemoveTrucPS.setInt(1,0);
+				this.addRemoveTrucPS.setInt(2,GestionIDBD.getID(t));
+				this.addRemoveTrucPS.setInt(3,JoueurBD.getIdJoueur());
+				this.addRemoveTrucPS.executeUpdate();
+				return true;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}   
+		}
+        return false;//return this.univers.addTruc(t);
     }
 
     /**
@@ -37,8 +92,28 @@ public class TrucFactoryBD implements TrucFactory {
      * Enlève le truc si nécessaire.
      * retourne vrai si on pouvait l'enlever et faux sinon.
      */
-    public boolean removeTruc(Truc t){
-        return this.univers.removeTruc(t);
+    public boolean removeTruc(Truc t)
+	{	
+		if(!this.containsTruc(t))
+		{
+			return false;
+		}
+		if(this.addRemoveTrucPS != null)
+		{
+			try
+			{
+				this.addRemoveTrucPS.setInt(1,-1);
+				this.addRemoveTrucPS.setInt(2,GestionIDBD.getID(t));
+				this.addRemoveTrucPS.setInt(3,JoueurBD.getIdJoueur());
+				this.addRemoveTrucPS.executeUpdate();
+				return true;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}   
+		}
+        return false;
     }
     
     /**
@@ -46,8 +121,29 @@ public class TrucFactoryBD implements TrucFactory {
      * @param  t ne peut pas être null sinon lève une NullPointerException
      * @return vrai ssi le truc est contenu
      */
-    public boolean containsTruc(Truc t){
-        return this.univers.containsTruc(t);
+    public boolean containsTruc(Truc t)
+	{
+		if(this.containsTrucPS != null)
+		{
+			try
+			{
+				this.containsTrucPS.setInt(1,GestionIDBD.getID(t));
+				this.containsTrucPS.setInt(2,JoueurBD.getIdJoueur());
+				this.rs = this.containsTrucPS.executeQuery();
+				boolean resultB = false;
+				while(this.rs.next() && !resultB)
+				{
+					resultB = this.rs.getInt(1) > 0;
+				}
+				this.rs.close();
+				return resultB;
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}   
+		}
+        return false;
     }
 
     /**
@@ -55,7 +151,7 @@ public class TrucFactoryBD implements TrucFactory {
      * @return un entier positif ou nul.
      */
     public int combienTrucs(){
-        return this.univers.combienTrucs();
+        return 0;//return this.univers.combienTrucs();
     }
     
     /**

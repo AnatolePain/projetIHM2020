@@ -77,6 +77,16 @@ public class ConnectionBD
 
 	public static void deconnection()
 	{
-	
+		if(ConnectionBD.cnx != null)
+		{
+			try
+			{
+				ConnectionBD.cnx.close();
+			}
+			catch(SQLException se)
+			{
+				System.err.println(se);
+			}   
+		}
 	}
 }
