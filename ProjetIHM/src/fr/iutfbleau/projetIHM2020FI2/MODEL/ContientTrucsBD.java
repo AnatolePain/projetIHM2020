@@ -58,9 +58,9 @@ public class ContientTrucsBD implements ContientTrucs
 				this.getTrucsPS.setInt(2,joueur != null ? -2 : GestionIDBD.getID(piece));
 				this.rs = this.getTrucsPS.executeQuery();
 				//System.out.println("getTrucs()");
-				if(this.rs.next())
+				while(this.rs.next())
 				{		
-					//System.out.println("Trucs");
+					//System.out.println("Trucs :" + this.rs.getInt(1));
 					contenuGT.add((Truc)GestionIDBD.getElement(this.rs.getInt(1),"fr.iutfbleau.projetIHM2020FI2.MODEL.TrucBD"));
 				}
 				this.rs.close();
