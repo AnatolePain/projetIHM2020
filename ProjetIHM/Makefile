@@ -126,7 +126,7 @@ $(BUILD)VUE/ImageClassLoader.class: $(SRC)VUE/ImageClassLoader.java
 $(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java $(BUILD)MODEL/ConnectionBD.class
 	$(JC) $(JUFLAGS) $(SRC)test/TestBaseDeDonne.java
 
-$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)CONTROLEUR/ControlleurJeux.class
+$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)CONTROLEUR/ControlleurJeux.class $(BUILD)CONTROLEUR/SetupController.class $(BUILD)CONTROLEUR/SetupModel.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
 
 $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenuVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenuVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class 
@@ -269,6 +269,13 @@ $(BUILD)VUE/ChargeCarte.class: $(SRC)VUE/ChargeCarte.java $(BUILD)API/Piece.clas
 
 $(BUILD)CONTROLEUR/PieceContenuEvent.class: $(SRC)CONTROLEUR/PieceContenuEvent.java 
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceContenuEvent.java $(SRC)VUE/CasePiece.java $(SRC)VUE/PieceContenuVue.java $(SRC)VUE/PanelNom.java $(SRC)CONTROLEUR/CasePieceEvent.java $(SRC)VUE/PieceMenuContextuel.java
+
+$(BUILD)CONTROLEUR/SetupModel.class: $(SRC)CONTROLEUR/SetupModel.java $(BUILD)MNP/PassagePieceFactoryNP.class $(BUILD)API/Piece.class $(BUILD)MNP/PassageNP.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupModel.java
+
+$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/ControlleurJeux.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/SetupModel.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupController.java
+
 
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP

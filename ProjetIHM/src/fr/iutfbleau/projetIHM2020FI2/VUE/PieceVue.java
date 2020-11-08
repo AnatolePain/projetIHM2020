@@ -24,6 +24,7 @@ public class PieceVue extends JPanel
 		this.joueurPrincipal = j;
 
 		this.mouse = new EventPV(this, joueurPrincipal, mcv, pcv);
+		//this.mouse = SetupController.getEvenPv(this, mcv, pcv);
 		this.addMouseListener(mouse);
 
 		this.cardl = new CardLayout();
