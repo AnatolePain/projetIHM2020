@@ -8,77 +8,71 @@ import java.util.*;
 
 public class EventPV implements MouseListener 
 {
-    private PieceVue pieceV;
-	private int[] indice = new int[4];//tableaux aléatore qui permet de savoir si une pièce est bloqué ou non (à modifier)
-	private int saveNumDirection;
-	private Direction saveDirection;
-	private MiniCarteVue miniCarte;
-	// private Passage passageChoisie;
-	private Joueur joueurPrincipal;
-	private PieceContenuVue inventairePiece;
+	private int numDirection = 0;
+	private PieceVue pieceV;
+	private MiniCarteVue miniCarteV;
+	private Joueur jP;
+	private int direction[] = new int[4];
 
-	public EventPV(PieceVue pv, Joueur j, MiniCarteVue mcv, PieceContenuVue pcv/*, Passage p*/)
+	//Model
+	Piece pieceJoueur;
+	Passage directionJoueur;
+	Piece autrePiece;
+
+	public EventPV(PieceVue pv,MiniCarteVue mcv)
 	{
-        this.pieceV = pv;
-        this.saveNumDirection = 0;
-		this.joueurPrincipal = j;
-		this.saveDirection = Direction.NORD;
-		this.miniCarte = mcv;
-		this.inventairePiece = pcv;
-		// this.passageChoisie = p;
+		this.jP = SetupModel.getJoueur();
+		this.pieceV = pv;
+		this.miniCarteV = mcv;
+
+		this.pieceJoueur = this.jP.getPiece();
+		for(int i = 0; i < 4;i++)					
+		{
+			this.direction[i] = pieceJoueur.getPassage(Direction.values()[i]) == null ? 1 : 0;
+		}
+		this.pieceV.transition(this.direction);
 	}
 	
 	@Override
     public void mouseClicked(MouseEvent evenement)
     {
-		if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)//clique milieu donc fondu 
+		if(!this.pieceV.inAnimation())
 		{
-			// for(int i = 0; i < indice.length;i++) //place les cailloux en random
-			// {
-			// 	indice[i] = (int)(Math.random()*100)%2;//remplis le tableaux de valeur aléatore : 0 pièce bloqué , 1 pièce accéssible 
-			// }
-			// for (Direction dir : Direction.values()) {
-			// 	//System.out.println(dir);
-			// }
-
-			Passage passageChoisie = this.joueurPrincipal.getPiece().getPassage(saveDirection);
-			if (passageChoisie != null){ //si le passage choisie existe 
-				this.joueurPrincipal.addVisited(joueurPrincipal.getPiece());//la pièce est maintenant visité
-				this.joueurPrincipal.setPiece(passageChoisie.getAutrePiece(joueurPrincipal.getPiece()));//change la pièce dans le modèle (=déplacement du joueur)
-				this.miniCarte.move(saveDirection);//déplacement dans la vue mini-carte 
-				if( !(joueurPrincipal.isVisited(this.joueurPrincipal.getPiece())) ){ //si la pièce n'a pas déjà été visité on affiche les passages
-					this.miniCarte.affichePassage(this.joueurPrincipal.getPiece());
+			if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)//clique milieu donc fondu 
+			{
+				this.pieceJoueur = this.jP.getPiece();
+				this.directionJoueur = this.pieceJoueur.getPassage(Direction.values()[numDirection]);
+				this.autrePiece = null;
+				if(this.directionJoueur != null)				
+				{
+					this.autrePiece = this.directionJoueur.getAutrePiece(this.pieceJoueur);
 				}
-				this.inventairePiece.chargerTrucsPiece(this.joueurPrincipal.getPiece());//charge les trucs de la pièce
-				this.pieceV.transition(/*indice*/);//gère le fondu et change de salle au milieu de ce fondu 
-			}else{
-				System.out.println("le passage n'éxiste pas ");
-			};
-
-		}		//déplacement
-
-		else//clique droite ou gauche 
-		{
-
-			//Change le Modèle
-			Boolean droiteOuGauche = (evenement.getX() > this.pieceV.getWidth()/2);
-			if(droiteOuGauche){
-				if(this.saveNumDirection == Direction.values().length - 1){
-					this.saveNumDirection = 0;
-				}else{
-					this.saveNumDirection++;
+				if(this.autrePiece != null)
+				{
+					for(int i = 0; i < 4;i++)					
+					{
+						this.direction[i] = autrePiece.getPassage(Direction.values()[i]) == null ? 1 : 0;
+					}
+					this.jP.setPiece(this.autrePiece);
+					this.miniCarteV.move(Direction.values()[numDirection]);
+					this.pieceV.transition(this.direction);
+					this.miniCarteV.affichePassage(this.direction);
+					PieceController.changePiece(this.autrePiece);
 				}
-				this.saveDirection = Direction.values()[this.saveNumDirection];
-			}else{
-				if(this.saveNumDirection == 0){
-					this.saveNumDirection = 3;
-				}else{
-					this.saveNumDirection--;
-				}
-				this.saveDirection = Direction.values()[this.saveNumDirection];
 			}
-
-			this.pieceV.changementThread(droiteOuGauche);//change la Vue direction
+			else if(evenement.getX() > this.pieceV.getWidth()/2)//droite
+			{
+				numDirection = (numDirection+1)%4;
+				this.pieceV.changementThread(true);
+			}
+			else
+			{
+				if(--numDirection < 0)
+				{
+					numDirection = 3;
+				}
+				this.pieceV.changementThread(false);
+			}
 		}
     }
 

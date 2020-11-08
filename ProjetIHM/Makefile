@@ -68,7 +68,6 @@ allclass = \
 	$(BUILD)test/TestTexteMNP.class \
 	$(BUILD)test/TestTexteBD.class \
 	$(BUILD)test/TestVUEMiniCarte.class \
-	$(BUILD)CONTROLEUR/ControlleurJeux.class \
 	$(BUILD)MODEL/JoueurBD.class \
 	$(BUILD)MODEL/ContientTrucsBD.class \
 	$(BUILD)MODEL/PassageBD.class \
@@ -76,10 +75,12 @@ allclass = \
 	$(BUILD)MODEL/PieceBD.class \
 	$(BUILD)MODEL/TrucBD.class \
 	$(BUILD)MODEL/TrucFactoryBD.class \
+	$(BUILD)CONTROLEUR/SetupModel.class \
 	$(BUILD)CONTROLEUR/MiniCarteEvent.class \
 	$(BUILD)VUE/ChargeCarte.class \
 	$(BUILD)CONTROLEUR/PieceContenuEvent.class \
-
+	$(BUILD)CONTROLEUR/InventaireController.class \
+	$(BUILD)CONTROLEUR/PieceController.class \
 
 allTest = \
 	$(JTEST)TestBaseDeDonne; \
@@ -117,16 +118,13 @@ $(BUILD)MODEL/ContientTrucsBD.class: $(SRC)MODEL/ContientTrucsBD.java $(BUILD)AP
 $(BUILD)MODEL/JoueurBD.class: $(SRC)MODEL/JoueurBD.java $(BUILD)MODEL/ConnectionBD.class $(BUILD)API/Piece.class $(BUILD)MODEL/ContientTrucsBD.class
 	$(JC) $(JFLAGS) $(SRC)MODEL/JoueurBD.java $(SRC)MODEL/GameStart.java
 
-$(BUILD)CONTROLEUR/ControlleurJeux.class: $(SRC)CONTROLEUR/ControlleurJeux.java $(BUILD)MODEL/JoueurBD.class
-	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/ControlleurJeux.java
-
 $(BUILD)VUE/ImageClassLoader.class: $(SRC)VUE/ImageClassLoader.java
 	$(JC) $(JFLAGS) $(SRC)VUE/ImageClassLoader.java
 
 $(BUILD)test/TestBaseDeDonne.class: $(SRC)test/TestBaseDeDonne.java $(BUILD)MODEL/ConnectionBD.class
 	$(JC) $(JUFLAGS) $(SRC)test/TestBaseDeDonne.java
 
-$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)CONTROLEUR/ControlleurJeux.class $(BUILD)CONTROLEUR/SetupController.class $(BUILD)CONTROLEUR/SetupModel.class
+$(BUILD)test/Main.class: $(SRC)test/Main.java $(BUILD)VUE/Window.class $(BUILD)CONTROLEUR/SetupController.class $(BUILD)CONTROLEUR/SetupModel.class
 	$(JC) $(JFLAGS) $(SRC)test/Main.java
 
 $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/PieceContenuVue.class  $(BUILD)VUE/MiniCarteVue.class $(BUILD)VUE/DialogDescription.class $(BUILD)VUE/InventaireContenuVue.class $(BUILD)API/TypeTruc.class $(BUILD)VUE/ImageClassLoader.class 
@@ -138,7 +136,7 @@ $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(B
 $(BUILD)CONTROLEUR/MiniCarteEvent.class: $(SRC)CONTROLEUR/MiniCarteEvent.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/MiniCarteVue.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/MiniCarteEvent.java
 
-$(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/PieceVue.class $(BUILD)API/Joueur.class $(BUILD)API/Passage.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/TypeTruc.class $(BUILD)API/Truc.class $(BUILD)API/ContientTrucs.class
+$(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/PieceVue.class $(BUILD)API/Joueur.class $(BUILD)API/Passage.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/TypeTruc.class $(BUILD)API/Truc.class $(BUILD)API/ContientTrucs.class $(BUILD)CONTROLEUR/SetupModel.class  $(BUILD)CONTROLEUR/PieceController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/EventPV.java
 
 $(BUILD)CONTROLEUR/DescriptionEvent.class: $(SRC)CONTROLEUR/DescriptionEvent.java $(BUILD)VUE/DialogDescription.class
@@ -189,7 +187,7 @@ $(BUILD)VUE/PieceContenuVue.class: $(SRC)VUE/PieceContenuVue.java $(BUILD)VUE/Pa
 $(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)VUE/DialogDescription.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceMenuContextuel.java
 
-$(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/Joueur.class $(BUILD)VUE/PieceContenuVue.class  
+$(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/Joueur.class $(BUILD)VUE/PieceContenuVue.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)CONTROLEUR/PieceController.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceVue.java $(SRC)CONTROLEUR/EventPV.java $(SRC)VUE/TransitionThread.java $(SRC)VUE/ChangementThread.java 
 
 $(BUILD)VUE/TransitionThread.class: $(SRC)VUE/TransitionThread.java
@@ -270,10 +268,16 @@ $(BUILD)VUE/ChargeCarte.class: $(SRC)VUE/ChargeCarte.java $(BUILD)API/Piece.clas
 $(BUILD)CONTROLEUR/PieceContenuEvent.class: $(SRC)CONTROLEUR/PieceContenuEvent.java 
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceContenuEvent.java $(SRC)VUE/CasePiece.java $(SRC)VUE/PieceContenuVue.java $(SRC)VUE/PanelNom.java $(SRC)CONTROLEUR/CasePieceEvent.java $(SRC)VUE/PieceMenuContextuel.java
 
-$(BUILD)CONTROLEUR/SetupModel.class: $(SRC)CONTROLEUR/SetupModel.java $(BUILD)MNP/PassagePieceFactoryNP.class $(BUILD)API/Piece.class $(BUILD)MNP/PassageNP.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class
+$(BUILD)CONTROLEUR/SetupModel.class: $(SRC)CONTROLEUR/SetupModel.java $(BUILD)MNP/PassagePieceFactoryNP.class $(BUILD)API/Piece.class $(BUILD)MNP/PassageNP.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class $(BUILD)MODEL/ConnectionBD.class $(BUILD)MODEL/PassagePieceFactoryBD.class $(BUILD)MODEL/PassageBD.class $(BUILD)MODEL/TrucFactoryBD.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupModel.java
 
-$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/ControlleurJeux.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/SetupModel.class
+$(BUILD)CONTROLEUR/PieceController.class: $(SRC)CONTROLEUR/PieceController.java $(BUILD)CONTROLEUR/SetupModel.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceController.java
+
+$(BUILD)CONTROLEUR/InventaireController.class: $(SRC)CONTROLEUR/InventaireController.java
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/InventaireController.java
+
+$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupController.java
 
 

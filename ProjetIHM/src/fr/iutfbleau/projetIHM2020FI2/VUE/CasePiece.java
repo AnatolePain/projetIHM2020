@@ -15,7 +15,6 @@ public class CasePiece extends JComponent
 	private boolean select = false;
 	private Map<TypeTruc, ImageIcon> itemImage;
 	private PieceMenuContextuel popupMenu;  
-	private Truc trucPiece;
 
 	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd,PieceContenuVue pcv)
 	{
@@ -25,12 +24,11 @@ public class CasePiece extends JComponent
 		this.popupMenu = new PieceMenuContextuel(dd,pcv, this);
 	}
 
-	public void setObject(Truc t)
+	public void setObject(TypeTruc type, String description)
 	{
-		this.trucPiece = t;
-		this.object = this.itemImage.get(t.getTypeTruc());
-		this.setToolTipText(t.getDescription());
-		this.popupMenu.getDescriptionEvent().setDescription(t.getDescription());
+		this.object = this.itemImage.get(type);
+		this.setToolTipText(description);
+		this.popupMenu.getDescriptionEvent().setDescription(description);
 		repaint();
 	}
 
@@ -56,16 +54,6 @@ public class CasePiece extends JComponent
 	{
 		return object == null;
 	}
-
-	public Truc getTrucCase(){
-		if(this.isEmpty()){
-			return null;
-		}else{
-			return this.trucPiece;
-		}
-
-	}
-	
 
 	protected void paintComponent(Graphics pinceau) 
   	{

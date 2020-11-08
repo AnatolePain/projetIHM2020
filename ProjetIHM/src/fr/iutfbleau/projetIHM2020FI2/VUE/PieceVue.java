@@ -11,22 +11,16 @@ public class PieceVue extends JPanel
 	private ImageIcon[] rocher = new ImageIcon[5];
 	private CardLayout cardl;
 	private int indice = 2;
-	private Thread thread;
-	private float threadTSpeed = 0.8f;
-	private float threadCWait = 0.4f;
+	private final float threadTSpeed = 0.8f;
+	private final float threadCWait = 0.4f;
 	private boolean inAnimChange = false;
 	private boolean inTransition = false;
-	private EventPV mouse;
-	private Joueur joueurPrincipal;
+	private static PieceVue pthis;
+	private int direction[] = new int[4];
 
-	public PieceVue(Joueur j, MiniCarteVue mcv, PieceContenuVue pcv)
+	public PieceVue()
 	{
-		this.joueurPrincipal = j;
-
-		this.mouse = new EventPV(this, joueurPrincipal, mcv, pcv);
-		//this.mouse = SetupController.getEvenPv(this, mcv, pcv);
-		this.addMouseListener(mouse);
-
+		PieceVue.pthis = this;
 		this.cardl = new CardLayout();
 		this.setLayout(this.cardl);
 		for(int i = 0; i < 16;i++)
@@ -53,7 +47,7 @@ public class PieceVue extends JPanel
     {
 		if(!inAnimChange)
 		{
-			thread = new Thread(new ChangementThread(this,state,100,4));
+			Thread thread = new Thread(new ChangementThread(this,state,100,4));
 			thread.start();
 		}
     }
@@ -91,37 +85,29 @@ public class PieceVue extends JPanel
 		}
     }
 
-	public void transition(/*int[] direction*/)//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
+	public void transition(int dir[])//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
 	{
 		if(!inTransition)
 		{
-			thread = new Thread(new TransitionThread(swapChain[indice],threadTSpeed,this/*,direction)*/));
+			direction = dir;
+			Thread thread = new Thread(new TransitionThread(swapChain[indice],threadTSpeed,this));
 			thread.start();
 		}
 	}
 
-	public void reCreate(/*int[] direction*/)//test a modifier apres
+	public void reCreate()//test a modifier apres
 	{
 		for(int i = 0; i < 16;i++)
 		{
 			swapChain[i].clearImagePlus(); //enlève toute les pierres sur les images 
 		}
 
-		// for(int i = 0; i < direction.length;i++)
-		// {
-		// 	System.out.println("direction["+i+"] = " + direction[i]);
-		// 	if(direction[i] > 0)
-		// 	{
-		// 		bloquer(i);//mets les images des nouvelles pierres au bonne endroit celon le tableaux des pièces bloqués
-		// 		//System.out.println("je suis dans le if (Picevue");
-		// 	}
-		// }
-		int numDirection = 0;
-		for (Direction dir : Direction.values()) {
-			if(this.joueurPrincipal.getPiece().getPassage(dir) == null){
-				bloquer(numDirection);
+		for(int i = 0; i < this.direction.length;i++)
+		{
+		 	if(direction[i] > 0)
+		 	{
+		 		bloquer(i);//mets les images des nouvelles pierres au bonne endroit celon le tableaux des pièces bloqués
 			}
-			numDirection++;
 		}
 
 		for(int i = 0; i < 16;i++)
@@ -136,5 +122,10 @@ public class PieceVue extends JPanel
 		{
 			this.swapChain[(i+(passage*4))%16].addImage(rocher[i]);
 		}
+	}
+
+	public static PieceVue getPieceVue()
+	{
+		return PieceVue.pthis;
 	}
 }

@@ -18,7 +18,7 @@ public class PieceContenuEvent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.contenuPiece.ramasser(caseChoisie);
+		//this.contenuPiece.ramasser(caseChoisie);
 	}
 
 }

@@ -11,15 +11,14 @@ public class InventaireContenuVue extends JPanel
 	private GridLayout pieceLayout = new GridLayout(9,3);
 	private PanelNom jcomplN;
 	private final static int NOMBRESCASES = 45;
-	private CaseInventaire[] caseP = new CaseInventaire[NOMBRESCASES]; 
-	private CaseInventaireEvent[] casePEvent = new CaseInventaireEvent[NOMBRESCASES];
+	private static CaseInventaire[] caseP = new CaseInventaire[NOMBRESCASES]; 
 	private JPanel jPanelCasep = new JPanel();
 	private GridBagConstraints gbcPanelN = new GridBagConstraints();
 	private GridBagConstraints gbcPanelCasep = new GridBagConstraints();
 	private ImageIcon imageBase;
 	private ImageIcon imageSelect;
 	private Map<TypeTruc, ImageIcon> item;
-	private int indice = 0;
+	private static int indice = 0;
 
 	public InventaireContenuVue(DialogDescription dialog)
 	{
@@ -37,11 +36,9 @@ public class InventaireContenuVue extends JPanel
 		Color nuanceGris = new Color(92, 99, 116);
 	    this.setBackground(nuanceGris);
 		this.jPanelCasep.setBackground(nuanceGris);
-		for(int i = 0 ; i < caseP.length;i++)
+		for(int i = 0 ; i < NOMBRESCASES;i++)
 		{
-			this.caseP[i] = new CaseInventaire(this.imageBase,this.imageSelect,this.item,dialog);
-			this.casePEvent[i] = new CaseInventaireEvent(this.caseP[i]);
-			this.caseP[i].addMouseListener(this.casePEvent[i]);
+			InventaireContenuVue.caseP[i] = new CaseInventaire(this.imageBase,this.imageSelect,this.item,dialog);
 			this.jPanelCasep.add(this.caseP[i]);
 		}
 		gbcPanelN.gridx = 0;
@@ -64,17 +61,27 @@ public class InventaireContenuVue extends JPanel
 		this.add(this.jPanelCasep, gbcPanelCasep);
 	}
 
-	public void addTruc(TypeTruc type, String description)
+	public static int getNbCase()
 	{
-		this.caseP[indice++%NOMBRESCASES].setObject(type,description);
+		return InventaireContenuVue.NOMBRESCASES;
 	}
 
-	public void clear()
+	public static CaseInventaire[] getCaseInvtab()
 	{
-		indice = 0;
-		for(int i = 0; i < NOMBRESCASES;i++)
+		return InventaireContenuVue.caseP;
+	}
+
+	public static void addTruc(TypeTruc type, String description)
+	{
+		InventaireContenuVue.caseP[InventaireContenuVue.indice++%NOMBRESCASES].setObject(type,description);
+	}
+
+	public static void clear()
+	{
+		InventaireContenuVue.indice = 0;
+		for(int i = 0; i < InventaireContenuVue.NOMBRESCASES;i++)
 		{
-			this.caseP[i].clearObject();
+			InventaireContenuVue.caseP[i].clearObject();
 		}
 	}
 }

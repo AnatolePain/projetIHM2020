@@ -8,8 +8,7 @@ import java.util.*;
 public class PieceMenuContextuel extends JPopupMenu{
 
 	private DescriptionEvent descE;
-        //private PieceContenu ramasserEvent;
-        //private PieceContenuVue con
+
 
 	public PieceMenuContextuel(DialogDescription dd, PieceContenuVue pcv, CasePiece cp){  
 
