@@ -8,9 +8,9 @@ import java.util.*;
 public class PieceMenuContextuel extends JPopupMenu{
 
 	private DescriptionEvent descE;
+        private JMenuItem mnuCut;
 
-
-	public PieceMenuContextuel(DialogDescription dd, PieceContenuVue pcv, CasePiece cp){  
+	public PieceMenuContextuel(DialogDescription dd){  
 
 		this.descE = new DescriptionEvent(dd);
                 JMenuItem mnuUndo = new JMenuItem("Annuler");
@@ -28,16 +28,18 @@ public class PieceMenuContextuel extends JPopupMenu{
                 this.add(mnuCopy);
 		mnuCopy.addActionListener(descE);
                 
-                PieceContenuEvent ramasserEvent = new PieceContenuEvent(pcv,cp);
-                JMenuItem mnuCut = new JMenuItem("Ramasser");
+                this.mnuCut = new JMenuItem("Ramasser");
                 mnuCut.setIcon(ImageClassLoader.getImage("images/UI/icon/recup.png"));
                 mnuCut.setMnemonic( 't' );
                 mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
                 this.add(mnuCut);
-                mnuCut.addActionListener(ramasserEvent);
 	}
 
 	public DescriptionEvent getDescriptionEvent(){
 	       return this.descE;
 	}
+
+        public JMenuItem getMenuItemRamasser(){
+                return this.mnuCut;
+        }
 }

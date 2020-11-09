@@ -16,12 +16,12 @@ public class CasePiece extends JComponent
 	private Map<TypeTruc, ImageIcon> itemImage;
 	private PieceMenuContextuel popupMenu;  
 
-	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd,PieceContenuVue pcv)
+	public CasePiece(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
 	{
 		this.imageBase = b;
 		this.imageSlect = s;
 		this.itemImage = iI;
-		this.popupMenu = new PieceMenuContextuel(dd,pcv, this);
+		this.popupMenu = new PieceMenuContextuel(dd);
 	}
 
 	public void setObject(TypeTruc type, String description)

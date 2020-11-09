@@ -19,68 +19,71 @@ JC = javac
 JTEST = java $(JAVAUNIT) fr.iutfbleau.projetIHM2020FI2.test.
 
 allclass = \
-	$(BUILD)VUE/DialogDescription.class \
-	$(BUILD)API/Activable.class \
-	$(BUILD)API/ContientTrucs.class \
-	$(BUILD)API/Descriptible.class \
-	$(BUILD)API/Direction.class \
-	$(BUILD)API/EtatPassage.class \
-	$(BUILD)API/Joueur.class \
-	$(BUILD)API/Passage.class \
-	$(BUILD)API/PassagePieceFactory.class \
-	$(BUILD)API/Piece.class \
-	$(BUILD)API/Truc.class \
-	$(BUILD)API/TrucFactory.class \
-	$(BUILD)API/TypeTruc.class \
-	$(BUILD)MNP/ContientTrucsNP.class \
-	$(BUILD)MNP/JoueurNP.class \
-	$(BUILD)MNP/PassageNP.class \
-	$(BUILD)MNP/PassagePieceFactoryNP.class \
-	$(BUILD)MNP/PieceNP.class \
-	$(BUILD)MNP/TrucFactoryNP.class \
-	$(BUILD)MNP/TrucNP.class \
-	$(BUILD)VUE/Window.class \
-	$(BUILD)VUE/TransitionThread.class \
-	$(BUILD)CONTROLEUR/DescriptionEvent.class \
-	$(BUILD)VUE/ImageDonjon.class \
-	$(BUILD)VUE/PieceVue.class \
-	$(BUILD)VUE/PieceMenuContextuel.class \
-	$(BUILD)VUE/PieceContenuVue.class \
-	$(BUILD)VUE/PanelNom.class \
-	$(BUILD)VUE/MiniCarteVue.class \
-	$(BUILD)VUE/InventaireMenuContextuel.class \
-	$(BUILD)VUE/CaseInventaire.class \
-	$(BUILD)VUE/InventaireContenuVue.class \
-	$(BUILD)VUE/GameVue.class \
-	$(BUILD)VUE/ChangementThread.class \
-	$(BUILD)VUE/CelluleCarte.class \
-	$(BUILD)VUE/CasePiece.class \
-	$(BUILD)VUE/ImageClassLoader.class \
-	$(BUILD)MODEL/ConnectionBD.class \
-	$(BUILD)MODEL/GameStart.class \
-	$(BUILD)MODEL/IDObject.class \
-	$(BUILD)MODEL/GestionIDBD.class \
-	$(BUILD)test/TestBaseDeDonne.class \
-	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
-	$(BUILD)CONTROLEUR/CasePieceEvent.class \
-	$(BUILD)CONTROLEUR/EventPV.class \
 	$(BUILD)test/Main.class \
-	$(BUILD)test/TestTexteMNP.class \
+	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)test/TestTexteBD.class \
-	$(BUILD)test/TestVUEMiniCarte.class \
-	$(BUILD)MODEL/JoueurBD.class \
-	$(BUILD)MODEL/ContientTrucsBD.class \
-	$(BUILD)MODEL/PassageBD.class \
-	$(BUILD)MODEL/PassagePieceFactoryBD.class \
-	$(BUILD)MODEL/PieceBD.class \
-	$(BUILD)MODEL/TrucBD.class \
-	$(BUILD)MODEL/TrucFactoryBD.class \
-	$(BUILD)CONTROLEUR/SetupModel.class \
-	$(BUILD)CONTROLEUR/MiniCarteEvent.class \
-	$(BUILD)VUE/ChargeCarte.class \
-	$(BUILD)CONTROLEUR/PieceContenuEvent.class \
-	$(BUILD)CONTROLEUR/InventaireController.class \
-	$(BUILD)CONTROLEUR/PieceController.class \
+	$(BUILD)test/TestTexteMNP.class \
+# 	$(BUILD)VUE/DialogDescription.class \
+# 	$(BUILD)API/Activable.class \
+# 	$(BUILD)API/ContientTrucs.class \
+# 	$(BUILD)API/Descriptible.class \
+# 	$(BUILD)API/Direction.class \
+# 	$(BUILD)API/EtatPassage.class \
+# 	$(BUILD)API/Joueur.class \
+# 	$(BUILD)API/Passage.class \
+# 	$(BUILD)API/PassagePieceFactory.class \
+# 	$(BUILD)API/Piece.class \
+# 	$(BUILD)API/Truc.class \
+# 	$(BUILD)API/TrucFactory.class \
+# 	$(BUILD)API/TypeTruc.class \
+# 	$(BUILD)MNP/ContientTrucsNP.class \
+# 	$(BUILD)MNP/JoueurNP.class \
+# 	$(BUILD)MNP/PassageNP.class \
+# 	$(BUILD)MNP/PassagePieceFactoryNP.class \
+# 	$(BUILD)MNP/PieceNP.class \
+# 	$(BUILD)MNP/TrucFactoryNP.class \
+# 	$(BUILD)MNP/TrucNP.class \
+# 	$(BUILD)VUE/Window.class \
+# 	$(BUILD)VUE/TransitionThread.class \
+# 	$(BUILD)CONTROLEUR/DescriptionEvent.class \
+# 	$(BUILD)VUE/ImageDonjon.class \
+# 	$(BUILD)VUE/PieceVue.class \
+# 	$(BUILD)VUE/PieceMenuContextuel.class \
+# 	$(BUILD)VUE/PieceContenuVue.class \
+# 	$(BUILD)VUE/PanelNom.class \
+# 	$(BUILD)VUE/MiniCarteVue.class \
+# 	$(BUILD)VUE/InventaireMenuContextuel.class \
+# 	$(BUILD)VUE/CaseInventaire.class \
+# 	$(BUILD)VUE/InventaireContenuVue.class \
+# 	$(BUILD)VUE/GameVue.class \
+# 	$(BUILD)VUE/ChangementThread.class \
+# 	$(BUILD)VUE/CelluleCarte.class \
+# 	$(BUILD)VUE/CasePiece.class \
+# 	$(BUILD)VUE/ImageClassLoader.class \
+# 	$(BUILD)MODEL/ConnectionBD.class \
+# 	$(BUILD)MODEL/GameStart.class \
+# 	$(BUILD)MODEL/IDObject.class \
+# 	$(BUILD)MODEL/GestionIDBD.class \
+# 	$(BUILD)test/TestBaseDeDonne.class \
+# 	$(BUILD)CONTROLEUR/CaseInventaireEvent.class \
+# 	$(BUILD)CONTROLEUR/CasePieceEvent.class \
+# 	$(BUILD)CONTROLEUR/EventPV.class \
+# 	$(BUILD)test/TestTexteMNP.class \
+# 	$(BUILD)test/TestTexteBD.class \
+# 	$(BUILD)test/TestVUEMiniCarte.class \
+# 	$(BUILD)MODEL/JoueurBD.class \
+# 	$(BUILD)MODEL/ContientTrucsBD.class \
+# 	$(BUILD)MODEL/PassageBD.class \
+# 	$(BUILD)MODEL/PassagePieceFactoryBD.class \
+# 	$(BUILD)MODEL/PieceBD.class \
+# 	$(BUILD)MODEL/TrucBD.class \
+# 	$(BUILD)MODEL/TrucFactoryBD.class \
+# 	$(BUILD)CONTROLEUR/SetupModel.class \
+# 	$(BUILD)CONTROLEUR/MiniCarteEvent.class \
+# 	$(BUILD)VUE/ChargeCarte.class \
+# 	$(BUILD)CONTROLEUR/PieceContenuEvent.class \
+# 	$(BUILD)CONTROLEUR/InventaireController.class \
+# 	$(BUILD)CONTROLEUR/PieceController.class \
 
 allTest = \
 	$(JTEST)TestBaseDeDonne; \
@@ -142,7 +145,7 @@ $(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/Piec
 $(BUILD)CONTROLEUR/DescriptionEvent.class: $(SRC)CONTROLEUR/DescriptionEvent.java $(BUILD)VUE/DialogDescription.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/DescriptionEvent.java
 
-$(BUILD)CONTROLEUR/CasePieceEvent.class: $(SRC)CONTROLEUR/CasePieceEvent.java $(BUILD)VUE/CasePiece.class $(BUILD)VUE/PieceMenuContextuel.class
+$(BUILD)CONTROLEUR/CasePieceEvent.class: $(SRC)CONTROLEUR/CasePieceEvent.java $(BUILD)VUE/CasePiece.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/CasePieceEvent.java
 
 $(BUILD)CONTROLEUR/CaseInventaireEvent.class: $(SRC)CONTROLEUR/CaseInventaireEvent.java $(BUILD)VUE/CaseInventaire.class $(BUILD)VUE/InventaireMenuContextuel.class
@@ -151,7 +154,7 @@ $(BUILD)CONTROLEUR/CaseInventaireEvent.class: $(SRC)CONTROLEUR/CaseInventaireEve
 $(BUILD)MODEL/ConnectionBD.class: $(SRC)MODEL/ConnectionBD.java
 	$(JC) $(JFLAGS) $(SRC)MODEL/ConnectionBD.java
 
-$(BUILD)VUE/CaseInventaire.class: $(SRC)VUE/CaseInventaire.java $(BUILD)VUE/InventaireMenuContextuel.class $(BUILD)API/TypeTruc.class  $(BUILD)API/TypeTruc.class $(BUILD)VUE/PieceMenuContextuel.class
+$(BUILD)VUE/CaseInventaire.class: $(SRC)VUE/CaseInventaire.java $(BUILD)VUE/InventaireMenuContextuel.class $(BUILD)API/TypeTruc.class  $(BUILD)API/TypeTruc.class
 	$(JC) $(JFLAGS) $(SRC)VUE/CaseInventaire.java
 
 $(BUILD)VUE/CasePiece.class: $(SRC)VUE/CasePiece.java $(BUILD)VUE/PieceMenuContextuel.class
@@ -175,16 +178,16 @@ $(BUILD)VUE/InventaireContenuVue.class: $(SRC)VUE/InventaireContenuVue.java $(BU
 $(BUILD)VUE/InventaireMenuContextuel.class: $(SRC)VUE/InventaireMenuContextuel.java $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)VUE/DialogDescription.class 
 	$(JC) $(JFLAGS) $(SRC)VUE/InventaireMenuContextuel.java
 
-$(BUILD)VUE/MiniCarteVue.class: $(SRC)VUE/MiniCarteVue.java $(BUILD)VUE/CelluleCarte.class
+$(BUILD)VUE/MiniCarteVue.class: $(SRC)VUE/MiniCarteVue.java $(BUILD)VUE/CelluleCarte.class $(BUILD)API/Direction.class
 	$(JC) $(JFLAGS) $(SRC)VUE/MiniCarteVue.java $(SRC)CONTROLEUR/MiniCarteEvent.java
 
 $(BUILD)VUE/PanelNom.class: $(SRC)VUE/PanelNom.java $(BUILD)VUE/CaseInventaire.class 
 	$(JC) $(JFLAGS) $(SRC)VUE/PanelNom.java
 
-$(BUILD)VUE/PieceContenuVue.class: $(SRC)VUE/PieceContenuVue.java $(BUILD)VUE/PanelNom.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)VUE/CasePiece.class $(BUILD)VUE/ImageClassLoader.class $(BUILD)VUE/PieceMenuContextuel.class
+$(BUILD)VUE/PieceContenuVue.class: $(SRC)VUE/PieceContenuVue.java $(BUILD)VUE/PanelNom.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)VUE/CasePiece.class $(BUILD)VUE/ImageClassLoader.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceContenuVue.java
 
-$(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)VUE/DialogDescription.class
+$(BUILD)VUE/PieceMenuContextuel.class: $(SRC)VUE/PieceMenuContextuel.java $(BUILD)VUE/DialogDescription.class
 	$(JC) $(JFLAGS) $(SRC)VUE/PieceMenuContextuel.java
 
 $(BUILD)VUE/PieceVue.class: $(SRC)VUE/PieceVue.java $(BUILD)VUE/ImageDonjon.class $(BUILD)VUE/ImageClassLoader.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/Joueur.class $(BUILD)VUE/PieceContenuVue.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)CONTROLEUR/PieceController.class
@@ -208,7 +211,7 @@ $(BUILD)test/TestTexteBD.class: $(SRC)test/TestTexteBD.java $(BUILD)API/PassageP
 $(BUILD)API/Activable.class: $(SRC)API/Activable.java
 	$(JC) $(JFLAGS) $(SRC)API/Activable.java $(SRC)API/Truc.java $(SRC)API/Descriptible.java $(SRC)API/TypeTruc.java
 
-$(BUILD)API/ContientTrucs.class: $(SRC)API/ContientTrucs.java
+$(BUILD)API/ContientTrucs.class: $(SRC)API/ContientTrucs.java $(BUILD)API/Truc.class
 	$(JC) $(JFLAGS) $(SRC)API/ContientTrucs.java
 
 $(BUILD)API/Descriptible.class: $(SRC)API/Descriptible.java
@@ -250,7 +253,7 @@ $(BUILD)MNP/JoueurNP.class: $(SRC)MNP/JoueurNP.java $(BUILD)MNP/ContientTrucsNP.
 $(BUILD)MNP/PassageNP.class: $(SRC)MNP/PassageNP.java $(BUILD)API/Passage.class $(BUILD)API/Piece.class $(BUILD)API/EtatPassage.class
 	$(JC) $(JFLAGS) $(SRC)MNP/PassageNP.java
 
-$(BUILD)MNP/PassagePieceFactoryNP.class: $(SRC)MNP/PassagePieceFactoryNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Passage.class $(BUILD)API/Piece.class $(BUILD)MNP/PieceNP.class
+$(BUILD)MNP/PassagePieceFactoryNP.class: $(SRC)MNP/PassagePieceFactoryNP.java $(BUILD)API/PassagePieceFactory.class $(BUILD)API/Passage.class $(BUILD)API/Piece.class $(BUILD)MNP/PieceNP.class $(BUILD)MNP/PassageNP.class
 	$(JC) $(JFLAGS) $(SRC)MNP/PassagePieceFactoryNP.java
 
 $(BUILD)MNP/PieceNP.class: $(SRC)MNP/PieceNP.java $(BUILD)MNP/ContientTrucsNP.class $(BUILD)API/Piece.class $(BUILD)API/Direction.class $(BUILD)API/Passage.class
@@ -266,18 +269,18 @@ $(BUILD)VUE/ChargeCarte.class: $(SRC)VUE/ChargeCarte.java $(BUILD)API/Piece.clas
 	$(JC) $(JFLAGS) $(SRC)VUE/ChargeCarte.java
 
 $(BUILD)CONTROLEUR/PieceContenuEvent.class: $(SRC)CONTROLEUR/PieceContenuEvent.java 
-	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceContenuEvent.java $(SRC)VUE/CasePiece.java $(SRC)VUE/PieceContenuVue.java $(SRC)VUE/PanelNom.java $(SRC)CONTROLEUR/CasePieceEvent.java $(SRC)VUE/PieceMenuContextuel.java
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceContenuEvent.java $(SRC)CONTROLEUR/PieceController.java
 
-$(BUILD)CONTROLEUR/SetupModel.class: $(SRC)CONTROLEUR/SetupModel.java $(BUILD)MNP/PassagePieceFactoryNP.class $(BUILD)API/Piece.class $(BUILD)MNP/PassageNP.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class $(BUILD)MODEL/ConnectionBD.class $(BUILD)MODEL/PassagePieceFactoryBD.class $(BUILD)MODEL/PassageBD.class $(BUILD)MODEL/TrucFactoryBD.class
+$(BUILD)CONTROLEUR/SetupModel.class: $(SRC)CONTROLEUR/SetupModel.java $(BUILD)MNP/PassagePieceFactoryNP.class $(BUILD)API/Piece.class $(BUILD)MNP/PassageNP.class $(BUILD)API/TrucFactory.class $(BUILD)API/Truc.class $(BUILD)MODEL/ConnectionBD.class $(BUILD)MODEL/PassagePieceFactoryBD.class $(BUILD)MODEL/PassageBD.class $(BUILD)MODEL/TrucFactoryBD.class $(BUILD)MNP/JoueurNP.class $(BUILD)MNP/TrucFactoryNP.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupModel.java
 
-$(BUILD)CONTROLEUR/PieceController.class: $(SRC)CONTROLEUR/PieceController.java $(BUILD)CONTROLEUR/SetupModel.class
+$(BUILD)CONTROLEUR/PieceController.class: $(SRC)CONTROLEUR/PieceController.java $(BUILD)CONTROLEUR/PieceContenuEvent.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceController.java
 
 $(BUILD)CONTROLEUR/InventaireController.class: $(SRC)CONTROLEUR/InventaireController.java
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/InventaireController.java
 
-$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceController.class
+$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupController.java
 
 

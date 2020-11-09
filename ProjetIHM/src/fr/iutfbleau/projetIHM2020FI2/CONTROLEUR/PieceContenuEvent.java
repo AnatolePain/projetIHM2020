@@ -8,17 +8,18 @@ import java.util.*;
 public class PieceContenuEvent implements ActionListener {
 
 	private CasePiece caseChoisie;
-	private PieceContenuVue contenuPiece;
 
-	public PieceContenuEvent(PieceContenuVue pcv, CasePiece cp){
-		this.contenuPiece = pcv;
+	//model
+	//Truc trucDeLaCase;
+
+	public PieceContenuEvent(CasePiece cp){
 		this.caseChoisie = cp;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		//this.contenuPiece.ramasser(caseChoisie);
+		PieceController.ramasserPiece(this.caseChoisie);
 	}
 
 }

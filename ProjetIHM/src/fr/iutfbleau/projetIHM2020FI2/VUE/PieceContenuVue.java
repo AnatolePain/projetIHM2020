@@ -37,7 +37,7 @@ public class PieceContenuVue extends JPanel
 		this.jPanelCasep.setBackground(new Color(97,99,116));
 		for(int i = 0 ; i < NOMBRESCASES;i++)
 		{
-			PieceContenuVue.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog,this);
+			PieceContenuVue.caseP[i] = new CasePiece(this.imageBase,this.imageSelect,this.item,dialog);
 			this.jPanelCasep.add(PieceContenuVue.caseP[i]);
 		}
 		gbcPanelN.gridx = 0;
