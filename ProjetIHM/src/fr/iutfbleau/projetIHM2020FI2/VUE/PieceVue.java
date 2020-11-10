@@ -9,6 +9,7 @@ public class PieceVue extends JPanel
 {
 	private ImageDonjon[] swapChain = new ImageDonjon[16];
 	private ImageIcon[] rocher = new ImageIcon[5];
+	private ImageIcon[] ouvert = new ImageIcon[5];
 	private CardLayout cardl;
 	private int indice = 2;
 	private final float threadTSpeed = 0.8f;
@@ -17,6 +18,7 @@ public class PieceVue extends JPanel
 	private boolean inTransition = false;
 	private static PieceVue pthis;
 	private int direction[] = new int[4];
+	private int directionOuvert[] = new int[4];
 
 	public PieceVue()
 	{
@@ -31,6 +33,7 @@ public class PieceVue extends JPanel
 		for(int i = 0; i < 5;i++)
 		{
 			rocher[i] = ImageClassLoader.getImage("images/Salles/fermer"+i+".png");
+			ouvert[i] = ImageClassLoader.getImage("images/Salles/ouvert"+i+".png");
 		}
 		this.cardl.next(this);
 		this.cardl.next(this);
@@ -85,11 +88,12 @@ public class PieceVue extends JPanel
 		}
     }
 
-	public void transition(int dir[])//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
+	public void transition(int dir[],int dirO[])//Fait le fondu, a besion de la direction pour savoir quelle salle changer 
 	{
 		if(!inTransition)
 		{
 			direction = dir;
+			directionOuvert = dirO;
 			Thread thread = new Thread(new TransitionThread(swapChain[indice],threadTSpeed,this));
 			thread.start();
 		}
@@ -110,6 +114,14 @@ public class PieceVue extends JPanel
 			}
 		}
 
+		for(int i = 0; i < this.directionOuvert.length;i++)
+		{
+		 	if(directionOuvert[i] > 0)
+		 	{
+		 		ouvert(i);
+			}
+		}
+
 		for(int i = 0; i < 16;i++)
 		{
 			swapChain[i].repaint();
@@ -121,6 +133,20 @@ public class PieceVue extends JPanel
 		for(int i = 0; i < 5;i++)
 		{
 			this.swapChain[(i+(passage*4))%16].addImage(rocher[i]);
+		}
+	}
+
+	public void reCreateOuvert(int dirO[])
+	{
+		this.directionOuvert = dirO;
+		reCreate();
+	}
+
+	public void ouvert(int passage)
+	{
+		for(int i = 0; i < 5;i++)
+		{
+			this.swapChain[(i+(passage*4))%16].addImage(ouvert[i]);
 		}
 	}
 

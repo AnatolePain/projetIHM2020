@@ -13,11 +13,13 @@ public class EventPV implements MouseListener
 	private MiniCarteVue miniCarteV;
 	private Joueur jP;
 	private int direction[] = new int[4];
+	private int directionO[] = new int[4];
 
 	//Model
 	Piece pieceJoueur;
 	Passage directionJoueur;
 	Piece autrePiece;//DialogDescription.showD("test");
+	Passage autrePassage;
 	EtatPassage etatPassage;
 
 	public EventPV(PieceVue pv,MiniCarteVue mcv)
@@ -29,64 +31,103 @@ public class EventPV implements MouseListener
 		this.pieceJoueur = this.jP.getPiece();
 		for(int i = 0; i < 4;i++)					
 		{
-			this.direction[i] = pieceJoueur.getPassage(Direction.values()[i]) == null ? 1 : 0;
+			this.autrePassage = pieceJoueur.getPassage(Direction.values()[i]);
+			this.direction[i] = this.autrePassage == null ? 1 : 0;
+			this.directionO[i] = this.autrePassage == null ? 0 : this.autrePassage.getEtatPassage() == EtatPassage.OPEN ? 1 : 0;
 		}
-		this.pieceV.transition(this.direction);
+		this.pieceV.transition(this.direction,this.directionO);
 	}
 	
 	@Override
     public void mouseClicked(MouseEvent evenement)
     {
-		if(!this.pieceV.inAnimation())
+		if(evenement.getButton() == MouseEvent.BUTTON1)
 		{
-			if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)//clique milieu donc fondu 
+			if(!this.pieceV.inAnimation())
 			{
-				this.pieceJoueur = this.jP.getPiece();
-				this.directionJoueur = this.pieceJoueur.getPassage(Direction.values()[numDirection]);
-				this.autrePiece = null;
-				if(this.directionJoueur != null)				
+				if(evenement.getX() > this.pieceV.getWidth()/3 && evenement.getX() < (this.pieceV.getWidth()/3)*2)//clique milieu donc fondu 
 				{
-					this.autrePiece = this.directionJoueur.getAutrePiece(this.pieceJoueur);
-				
-					if(this.autrePiece != null)
+					this.pieceJoueur = this.jP.getPiece();
+					this.directionJoueur = this.pieceJoueur.getPassage(Direction.values()[numDirection]);
+					this.autrePiece = null;
+					if(this.directionJoueur != null)				
 					{
-						this.etatPassage = this.directionJoueur.getEtatPassage();
-						if(this.etatPassage == EtatPassage.OPEN || true)//true a enlever le click droit a coder
+						this.autrePiece = this.directionJoueur.getAutrePiece(this.pieceJoueur);
+					
+						if(this.autrePiece != null)
 						{
-							for(int i = 0; i < 4;i++)					
+							this.etatPassage = this.directionJoueur.getEtatPassage();
+							if(this.etatPassage == EtatPassage.OPEN)//true a enlever le click droit a coder
 							{
-								this.direction[i] = autrePiece.getPassage(Direction.values()[i]) == null ? 1 : 0;
+								for(int i = 0; i < 4;i++)					
+								{
+									this.autrePassage = autrePiece.getPassage(Direction.values()[i]);
+									this.direction[i] = this.autrePassage == null ? 1 : 0;
+									this.directionO[i] = this.autrePassage == null ? 0 : this.autrePassage.getEtatPassage() == EtatPassage.OPEN ? 1 : 0;
+								}
+								this.jP.setPiece(this.autrePiece);
+								this.miniCarteV.move(Direction.values()[numDirection]);
+								this.pieceV.transition(this.direction,this.directionO);
+								this.miniCarteV.affichePassage(this.direction);
+								PieceController.changePiece(this.autrePiece);
 							}
-							this.jP.setPiece(this.autrePiece);
-							this.miniCarteV.move(Direction.values()[numDirection]);
-							this.pieceV.transition(this.direction);
-							this.miniCarteV.affichePassage(this.direction);
-							PieceController.changePiece(this.autrePiece);
-						}
-						else if(this.etatPassage == EtatPassage.CLOSED)
-						{
-							DialogDescription.showD("Porte","La porte est fermer");
-						}
-						else
-						{
-							DialogDescription.showD("Porte","La porte est fermer a cle");
+							else if(this.etatPassage == EtatPassage.CLOSED)
+							{
+								DialogDescription.showD("Porte","La porte " + Direction.values()[this.numDirection].toString() + " est fermer");
+							}
+							else if(this.etatPassage == EtatPassage.LOCKED)
+							{
+								DialogDescription.showD("Porte","La porte " + Direction.values()[this.numDirection].toString() + " est fermer a cle");
+							}
 						}
 					}
 				}
+				else if(evenement.getX() > this.pieceV.getWidth()/2)//droite
+				{
+					numDirection = (numDirection+1)%4;
+					this.pieceV.changementThread(true);
+				}
+				else
+				{
+					if(--numDirection < 0)
+					{
+						numDirection = 3;
+					}
+					this.pieceV.changementThread(false);
+				}
 			}
-			else if(evenement.getX() > this.pieceV.getWidth()/2)//droite
+		}
+		else if(evenement.getButton() == MouseEvent.BUTTON3)
+		{
+			this.pieceJoueur = this.jP.getPiece();
+			this.directionJoueur = this.pieceJoueur.getPassage(Direction.values()[numDirection]);
+			if(this.directionJoueur != null)				
 			{
-				numDirection = (numDirection+1)%4;
-				this.pieceV.changementThread(true);
+				this.etatPassage = this.directionJoueur.getEtatPassage();
+				if(this.etatPassage == EtatPassage.OPEN)
+				{
+					this.directionJoueur.setEtatPassage(EtatPassage.CLOSED);
+					this.directionO[this.numDirection] = 0;
+					this.pieceV.reCreateOuvert(this.directionO);
+					DialogDescription.showD("Porte","la porte " + Direction.values()[this.numDirection].toString() + " est maintenant fermer");
+				}
+				else if(this.etatPassage == EtatPassage.CLOSED)
+				{
+					this.directionJoueur.setEtatPassage(EtatPassage.OPEN);
+					this.directionO[this.numDirection] = 1;
+					this.pieceV.reCreateOuvert(this.directionO);
+					DialogDescription.showD("Porte","la porte " + Direction.values()[this.numDirection].toString() + " est maintenant ouverte");
+				}
+				else if(this.etatPassage == EtatPassage.LOCKED)
+				{
+
+				}
 			}
 			else
 			{
-				if(--numDirection < 0)
-				{
-					numDirection = 3;
-				}
-				this.pieceV.changementThread(false);
+				DialogDescription.showD("Porte","le passage " + Direction.values()[this.numDirection].toString() + " est bloque par un rocher");
 			}
+			
 		}
     }
 
