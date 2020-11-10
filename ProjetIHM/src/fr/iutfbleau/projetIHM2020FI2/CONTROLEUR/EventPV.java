@@ -17,7 +17,8 @@ public class EventPV implements MouseListener
 	//Model
 	Piece pieceJoueur;
 	Passage directionJoueur;
-	Piece autrePiece;
+	Piece autrePiece;//DialogDescription.showD("test");
+	EtatPassage etatPassage;
 
 	public EventPV(PieceVue pv,MiniCarteVue mcv)
 	{
@@ -46,18 +47,31 @@ public class EventPV implements MouseListener
 				if(this.directionJoueur != null)				
 				{
 					this.autrePiece = this.directionJoueur.getAutrePiece(this.pieceJoueur);
-				}
-				if(this.autrePiece != null)
-				{
-					for(int i = 0; i < 4;i++)					
+				
+					if(this.autrePiece != null)
 					{
-						this.direction[i] = autrePiece.getPassage(Direction.values()[i]) == null ? 1 : 0;
+						this.etatPassage = this.directionJoueur.getEtatPassage();
+						if(this.etatPassage == EtatPassage.OPEN || true)//true a enlever le click droit a coder
+						{
+							for(int i = 0; i < 4;i++)					
+							{
+								this.direction[i] = autrePiece.getPassage(Direction.values()[i]) == null ? 1 : 0;
+							}
+							this.jP.setPiece(this.autrePiece);
+							this.miniCarteV.move(Direction.values()[numDirection]);
+							this.pieceV.transition(this.direction);
+							this.miniCarteV.affichePassage(this.direction);
+							PieceController.changePiece(this.autrePiece);
+						}
+						else if(this.etatPassage == EtatPassage.CLOSED)
+						{
+							DialogDescription.showD("Porte","La porte est fermer");
+						}
+						else
+						{
+							DialogDescription.showD("Porte","La porte est fermer a cle");
+						}
 					}
-					this.jP.setPiece(this.autrePiece);
-					this.miniCarteV.move(Direction.values()[numDirection]);
-					this.pieceV.transition(this.direction);
-					this.miniCarteV.affichePassage(this.direction);
-					PieceController.changePiece(this.autrePiece);
 				}
 			}
 			else if(evenement.getX() > this.pieceV.getWidth()/2)//droite

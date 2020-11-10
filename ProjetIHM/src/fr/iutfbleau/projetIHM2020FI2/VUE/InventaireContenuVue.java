@@ -20,7 +20,7 @@ public class InventaireContenuVue extends JPanel
 	private Map<TypeTruc, ImageIcon> item;
 	private static int indice = 0;
 
-	public InventaireContenuVue(DialogDescription dialog)
+	public InventaireContenuVue()
 	{
 		this.item = new EnumMap<TypeTruc, ImageIcon>(TypeTruc.class);
 		this.item.put(TypeTruc.CLE,ImageClassLoader.getImage("images/UI/items/cle.png"));
@@ -38,7 +38,7 @@ public class InventaireContenuVue extends JPanel
 		this.jPanelCasep.setBackground(nuanceGris);
 		for(int i = 0 ; i < NOMBRESCASES;i++)
 		{
-			InventaireContenuVue.caseP[i] = new CaseInventaire(this.imageBase,this.imageSelect,this.item,dialog);
+			InventaireContenuVue.caseP[i] = new CaseInventaire(this.imageBase,this.imageSelect,this.item);
 			this.jPanelCasep.add(this.caseP[i]);
 		}
 		gbcPanelN.gridx = 0;

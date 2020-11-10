@@ -7,13 +7,7 @@ import java.util.*;
 
 public class DescriptionEvent implements ActionListener//appelé par InventaireMenuContextuel
 {	
-	private DialogDescription dialog;
-	private String description;
-
-	public DescriptionEvent(DialogDescription dd)
-	{
-		this.dialog = dd;
-	}
+	private String description = "";
 
 	public void setDescription(String desc)
 	{
@@ -23,6 +17,6 @@ public class DescriptionEvent implements ActionListener//appelé par InventaireM
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.dialog.showD(this.description);
+		DialogDescription.showD("Description",this.description);
 	}
 }

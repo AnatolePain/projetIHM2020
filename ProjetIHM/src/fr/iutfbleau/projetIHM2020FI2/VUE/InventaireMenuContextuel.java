@@ -9,9 +9,9 @@ public class InventaireMenuContextuel extends JPopupMenu
 {
 	private DescriptionEvent descE;
 
-	public InventaireMenuContextuel(DialogDescription dd)
+	public InventaireMenuContextuel()
 	{  
-		this.descE = new DescriptionEvent(dd);
+		this.descE = new DescriptionEvent();
         JMenuItem mnuUndo = new JMenuItem("Annuler");
         mnuUndo.setIcon(ImageClassLoader.getImage("images/UI/icon/croix.png"));
         mnuUndo.setMnemonic('U');

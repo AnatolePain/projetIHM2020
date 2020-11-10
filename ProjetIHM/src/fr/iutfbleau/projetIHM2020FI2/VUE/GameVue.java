@@ -33,7 +33,7 @@ public class GameVue  extends  JPanel{
 
 		//Inventaire joueur
 		DialogDescription dialog = new DialogDescription(f);
-		InventaireContenuVue icv = new InventaireContenuVue(dialog);
+		InventaireContenuVue icv = new InventaireContenuVue();
 		icv.setPreferredSize(new Dimension(300, 200));
 		GridBagConstraints gbc02 = new GridBagConstraints();
 		gbc02.gridx = 1;      // la plage de cellules commence à la première colonne
@@ -49,7 +49,7 @@ public class GameVue  extends  JPanel{
 		this.add(icv, gbc02);
 
 		//Contenu de la pièce
-        PieceContenuVue pcv = new PieceContenuVue(dialog);
+        PieceContenuVue pcv = new PieceContenuVue();
 		pcv.setPreferredSize(new Dimension(800, 250));
 		GridBagConstraints gbc03 = new GridBagConstraints();
 		gbc03.gridx = 0;      // la plage de cellules commence à la première colonne

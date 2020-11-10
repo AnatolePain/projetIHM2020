@@ -8,11 +8,12 @@ import java.util.*;
 public class PieceMenuContextuel extends JPopupMenu{
 
 	private DescriptionEvent descE;
-        private JMenuItem mnuCut;
+    private JMenuItem mnuCut;
 
-	public PieceMenuContextuel(DialogDescription dd){  
+	public PieceMenuContextuel()
+	{  
 
-		this.descE = new DescriptionEvent(dd);
+		this.descE = new DescriptionEvent();
                 JMenuItem mnuUndo = new JMenuItem("Annuler");
                 mnuUndo.setIcon(ImageClassLoader.getImage("images/UI/icon/croix.png"));
                 mnuUndo.setMnemonic('U');

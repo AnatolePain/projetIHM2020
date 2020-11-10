@@ -16,12 +16,12 @@ public class CaseInventaire extends JComponent
 	private Map<TypeTruc, ImageIcon> itemImage;
 	private InventaireMenuContextuel popupMenu; 
 
-	public CaseInventaire(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI ,DialogDescription dd)
+	public CaseInventaire(ImageIcon b, ImageIcon s, Map<TypeTruc, ImageIcon> iI)
 	{
 		this.imageBase = b;
 		this.imageSlect = s;
 		this.itemImage = iI;
-		this.popupMenu = new InventaireMenuContextuel(dd);
+		this.popupMenu = new InventaireMenuContextuel();
 	}
 
 	public void setObject(TypeTruc tt,String description)

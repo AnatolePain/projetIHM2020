@@ -9,22 +9,27 @@ public class DialogDescription extends JDialog implements ActionListener
 	private JDialog jd;
 	private JButton boutonOK = new JButton ("OK");
 	private JFrame fenetre;
+	private static DialogDescription pthis;
 
 	public DialogDescription(JFrame jf)
 	{
 		this.fenetre = jf;
+		pthis = this;
 	}
 
-	public void showD(String dialog)
+	public static void showD(String type,String dialog)
 	{
-		this.jd = new JDialog(this.fenetre , "Description", true);
-		this.jd.setLayout(new FlowLayout());  
-		this.jd.add(new JLabel(dialog));
-		this.jd.add(this.boutonOK);
-		this.boutonOK.addActionListener(this);
-		this.jd.setSize(300,100);
-		this.jd.setLocationRelativeTo(fenetre);
-		this.jd.setVisible(true);
+		if(pthis != null)
+		{
+			pthis.jd = new JDialog(pthis.fenetre , type, true);
+			pthis.jd.setLayout(new FlowLayout());  
+			pthis.jd.add(new JLabel(dialog));
+			pthis.jd.add(pthis.boutonOK);
+			pthis.boutonOK.addActionListener(pthis);
+			pthis.jd.setSize(300,100);
+			pthis.jd.setLocationRelativeTo(pthis.fenetre);
+			pthis.jd.setVisible(true);
+		}
 	}
 
 	@Override
