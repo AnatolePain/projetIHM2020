@@ -28,7 +28,6 @@ public class CasePiece extends JComponent
 	{
 		this.object = this.itemImage.get(type);
 		this.setToolTipText(description);
-		this.popupMenu.getDescriptionEvent().setDescription(description);
 		repaint();
 	}
 
