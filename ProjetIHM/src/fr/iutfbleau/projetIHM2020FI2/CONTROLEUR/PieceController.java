@@ -73,8 +73,13 @@ public class PieceController
 	}
 
 	public static void ramasserPiece(CasePiece cp){
+		//Modele
 		Truc t = mapCasePieceTruc.get(cp);
 		SetupModel.getJoueur().getPiece().removeTruc(t);
+		SetupModel.getJoueur().addTruc(t);
+
+		//Vue
 		cp.clearObject();
+		InventaireContenuVue.addTruc(t.getTypeTruc(),t.getDescription());
 	}
 }
