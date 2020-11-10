@@ -9,38 +9,41 @@ public class PieceMenuContextuel extends JPopupMenu{
 
 	private DescriptionEvent descE;
     private JMenuItem mnuCut;
+    private JMenuItem mnuCopy;
 
 	public PieceMenuContextuel()
 	{  
 
-		this.descE = new DescriptionEvent();
-                JMenuItem mnuUndo = new JMenuItem("Annuler");
-                mnuUndo.setIcon(ImageClassLoader.getImage("images/UI/icon/croix.png"));
-                mnuUndo.setMnemonic('U');
-                mnuUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-                this.add(mnuUndo);
+        JMenuItem mnuUndo = new JMenuItem("Annuler");
+        mnuUndo.setIcon(ImageClassLoader.getImage("images/UI/icon/croix.png"));
+        mnuUndo.setMnemonic('U');
+        mnuUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
+        this.add(mnuUndo);
+        
+        this.addSeparator();
+        
+        mnuCopy = new JMenuItem("Description");
+        mnuCopy.setIcon(ImageClassLoader.getImage("images/UI/icon/info.png"));
+        mnuCopy.setMnemonic('C');
+        mnuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
+        this.add(mnuCopy);
                 
-                this.addSeparator();
-                
-                JMenuItem mnuCopy = new JMenuItem("Description");
-                mnuCopy.setIcon(ImageClassLoader.getImage("images/UI/icon/info.png"));
-                mnuCopy.setMnemonic('C');
-                mnuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
-                this.add(mnuCopy);
-		mnuCopy.addActionListener(descE);
-                
-                this.mnuCut = new JMenuItem("Ramasser");
-                mnuCut.setIcon(ImageClassLoader.getImage("images/UI/icon/recup.png"));
-                mnuCut.setMnemonic( 't' );
-                mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
-                this.add(mnuCut);
+        this.mnuCut = new JMenuItem("Ramasser");
+        mnuCut.setIcon(ImageClassLoader.getImage("images/UI/icon/recup.png"));
+        mnuCut.setMnemonic( 't' );
+        mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
+        this.add(mnuCut);
 	}
 
 	public DescriptionEvent getDescriptionEvent(){
-	       return this.descE;
+	   return this.descE;
 	}
 
-        public JMenuItem getMenuItemRamasser(){
-                return this.mnuCut;
-        }
+    public JMenuItem getMenuItemDescription(){
+        return this.mnuCopy;
+    }
+
+    public JMenuItem getMenuItemRamasser(){
+        return this.mnuCut;
+    }
 }

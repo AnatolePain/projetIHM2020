@@ -9,9 +9,10 @@ import java.util.*;
 
 public class PieceController 
 {
-	private static CasePieceEvent[] casePEvent;
+	private CasePieceEvent[] casePEvent;
 	private static CasePiece[] caseP;
 	private PieceContenuEvent[] ramasserEvent;
+	private static DescriptionEvent[] descriptionEvent;
 	
 	//model
 	private Joueur jP;
@@ -22,6 +23,7 @@ public class PieceController
 	{
 		this.casePEvent = new CasePieceEvent[PieceContenuVue.getNbCase()];
 		this.ramasserEvent = new PieceContenuEvent[PieceContenuVue.getNbCase()];
+		this.descriptionEvent = new DescriptionEvent[PieceContenuVue.getNbCase()];
 		this.caseP = PieceContenuVue.getCasePiecetab();
 		this.jP = SetupModel.getJoueur();
 
@@ -38,6 +40,11 @@ public class PieceController
 			if(pT.hasNext()){
 				mapCasePieceTruc.put(this.caseP[i], pT.next());
 			}
+
+			//Descripion
+			this.descriptionEvent[i] = new DescriptionEvent();
+			this.caseP[i].GetPopupMenu().getMenuItemDescription().addActionListener(this.descriptionEvent[i]);
+
 		}
 		this.piecePos = this.jP.getPiece();
 		if(this.piecePos != null)
@@ -58,6 +65,7 @@ public class PieceController
 			{
 				Truc t = pT.next();
 				PieceContenuVue.addTruc(t.getTypeTruc(),t.getDescription());
+				descriptionEvent[i].setDescription(t.getDescription());
 				mapCasePieceTruc.put(caseP[i],t);
 				i++;
 			}
