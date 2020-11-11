@@ -75,6 +75,11 @@ public class PieceContenuVue extends JPanel
 		PieceContenuVue.caseP[PieceContenuVue.indice++%NOMBRESCASES].setObject(type,description);
 	}
 
+	public static void addTrucAtIndex(TypeTruc type, String description, int i)
+	{
+		PieceContenuVue.caseP[i%NOMBRESCASES].setObject(type,description);
+	}
+
 	public static void clear()
 	{
 		PieceContenuVue.indice = 0;

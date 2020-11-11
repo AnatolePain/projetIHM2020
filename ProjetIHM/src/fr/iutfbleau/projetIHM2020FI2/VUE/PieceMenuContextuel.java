@@ -7,7 +7,6 @@ import java.util.*;
 
 public class PieceMenuContextuel extends JPopupMenu{
 
-	private DescriptionEvent descE;
     private JMenuItem mnuCut;
     private JMenuItem mnuCopy;
 
@@ -35,9 +34,6 @@ public class PieceMenuContextuel extends JPopupMenu{
         this.add(mnuCut);
 	}
 
-	public DescriptionEvent getDescriptionEvent(){
-	   return this.descE;
-	}
 
     public JMenuItem getMenuItemDescription(){
         return this.mnuCopy;

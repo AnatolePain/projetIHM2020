@@ -28,7 +28,7 @@ public class CaseInventaire extends JComponent
 	{
 		this.object = this.itemImage.get(tt);
 		this.setToolTipText(description);
-		this.popupMenu.getDescriptionEvent().setDescription(description);
+		//this.popupMenu.getDescriptionEvent().setDescription(description);
 		repaint();
 	}
 

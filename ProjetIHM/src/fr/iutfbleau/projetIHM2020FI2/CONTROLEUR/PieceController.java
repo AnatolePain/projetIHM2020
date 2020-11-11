@@ -73,13 +73,24 @@ public class PieceController
 	}
 
 	public static void ramasserPiece(CasePiece cp){
+
 		//Modele
 		Truc t = mapCasePieceTruc.get(cp);
 		SetupModel.getJoueur().getPiece().removeTruc(t);
 		SetupModel.getJoueur().addTruc(t);
 
 		//Vue
+		PieceController.mapCasePieceTruc.put(cp,null);
 		cp.clearObject();
-		InventaireContenuVue.addTruc(t.getTypeTruc(),t.getDescription());
+		InventaireController.addInventaireVue(t);
+	}
+
+	public static void addPieceVue(Truc t){
+		int i = 0;
+		while(!caseP[i].isEmpty()){
+			i++;
+		}
+		mapCasePieceTruc.put(caseP[i],t);
+		PieceContenuVue.addTrucAtIndex(t.getTypeTruc(),t.getDescription(),i);
 	}
 }
