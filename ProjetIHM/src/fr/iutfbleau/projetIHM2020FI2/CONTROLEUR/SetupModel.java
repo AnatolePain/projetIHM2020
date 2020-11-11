@@ -112,7 +112,7 @@ public class SetupModel
 
 		Piece p10 = usinePassagePiece.newPiece();
 		Passage p4p10 = usinePassagePiece.newPassage(Direction.EST,p4,Direction.OUEST,p10);
-
+		p0p3.setEtatPassage(EtatPassage.LOCKED);
 		SetupModel.joueur = new JoueurBD();
 		System.out.print("Création du joueur.\n");
 	}
