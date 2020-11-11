@@ -23,29 +23,31 @@ public class PieceController
 	{
 		this.casePEvent = new CasePieceEvent[PieceContenuVue.getNbCase()];
 		this.ramasserEvent = new PieceContenuEvent[PieceContenuVue.getNbCase()];
-		this.descriptionEvent = new DescriptionEvent[PieceContenuVue.getNbCase()];
-		this.caseP = PieceContenuVue.getCasePiecetab();
+		PieceController.descriptionEvent = new DescriptionEvent[PieceContenuVue.getNbCase()];
+		PieceController.caseP = PieceContenuVue.getCasePiecetab();
 		this.jP = SetupModel.getJoueur();
 
 		Iterator<Truc> pT = jP.getPiece().getTrucs();
 
 		for(int i = 0 ; i < this.casePEvent.length;i++)
 		{
-			this.casePEvent[i] = new CasePieceEvent(this.caseP[i]);
-			this.caseP[i].addMouseListener(this.casePEvent[i]);
+			this.casePEvent[i] = new CasePieceEvent(PieceController.caseP[i]);
+			PieceController.caseP[i].addMouseListener(this.casePEvent[i]);
 
 			//Ramasser
-			this.ramasserEvent[i] = new PieceContenuEvent(this.caseP[i]);
-			this.caseP[i].GetPopupMenu().getMenuItemRamasser().addActionListener(this.ramasserEvent[i]);
-			if(pT.hasNext()){
-				mapCasePieceTruc.put(this.caseP[i], pT.next());
-			}
+			this.ramasserEvent[i] = new PieceContenuEvent(PieceController.caseP[i]);
+			PieceController.caseP[i].GetPopupMenu().getMenuItemRamasser().addActionListener(this.ramasserEvent[i]);
 
 			//Descripion
-			this.descriptionEvent[i] = new DescriptionEvent();
-			this.caseP[i].GetPopupMenu().getMenuItemDescription().addActionListener(this.descriptionEvent[i]);
+			PieceController.descriptionEvent[i] = new DescriptionEvent();
+			PieceController.caseP[i].GetPopupMenu().getMenuItemDescription().addActionListener(PieceController.descriptionEvent[i]);
 
+			//setMap
+			if(pT.hasNext()){
+				PieceController.mapCasePieceTruc.put(PieceController.caseP[i], pT.next());
+			}
 		}
+
 		this.piecePos = this.jP.getPiece();
 		if(this.piecePos != null)
 		{
@@ -65,8 +67,8 @@ public class PieceController
 			{
 				Truc t = pT.next();
 				PieceContenuVue.addTruc(t.getTypeTruc(),t.getDescription());
-				descriptionEvent[i].setDescription(t.getDescription());
-				mapCasePieceTruc.put(caseP[i],t);
+				PieceController.descriptionEvent[i].setDescription(t.getDescription());
+				PieceController.mapCasePieceTruc.put(PieceController.caseP[i],t);
 				i++;
 			}
 		}
@@ -87,10 +89,11 @@ public class PieceController
 
 	public static void addPieceVue(Truc t){
 		int i = 0;
-		while(!caseP[i].isEmpty()){
+		while(!PieceController.caseP[i].isEmpty()){
 			i++;
 		}
-		mapCasePieceTruc.put(caseP[i],t);
+		PieceController.mapCasePieceTruc.put(caseP[i],t);
+		PieceController.descriptionEvent[i].setDescription(t.getDescription());
 		PieceContenuVue.addTrucAtIndex(t.getTypeTruc(),t.getDescription(),i);
 	}
 }

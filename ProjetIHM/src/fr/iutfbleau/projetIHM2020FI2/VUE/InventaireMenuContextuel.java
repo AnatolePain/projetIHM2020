@@ -20,13 +20,11 @@ public class InventaireMenuContextuel extends JPopupMenu
                 
                 this.addSeparator();
                 
-                //this.descE = new DescriptionEvent();
                 this.mnuCopy = new JMenuItem("Description");
                 mnuCopy.setIcon(ImageClassLoader.getImage("images/UI/icon/info.png"));
                 mnuCopy.setMnemonic('C');
                 mnuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
                 this.add(mnuCopy);
-        	//mnuCopy.addActionListener(descE);
                 
                 this.mnuCut = new JMenuItem("Jeter");
                 mnuCut.setIcon(ImageClassLoader.getImage("images/UI/icon/recup.png"));
