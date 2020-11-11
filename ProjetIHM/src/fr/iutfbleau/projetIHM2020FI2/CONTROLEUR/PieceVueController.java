@@ -106,15 +106,22 @@ public class PieceVueController
  		Passage p = j.getPiece().getPassage(d);
  		if(p != null){
 	 		if(p.agir(t)){
-		 		if(p.getEtatPassage() == EtatPassage.OPEN){
-		 			PieceVueController.directionO[d.ordinal()] = 1;
+	 			if(p.getEtatPassage() == EtatPassage.OPEN){
+	 				PieceVueController.directionO[d.ordinal()] = 1;
 					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
 		 			DialogDescription.showD("Bravo !","Vous avez déverrouillé la porte " + d.toString() + " !");
-		 		}else if(p.getEtatPassage() == EtatPassage.CLOSED){
+	 			}else if(p.getEtatPassage() == EtatPassage.LOCKED ){
 		 			PieceVueController.directionO[d.ordinal()] = 0;
 					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
-		 			DialogDescription.showD("Verrouillage ","Vous avez verrouillé la porte " + d.toString());
+		 			DialogDescription.showD("Bravo !","Vous avez verrouillé la porte " + d.toString() + " !");
 		 		}
+		 	}else{
+		 		DialogDescription.showD("Attention ","Cet objet n'est pas une clé");
+		 	}
+		 	
+		}else{
+			if (!Objects.equals(t.getTypeTruc(),TypeTruc.CLE)){
+		 		DialogDescription.showD("Attention ","Cet objet n'est pas une clé");
 		 	}else{
 		 		DialogDescription.showD("Attention "," Il n'y pas de passage dans le direction " + d.toString() + " !");
 		 	}

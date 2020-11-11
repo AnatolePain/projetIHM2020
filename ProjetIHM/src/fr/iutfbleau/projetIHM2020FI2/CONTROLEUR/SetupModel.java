@@ -10,8 +10,8 @@ public class SetupModel
 
 	public SetupModel()
 	{
-		SetupModelP();
-		//SetupModelNonP();
+		//SetupModelP();
+		SetupModelNonP();
 	}
 
 	private void SetupModelNonP()
