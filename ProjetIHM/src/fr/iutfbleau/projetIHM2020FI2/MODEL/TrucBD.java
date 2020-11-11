@@ -37,7 +37,7 @@ public class TrucBD implements Truc
 
 					for (TypeTruc tt : TypeTruc.values())
 					{
-						if (tt.toString() == result)
+						if (result.equals(tt.toString()))
 						{
 							ttPS = tt;
 						}

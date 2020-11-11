@@ -207,7 +207,7 @@ public class PassageBD implements Passage
 
 					for (EtatPassage e : EtatPassage.values())
 					{
-						if (e.toString() == result)
+						if (result.equals(e.toString()))
 						{
 							resultE = e;
 						}

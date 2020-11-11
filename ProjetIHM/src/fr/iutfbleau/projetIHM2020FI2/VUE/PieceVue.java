@@ -57,7 +57,7 @@ public class PieceVue extends JPanel
 
 	public boolean inAnimation()
 	{
-		return this.inAnimChange && this.inTransition;
+		return this.inAnimChange || this.inTransition;
 	}
 
 	public void setAnimChange(boolean b)
