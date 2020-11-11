@@ -43,6 +43,7 @@ public class InventaireController
 			InventaireController.caseI[i].GetPopupMenu().getMenuItemJeter().addActionListener(this.jeterEvent[i]);
 
 			//utiliser
+			InventaireController.caseI[i].GetPopupMenu().getMenuItemUtiliser().addActionListener(new UtiliserEvent(InventaireController.caseI[i]));
 
 
 			//set 
@@ -60,15 +61,20 @@ public class InventaireController
 	public static void jeterInventaire(CaseInventaire ci){
 
 		//model
-		Truc t = mapCaseInventaireTruc.get(ci);
+		Truc t = InventaireController.mapCaseInventaireTruc.get(ci);
 		SetupModel.getJoueur().removeTruc(t);
 		SetupModel.getJoueur().getPiece().addTruc(t);
 
 		//vue
-		mapCaseInventaireTruc.put(ci,null);
+		InventaireController.mapCaseInventaireTruc.put(ci,null);
 		ci.clearObject();
 		PieceController.addPieceVue(t);
 
+	}
+
+	public static void utiliserInventaire(CaseInventaire ci){
+		Truc t = InventaireController.mapCaseInventaireTruc.get(ci);
+		PieceVueController.agirAvecTruc(t);
 	}
 
 	public static void addInventaireVue(Truc t){
@@ -76,7 +82,7 @@ public class InventaireController
 		while(!caseI[i].isEmpty()){
 			i++;
 		}
-		mapCaseInventaireTruc.put(caseI[i],t);
+		InventaireController.mapCaseInventaireTruc.put(InventaireController.caseI[i],t);
 		InventaireContenuVue.addTrucAtIndex(t.getTypeTruc(),t.getDescription(),i);
 		descriptionEvent[i].setDescription(t.getDescription());
 	}

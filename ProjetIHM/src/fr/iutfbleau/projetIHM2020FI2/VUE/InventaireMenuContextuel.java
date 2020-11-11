@@ -9,6 +9,7 @@ public class InventaireMenuContextuel extends JPopupMenu
 {
         private JMenuItem mnuCopy;
         private JMenuItem mnuCut;
+        private JMenuItem mnuUtil;
 
 	public InventaireMenuContextuel()
 	{  
@@ -32,7 +33,7 @@ public class InventaireMenuContextuel extends JPopupMenu
                 mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
                 this.add(mnuCut);
 
-        	JMenuItem mnuUtil = new JMenuItem("Utiliser");
+        	this.mnuUtil = new JMenuItem("Utiliser");
                 mnuUtil.setIcon(ImageClassLoader.getImage("images/UI/icon/use.png"));
                 mnuUtil.setMnemonic( 'E' );
                 mnuUtil.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK) );
@@ -45,5 +46,9 @@ public class InventaireMenuContextuel extends JPopupMenu
 
         public JMenuItem getMenuItemJeter(){
                 return this.mnuCut;
+        }
+
+        public JMenuItem getMenuItemUtiliser(){
+                return this.mnuUtil;
         }
 }

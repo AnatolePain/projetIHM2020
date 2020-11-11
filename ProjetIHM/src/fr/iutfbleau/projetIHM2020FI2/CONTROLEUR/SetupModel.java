@@ -64,6 +64,7 @@ public class SetupModel
 		Piece p10 = usinePassagePiece.newPiece();
 		Passage p4p10 = usinePassagePiece.newPassage(Direction.EST,p4,Direction.OUEST,p10);
 		SetupModel.joueur.addTruc(t2);
+		p0p3.setEtatPassage(EtatPassage.LOCKED);
 	}
 
 	private void SetupModelP()

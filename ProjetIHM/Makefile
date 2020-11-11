@@ -278,16 +278,21 @@ $(BUILD)CONTROLEUR/JeterEvent.class: $(SRC)CONTROLEUR/JeterEvent.java
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/JeterEvent.java $(SRC)CONTROLEUR/InventaireController.java 
 
 $(BUILD)CONTROLEUR/PieceController.class: $(SRC)CONTROLEUR/PieceController.java $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class 
-	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceController.java $(SRC)CONTROLEUR/InventaireController.java $(SRC)CONTROLEUR/CaseInventaireEvent.java  $(SRC)CONTROLEUR/JeterEvent.java  $(SRC)CONTROLEUR/PieceContenuEvent.java 
-	
-$(BUILD)CONTROLEUR/InventaireController.class: $(SRC)CONTROLEUR/InventaireController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/JeterEvent.class 
-	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/InventaireController.java 
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceController.java $(SRC)CONTROLEUR/InventaireController.java $(SRC)CONTROLEUR/CaseInventaireEvent.java  $(SRC)CONTROLEUR/JeterEvent.java $(SRC)CONTROLEUR/UtiliserEvent.java $(SRC)CONTROLEUR/PieceContenuEvent.java $(SRC)CONTROLEUR/PieceVueController.java
+	 
+$(BUILD)CONTROLEUR/InventaireController.class: $(SRC)CONTROLEUR/InventaireController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/JeterEvent.class $(BUILD)CONTROLEUR/UtiliserEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/PieceVueController.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/InventaireController.java
 
-$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java  $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/EventPV.class
+$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java  $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceVueController.class $(BUILD)CONTROLEUR/EventPV.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupController.java 
 
 # $(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/EventPV.class
 
+$(BUILD)CONTROLEUR/PieceVueController.class: $(SRC)CONTROLEUR/PieceVueController.java  
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/PieceVueController.java 
+
+$(BUILD)CONTROLEUR/UtiliserEvent.class: $(SRC)CONTROLEUR/UtiliserEvent.java  
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/UtiliserEvent.java $(SRC)CONTROLEUR/InventaireController.java
 
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
