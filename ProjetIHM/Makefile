@@ -299,10 +299,10 @@ run :
 	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.Main
 
 jar:
-	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.Main -C build fr -C res images
+	jar cvfe $(Name).jar fr.iutfbleau.projetIHM2020FI2.test.Main -C build fr -C res images -C lib/mariadb-client org
 
 runjar:
-	java $(DBFLAGS) -jar $(Name).jar
+	java -jar $(Name).jar
 
 runtest :
 	$(allTest)
