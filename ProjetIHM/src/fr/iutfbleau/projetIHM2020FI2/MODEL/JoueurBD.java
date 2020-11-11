@@ -17,6 +17,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 	private static int idJoueur = -1;
 	private static int idPosPiece = 0;
     private ResultSet rs;
+	private static boolean isInstantiate = false;
 	private static String nom = "JoueurBD";
 
     public JoueurBD()
@@ -45,6 +46,12 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 		{
 			newJoueurBD();
 		}
+		JoueurBD.isInstantiate = true;
+   }
+
+   public static boolean getIsInstantiate()
+   {
+		return JoueurBD.isInstantiate;
    }
 
    public static boolean contientThisJoueur()

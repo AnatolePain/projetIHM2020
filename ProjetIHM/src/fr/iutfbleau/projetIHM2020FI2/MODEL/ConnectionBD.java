@@ -5,7 +5,7 @@ import java.awt.*;
 public class ConnectionBD
 {
 	private static Connection cnx;
-	private static boolean reset = true;
+	private static boolean reset = false;
 	private static PreparedStatement deleteALLTrucPS;
 	private static PreparedStatement deleteALLPiecePS;
 	private static PreparedStatement deleteALLPassagePS;

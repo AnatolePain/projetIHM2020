@@ -122,6 +122,10 @@ public class PassagePieceFactoryBD implements PassagePieceFactory
 	public boolean removePassage(Passage p)
 	{
 		Objects.requireNonNull(p,"On ne peut pas suprimer un Passage null");
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			return false;
+		}
 		if(!this.containsPassage(p))
 		{
 			return false;

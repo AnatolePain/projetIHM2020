@@ -23,6 +23,7 @@ allclass = \
 	$(BUILD)test/TestBaseDeDonne.class \
 	$(BUILD)test/TestTexteBD.class \
 	$(BUILD)test/TestTexteMNP.class \
+	$(BUILD)test/BdReset.class \
 #  	$(BUILD)VUE/DialogDescription.class \
 #  	$(BUILD)API/Activable.class \
 #  	$(BUILD)API/ContientTrucs.class \
@@ -294,11 +295,17 @@ $(BUILD)CONTROLEUR/PieceVueController.class: $(SRC)CONTROLEUR/PieceVueController
 $(BUILD)CONTROLEUR/UtiliserEvent.class: $(SRC)CONTROLEUR/UtiliserEvent.java  
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/UtiliserEvent.java $(SRC)CONTROLEUR/InventaireController.java
 
+$(BUILD)test/BdReset.class: $(SRC)test/BdReset.java  
+	$(JC) $(JFLAGS) $(SRC)test/BdReset.java  
+
 runtextuel : 
 	java -classpath build fr.iutfbleau.projetIHM2020FI2.test.TestTexteMNP
 
 runbd : 
 	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.TestTexteBD
+
+runResetbd : 
+	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.BdReset
 
 run : 
 	java $(DBFLAGS) fr.iutfbleau.projetIHM2020FI2.test.Main

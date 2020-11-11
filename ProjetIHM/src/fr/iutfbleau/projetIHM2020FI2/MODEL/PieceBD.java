@@ -66,7 +66,6 @@ public class PieceBD extends ContientTrucsBD implements Piece
 		}
 		catch(SQLException se)
 		{
-			System.err.println("PieceBD:69");
 			System.err.println(se);
 		}   
 	}
@@ -89,6 +88,10 @@ public class PieceBD extends ContientTrucsBD implements Piece
 	{
     	Objects.requireNonNull(d,"On ne peut pas ajouter un passage dans une direction null.");
     	Objects.requireNonNull(p,"On ne peut pas ajouter un passage null.");
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			return;
+		}
 		if(this.setPassageAPS != null && this.setPassageBPS != null)
 		{
 			try
@@ -120,6 +123,10 @@ public class PieceBD extends ContientTrucsBD implements Piece
     @Override
     public void removePassage(Direction d)
 	{
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			return;
+		}
 		if(this.setRemovePassagePS != null)
 		{
 			try

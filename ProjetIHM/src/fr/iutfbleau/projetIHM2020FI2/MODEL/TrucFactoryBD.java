@@ -67,6 +67,11 @@ public class TrucFactoryBD implements TrucFactory {
      */
     public boolean addTruc(Truc t)
 	{
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			
+			return false;
+		}
 		if(this.containsTruc(t))
 		{
 			return false;
@@ -96,6 +101,10 @@ public class TrucFactoryBD implements TrucFactory {
      */
     public boolean removeTruc(Truc t)
 	{	
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			return false;
+		}
 		if(!this.containsTruc(t))
 		{
 			return false;

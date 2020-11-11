@@ -84,6 +84,11 @@ public class ContientTrucsBD implements ContientTrucs
     public boolean addTruc(Truc t)
 	{
     	Objects.requireNonNull(t,"On ne peut pas ajouter un truc null.");
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			
+			return false;
+		}
 		if(this.containsTruc(t))
 		{			
 			return false;
@@ -116,6 +121,10 @@ public class ContientTrucsBD implements ContientTrucs
     public boolean removeTruc(Truc t)
 	{
     	Objects.requireNonNull(t,"On ne peut pas enlever un truc null.");
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			return false;
+		}
 		if(!this.containsTruc(t))
 		{
 			return false;

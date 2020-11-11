@@ -11,7 +11,7 @@ public class GameStart
 	{	
 		if(!GameStart.start)
 		{
-			GameStart.start = JoueurBD.contientThisJoueur();
+			GameStart.start = JoueurBD.contientThisJoueur();//true si la bd contient deja le joueur
 		}
 		return GameStart.start;
 	}

@@ -10,8 +10,8 @@ public class SetupModel
 
 	public SetupModel()
 	{
-		//SetupModelP();
-		SetupModelNonP();
+		SetupModelP();
+		//SetupModelNonP();
 	}
 
 	private void SetupModelNonP()
@@ -101,11 +101,15 @@ public class SetupModel
 		Truc t1 = usineTruc.newTruc(TypeTruc.CLE,"une clé en bronze");
 		Truc t2 = usineTruc.newTruc(TypeTruc.EAU,"une cruche d'eau");
 		Truc t3 = usineTruc.newTruc(TypeTruc.EAU,"une gourde d'eau");
-		Truc t4 = usineTruc.newTruc(TypeTruc.GOODIES,"une bourse en cuir avec 10 euros");	
+		Truc t4 = usineTruc.newTruc(TypeTruc.GOODIES,"une bourse en cuir avec 15 euros");	
 		Truc t5 = usineTruc.newTruc(TypeTruc.GOODIES,"une bourse en cuir avec 10 euros");
+		Truc t6 = usineTruc.newTruc(TypeTruc.EAU,"un antidote contre le poison");
+		Truc t7 = usineTruc.newTruc(TypeTruc.ALCOOL,"un objet qui soigne les points de vie");
+		Truc t8 = usineTruc.newTruc(TypeTruc.GOODIES,"Talismans de la chance");
+		Truc t9 = usineTruc.newTruc(TypeTruc.GOODIES,"des parchemins");
 		System.out.print("Création des objets.\n");
 
-		if (p0.addTruc(t0)&&p0.addTruc(t1)&&p0.addTruc(t2)&&p1.addTruc(t3)&&p2.addTruc(t4)&&p1.addTruc(t4)&&p3.addTruc(t5))
+		if (p6.addTruc(t9)&&p7.addTruc(t8)&&p8.addTruc(t7)&&p9.addTruc(t6)&&p0.addTruc(t0)&&p0.addTruc(t1)&&p0.addTruc(t2)&&p1.addTruc(t3)&&p2.addTruc(t4)&&p1.addTruc(t4)&&p3.addTruc(t5))
 		{
 			System.out.print("Ajout des objets dans les pièces du dongeon.\n");
 		}
@@ -113,6 +117,7 @@ public class SetupModel
 		Piece p10 = usinePassagePiece.newPiece();
 		Passage p4p10 = usinePassagePiece.newPassage(Direction.EST,p4,Direction.OUEST,p10);
 		p0p3.setEtatPassage(EtatPassage.LOCKED);
+		p4p3.setEtatPassage(EtatPassage.LOCKED);
 		SetupModel.joueur = new JoueurBD();
 		System.out.print("Création du joueur.\n");
 	}

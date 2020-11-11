@@ -234,6 +234,10 @@ public class PassageBD implements Passage
     public void setEtatPassage(EtatPassage e)
 	{
     	Objects.requireNonNull(e,"e doit être un etat qui n'est pas null.");
+		if(!JoueurBD.getIsInstantiate() && GameStart.get())
+		{
+			return;
+		}
 		if(this.setEtatPassagePS != null)
 		{
 			try
