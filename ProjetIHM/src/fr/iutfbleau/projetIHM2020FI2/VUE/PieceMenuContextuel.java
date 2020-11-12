@@ -1,5 +1,4 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
-import fr.iutfbleau.projetIHM2020FI2.CONTROLEUR.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

@@ -1,35 +1,66 @@
 package fr.iutfbleau.projetIHM2020FI2.CONTROLEUR;
 import fr.iutfbleau.projetIHM2020FI2.VUE.*;
-import java.awt.event.*;
+import fr.iutfbleau.projetIHM2020FI2.API.*;
+import java.util.*;
 
-public class MiniCarteEvent implements KeyListener {
-
-
+public class MiniCarteEvent 
+{
 	private MiniCarteVue miniCarte;
+	private Joueur j;
+	private Piece fp;
+	private Piece joueurPos;
+	private List<Piece> isdraw = new ArrayList<Piece>();
+	private int countStopDebug = 0;
 
-	public MiniCarteEvent(MiniCarteVue mc){
-		this.miniCarte = mc;
+	public MiniCarteEvent()
+	{
+		this.miniCarte = MiniCarteVue.getMinicarteVue();
+		this.j = SetupModel.getJoueur(); 
+		this.fp = SetupModel.getFirstPiece();
+		this.joueurPos = this.j.getPiece();
+		DrawCarte(this.fp,3,4);
 	}
 
+	private void DrawCarte(Piece p,int posX,int posY)//methode pas adapter de MiniCarteVue probleme
+	{	
+		if(p == null || isdraw.contains(p))
+		{
+			return;
+		}
+		isdraw.add(p);
+		if(this.j.isVisited(p))
+		{
+			if(this.joueurPos == p)
+			{
+				miniCarte.modifCellule(posX,posY,1);
+				miniCarte.setJoueurPos(posX,posY);
+			}
+			else
+			{
+				miniCarte.modifCellule(posX,posY,2);
+			}
+			for (Direction dir : Direction.values())
+			{
+				Passage pass = p.getPassage(dir);
+				//System.out.println(dir.toString());
+				if(pass != null)
+				{
+					if(dir ==  Direction.NORD){
+						miniCarte.modifCellule(posX,(posY-1),5);
+						DrawCarte(pass.getAutrePiece(p),posX,(posY-2));
+					}else if(dir ==  Direction.SUD){
+						miniCarte.modifCellule(posX,(posY+1),5);						
+						DrawCarte(pass.getAutrePiece(p),posX,(posY+2));
+					}else if(dir ==  Direction.OUEST){
+						miniCarte.modifCellule((posX-1),posY,4);
+						DrawCarte(pass.getAutrePiece(p),(posX-2),posY);
+					}else if(dir ==  Direction.EST){
+						miniCarte.modifCellule((posX+1),posY,4);
+						DrawCarte(pass.getAutrePiece(p),(posX+2),posY);
+					}
+				}
+			}
+		}
 
-	//Invoked when a key has been pressed.
-	@Override
-	public void keyPressed(KeyEvent e){
-		/*//VK_UP VK_DOWN VK_LEFT VK_RIGHT
-		if(e.getKeyCode()== KeyEvent.VK_UP ){
-			this.miniCarte.moveUp();
-		}else if(e.getKeyCode()== KeyEvent.VK_DOWN){
-			this.miniCarte.moveDown();
-		}else if(e.getKeyCode()== KeyEvent.VK_LEFT){
-			this.miniCarte.moveLeft();
-		}else if(e.getKeyCode()== KeyEvent.VK_RIGHT){
-			this.miniCarte.moveRight();
-		}*/
 	}
-
-	//Invoked when a key has been released.
-	public void keyReleased(KeyEvent e){}
-
-	//Invoked when a key has been typed.
-	public void keyTyped(KeyEvent e){}
 }

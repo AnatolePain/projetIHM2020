@@ -180,7 +180,7 @@ $(BUILD)VUE/InventaireMenuContextuel.class: $(SRC)VUE/InventaireMenuContextuel.j
 	$(JC) $(JFLAGS) $(SRC)VUE/InventaireMenuContextuel.java
 
 $(BUILD)VUE/MiniCarteVue.class: $(SRC)VUE/MiniCarteVue.java $(BUILD)VUE/CelluleCarte.class $(BUILD)API/Direction.class
-	$(JC) $(JFLAGS) $(SRC)VUE/MiniCarteVue.java $(SRC)CONTROLEUR/MiniCarteEvent.java
+	$(JC) $(JFLAGS) $(SRC)VUE/MiniCarteVue.java
 
 $(BUILD)VUE/PanelNom.class: $(SRC)VUE/PanelNom.java 
 	$(JC) $(JFLAGS) $(SRC)VUE/PanelNom.java
@@ -284,7 +284,7 @@ $(BUILD)CONTROLEUR/PieceController.class: $(SRC)CONTROLEUR/PieceController.java 
 $(BUILD)CONTROLEUR/InventaireController.class: $(SRC)CONTROLEUR/InventaireController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/JeterEvent.class $(BUILD)CONTROLEUR/UtiliserEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/PieceVueController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/InventaireController.java
 
-$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java  $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceVueController.class $(BUILD)CONTROLEUR/EventPV.class
+$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java  $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceVueController.class $(BUILD)CONTROLEUR/EventPV.class $(BUILD)CONTROLEUR/MiniCarteEvent.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupController.java 
 
 # $(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/EventPV.class

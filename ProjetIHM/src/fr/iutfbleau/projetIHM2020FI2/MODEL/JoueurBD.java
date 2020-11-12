@@ -128,6 +128,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 		}
         if(this.nouveauJoueurPS != null)
         {
+			this.addVisited(this.getPiece());
             try
             {
 				this.nouveauJoueurPS.setInt(1,JoueurBD.idJoueur);
@@ -175,6 +176,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 	{
 		if(this.setPiecePS != null)
         {
+			this.addVisited(next);
 			try
             {
 				JoueurBD.idPosPiece = GestionIDBD.getID(next);

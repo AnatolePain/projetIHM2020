@@ -7,6 +7,7 @@ import fr.iutfbleau.projetIHM2020FI2.MODEL.*;
 public class SetupModel 
 {
 	private static Joueur joueur;
+	private static Piece pieceFist;
 
 	public SetupModel()
 	{
@@ -19,6 +20,7 @@ public class SetupModel
 		//-------------------- CHARGEMENT DU MODELE NON PERSISTANT -------------------
 		PassagePieceFactory usinePassagePiece = new PassagePieceFactoryNP();
 		Piece p0 = usinePassagePiece.newPiece();
+		pieceFist = p0;
 		Piece p1 = usinePassagePiece.newPiece();
 		Piece p2 = usinePassagePiece.newPiece();
 		Piece p3 = usinePassagePiece.newPiece();
@@ -81,6 +83,7 @@ public class SetupModel
 		Piece p7 = usinePassagePiece.newPiece();
 		Piece p8 = usinePassagePiece.newPiece();	
 		Piece p9 = usinePassagePiece.newPiece();
+		pieceFist = p0;
 
 		Passage p0p1 = usinePassagePiece.newPassage(Direction.OUEST,p0,Direction.EST,p1);
 		Passage p0p2 = usinePassagePiece.newPassage(Direction.NORD,p0,Direction.SUD,p2);
@@ -125,6 +128,11 @@ public class SetupModel
 	public static Joueur getJoueur()
 	{
 		return SetupModel.joueur;
+	}
+
+	public static Piece getFirstPiece()
+	{
+		return SetupModel.pieceFist;
 	}
 	
 }

@@ -11,13 +11,14 @@ public class SetupController
 
 	private EventPV mouseEventPV;
 	private PieceVue pv;
-	private MiniCarteVue mc;
+	private MiniCarteEvent mcEvent;
 
 	public SetupController()
 	{
 		this.ic = new InventaireController();
 		this.pc = new PieceController();
 		this.pvc = new PieceVueController();
+		this.mcEvent = new MiniCarteEvent();
 
 		this.pv = PieceVue.getPieceVue();
 		if(pv != null)

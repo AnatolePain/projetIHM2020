@@ -1,5 +1,4 @@
 package fr.iutfbleau.projetIHM2020FI2.VUE;
-import fr.iutfbleau.projetIHM2020FI2.CONTROLEUR.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import javax.swing.*;
 import java.awt.*;
@@ -78,6 +77,12 @@ public class MiniCarteVue extends JPanel {
 	public static MiniCarteVue getMinicarteVue()
 	{
 		return MiniCarteVue.mcv;
+	}
+
+	public void setJoueurPos(int x,int y)
+	{
+		this.vousEtesIciX = x;
+		this.vousEtesIciY = y;
 	}
 
 	public void affichePassage(int dir[])
