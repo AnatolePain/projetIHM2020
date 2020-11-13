@@ -99,32 +99,55 @@ public class PieceVueController
 		}*/
  	}
 
- 	public static void agirAvecTruc(Truc t){
-
- 		Direction d = Direction.values()[PieceVueController.numDirection];
+ 	public static void agirAvecTruc(Truc t)
+	{
+ 		Direction d;
  		Joueur j = SetupModel.getJoueur();
- 		Passage p = j.getPiece().getPassage(d);
- 		if(p != null){
-	 		if(p.agir(t)){
-	 			if(p.getEtatPassage() == EtatPassage.OPEN){
-	 				PieceVueController.directionO[d.ordinal()] = 1;
-					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
-		 			DialogDescription.showD("Bravo !","Vous avez déverrouillé la porte " + d.toString() + " !");
-	 			}else if(p.getEtatPassage() == EtatPassage.LOCKED ){
-		 			PieceVueController.directionO[d.ordinal()] = 0;
-					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
-		 			DialogDescription.showD("Bravo !","Vous avez verrouillé la porte " + d.toString() + " !");
+ 		Passage p;
+		TypeTruc tt = t.getTypeTruc();
+
+		if (tt == TypeTruc.CLE)
+		{
+			d = Direction.values()[PieceVueController.numDirection];
+			p = j.getPiece().getPassage(d);
+ 			if(p != null)
+			{
+	 			if(p.agir(t))
+				{	
+		 			if(p.getEtatPassage() == EtatPassage.OPEN)
+					{
+	 					PieceVueController.directionO[d.ordinal()] = 1;
+						PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
+		 				DialogDescription.showD("Bravo !","Vous avez déverrouillé la porte " + d.toString() + " !");
+	 				}
+					else if(p.getEtatPassage() == EtatPassage.LOCKED )
+					{
+			 			PieceVueController.directionO[d.ordinal()] = 0;
+						PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
+		 				DialogDescription.showD("Bravo !","Vous avez verrouillé la porte " + d.toString() + " !");
+		 			}
 		 		}
-		 	}else{
-		 		DialogDescription.showD("Attention ","Cet objet n'est pas une clé");
-		 	}
-		 	
-		}else{
-			if (!Objects.equals(t.getTypeTruc(),TypeTruc.CLE)){
-		 		DialogDescription.showD("Attention ","Cet objet n'est pas une clé");
-		 	}else{
-		 		DialogDescription.showD("Attention "," Il n'y pas de passage dans le direction " + d.toString() + " !");
-		 	}
+				else
+				{
+		 			DialogDescription.showD("Attention ","la clé doit être rouillé");
+		 		}
+			}
+			else
+			{
+				DialogDescription.showD("Attention "," Il n'y pas de passage dans le direction " + d.toString() + " !");
+			}
+		}
+		else if(tt == TypeTruc.ALCOOL)
+		{
+			//code d'oublie
+		}
+		else if(tt == TypeTruc.EAU)
+		{
+			//code consomable
+		}
+		else if(tt == TypeTruc.GOODIES)
+		{
+			DialogDescription.showD("...","je peux peut-être revendre ça cher");
 		}
  	}
 
