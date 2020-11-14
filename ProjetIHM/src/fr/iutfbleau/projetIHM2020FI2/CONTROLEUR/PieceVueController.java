@@ -118,6 +118,7 @@ public class PieceVueController
 					{
 	 					PieceVueController.directionO[d.ordinal()] = 1;
 						PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
+						PieceVueController.directionO[d.ordinal()] = 0;
 		 				DialogDescription.showD("Bravo !","Vous avez déverrouillé la porte " + d.toString() + " !");
 	 				}
 					else if(p.getEtatPassage() == EtatPassage.LOCKED )
@@ -137,18 +138,7 @@ public class PieceVueController
 				DialogDescription.showD("Attention "," Il n'y pas de passage dans le direction " + d.toString() + " !");
 			}
 		}
-		else if(tt == TypeTruc.ALCOOL)
-		{
-			//code d'oublie
-		}
-		else if(tt == TypeTruc.EAU)
-		{
-			//code consomable
-		}
-		else if(tt == TypeTruc.GOODIES)
-		{
-			DialogDescription.showD("...","je peux peut-être revendre ça cher");
-		}
+
  	}
 
  	public static void orientationADroite(){

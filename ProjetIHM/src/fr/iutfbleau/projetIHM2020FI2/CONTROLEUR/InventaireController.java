@@ -73,8 +73,28 @@ public class InventaireController
 	}
 
 	public static void utiliserInventaire(CaseInventaire ci){
+
 		Truc t = InventaireController.mapCaseInventaireTruc.get(ci);
-		PieceVueController.agirAvecTruc(t);
+
+		Iterator<Truc> it =  SetupModel.getJoueur().getTrucs();
+
+		if (Objects.equals(t.getTypeTruc(),TypeTruc.CLE)){
+			PieceVueController.agirAvecTruc(t);
+		}else if(SetupModel.getJoueur().agir(t)){
+
+			//VUE
+			InventaireController.mapCaseInventaireTruc.put(ci,null);
+			ci.clearObject();
+			if(Objects.equals(t.getTypeTruc(),TypeTruc.ALCOOL) ){
+				MiniCarteVue.getMinicarteVue().clearCarte();
+				DialogDescription.showD("Malheur!","Vous ne vous souvenez plus de rien");
+			}else{
+				DialogDescription.showD("Gloups","Vous avez bus de l'eau");
+			}
+
+		}/*else if(!Objects.equals(t.getTypeTruc(),TypeTruc.GOODIES)){
+			DialogDescription.showD("...","je peux peut-être revendre ça cher");
+		}*/
 	}
 
 	public static void addInventaireVue(Truc t){

@@ -14,6 +14,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 	private PreparedStatement setAddVisitedPS;
 	private PreparedStatement getIsVisitedPS;
 	private PreparedStatement contientThisJoueurPS;
+    private PreparedStatement clearViste;
 	private static int idJoueur = -1;
 	private static int idPosPiece = 0;
     private ResultSet rs;
@@ -36,6 +37,7 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
 				this.getVisitedPS = this.cnx.prepareStatement("SELECT id FROM `API_Piece` WHERE idJoueur = ? AND Visite = ?");
 				this.setAddVisitedPS = this.cnx.prepareStatement("UPDATE API_Piece SET Visite = ? WHERE id = ? AND idJoueur = ?");
 				this.getIsVisitedPS = this.cnx.prepareStatement("SELECT Visite FROM API_Piece WHERE id = ? AND idJoueur = ?");
+                this.clearViste = this.cnx.prepareStatement("UPDATE API_Piece SET Visite = 0 WHERE idJoueur = ?");
             }
             catch(SQLException se)
             {
@@ -298,12 +300,24 @@ public class JoueurBD extends ContientTrucsBD implements Joueur
             return false;
         }
 		TypeTruc tta = t.getTypeTruc();
-        if (super.containsTruc(t))
+        if (!super.containsTruc(t))
 		{
             throw new IllegalStateException("le joueur ne porte pas l'objet");
 		}
         else if (Objects.equals(tta,TypeTruc.ALCOOL))
 		{
+            //équivalent de clear() dans JoueurNP
+            try
+            {
+                this.clearViste.setInt(1,JoueurBD.idJoueur);
+                this.clearViste.executeUpdate();
+            }
+            catch(SQLException se)
+            {
+                System.err.println(se);
+            } 
+            
+
             super.removeTruc(t);
             return true;
         }

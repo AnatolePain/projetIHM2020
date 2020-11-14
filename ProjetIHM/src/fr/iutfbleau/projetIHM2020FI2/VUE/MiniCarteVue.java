@@ -44,19 +44,25 @@ public class MiniCarteVue extends JPanel {
 			}
 		}
 
-		//Affiche des pièces
 		vousEtesIciX = 3 ; vousEtesIciY = 4;
-		tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);//00
+		//tabCellule[vousEtesIciY][vousEtesIciX].changeStatus(VOUSETESICI);//00
 
 		this.setFocusable(true);
 		this.requestFocusInWindow();
-		//MiniCarteEvent clavier = new MiniCarteEvent(this);
-		//this.addKeyListener(clavier);
 
 	}
 
 	public void modifCellule(int x, int y, int status){
 		tabCellule[y][x].changeStatus(status);
+	}
+
+	public void clearCarte(){
+		for(int i = 0 ; i < this.TAILLECARTE ; i++){
+			for(int k = 0 ; k < this.TAILLECARTE ; k++ ){
+				this.tabCellule[i][k].changeStatus(INCONNU);
+			}
+		}
+		this.tabCellule[this.vousEtesIciY][this.vousEtesIciX].changeStatus(VOUSETESICI);
 	}
 
 	public void move(Direction dir){

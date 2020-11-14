@@ -11,6 +11,9 @@ public class MiniCarteEvent
 	private Piece joueurPos;
 	private List<Piece> isdraw = new ArrayList<Piece>();
 	private int countStopDebug = 0;
+	
+	private int newPosX, newPosY;
+	private Piece newPiece;
 
 	public MiniCarteEvent()
 	{
@@ -18,7 +21,16 @@ public class MiniCarteEvent
 		this.j = SetupModel.getJoueur(); 
 		this.fp = SetupModel.getFirstPiece();
 		this.joueurPos = this.j.getPiece();
-		DrawCarte(this.fp,3,4);
+		this.newPiece = null;
+
+		if(!this.j.isVisited(this.fp)){
+			this.miniCarte.modifCellule(3,4,3);
+			DrawCarteFound(this.fp,3,4);
+			this.isdraw.clear();
+			DrawCarte(this.newPiece,this.newPosX,newPosY);
+		}else{
+			DrawCarte(this.fp,3,4);
+		}
 	}
 
 	private void DrawCarte(Piece p,int posX,int posY)//methode pas adapter de MiniCarteVue probleme
@@ -42,7 +54,6 @@ public class MiniCarteEvent
 			for (Direction dir : Direction.values())
 			{
 				Passage pass = p.getPassage(dir);
-				//System.out.println(dir.toString());
 				if(pass != null)
 				{
 					if(dir ==  Direction.NORD){
@@ -59,6 +70,40 @@ public class MiniCarteEvent
 						DrawCarte(pass.getAutrePiece(p),(posX+2),posY);
 					}
 				}
+			}
+		}
+
+	}
+
+	private void DrawCarteFound(Piece p,int posX,int posY){
+
+		if(p == null || isdraw.contains(p))
+		{
+			return;
+		}
+		this.isdraw.add(p);
+		if(this.joueurPos == p){
+			this.newPosX = posX;
+			this.newPosY = posY;
+			this.newPiece = p;
+		}else{
+			for (Direction dir : Direction.values()){
+
+				Passage pass = p.getPassage(dir);
+				//System.out.println(dir.toString());
+				if(pass != null)
+				{
+					if(dir ==  Direction.NORD){
+						DrawCarteFound(pass.getAutrePiece(p),posX,(posY-2));
+					}else if(dir ==  Direction.SUD){					
+						DrawCarteFound(pass.getAutrePiece(p),posX,(posY+2));
+					}else if(dir ==  Direction.OUEST){
+						DrawCarteFound(pass.getAutrePiece(p),(posX-2),posY);
+					}else if(dir ==  Direction.EST){
+						DrawCarteFound(pass.getAutrePiece(p),(posX+2),posY);
+					}
+				}
+
 			}
 		}
 
