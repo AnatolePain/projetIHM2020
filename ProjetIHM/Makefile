@@ -137,8 +137,8 @@ $(BUILD)VUE/GameVue.class: $(SRC)VUE/GameVue.java $(BUILD)VUE/PieceVue.class $(B
 #$(BUILD)CONTROLEUR/GestionClavier.class: $(SRC)CONTROLEUR/GestionClavier.java
 #	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/GestionClavier.java
 
-$(BUILD)CONTROLEUR/MiniCarteEvent.class: $(SRC)CONTROLEUR/MiniCarteEvent.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/MiniCarteVue.class
-	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/MiniCarteEvent.java
+$(BUILD)CONTROLEUR/MiniCarteController.class: $(SRC)CONTROLEUR/MiniCarteController.java $(BUILD)VUE/PieceVue.class $(BUILD)VUE/MiniCarteVue.class
+	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/MiniCarteController.java
 
 $(BUILD)CONTROLEUR/EventPV.class: $(SRC)CONTROLEUR/EventPV.java $(BUILD)VUE/PieceVue.class $(BUILD)API/Joueur.class $(BUILD)API/Passage.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)API/TypeTruc.class $(BUILD)API/Truc.class $(BUILD)API/ContientTrucs.class $(BUILD)CONTROLEUR/SetupModel.class  $(BUILD)CONTROLEUR/PieceController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/EventPV.java
@@ -284,7 +284,7 @@ $(BUILD)CONTROLEUR/PieceController.class: $(SRC)CONTROLEUR/PieceController.java 
 $(BUILD)CONTROLEUR/InventaireController.class: $(SRC)CONTROLEUR/InventaireController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/JeterEvent.class $(BUILD)CONTROLEUR/UtiliserEvent.class $(BUILD)CONTROLEUR/PieceContenuEvent.class $(BUILD)CONTROLEUR/PieceVueController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/InventaireController.java
 
-$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java  $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceVueController.class $(BUILD)CONTROLEUR/EventPV.class $(BUILD)CONTROLEUR/MiniCarteEvent.class
+$(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java  $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceVueController.class $(BUILD)CONTROLEUR/EventPV.class $(BUILD)CONTROLEUR/MiniCarteController.class
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/SetupController.java 
 
 # $(BUILD)CONTROLEUR/SetupController.class: $(SRC)CONTROLEUR/SetupController.java $(BUILD)CONTROLEUR/CaseInventaireEvent.class $(BUILD)CONTROLEUR/CasePieceEvent.class $(BUILD)CONTROLEUR/DescriptionEvent.class $(BUILD)CONTROLEUR/MiniCarteEvent.class $(BUILD)CONTROLEUR/SetupModel.class $(BUILD)VUE/MiniCarteVue.class $(BUILD)CONTROLEUR/InventaireController.class $(BUILD)CONTROLEUR/PieceController.class $(BUILD)CONTROLEUR/EventPV.class

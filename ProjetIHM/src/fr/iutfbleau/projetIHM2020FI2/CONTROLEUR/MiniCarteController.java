@@ -3,7 +3,7 @@ import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
 import java.util.*;
 
-public class MiniCarteEvent 
+public class MiniCarteController 
 {
 	private MiniCarteVue miniCarte;
 	private Joueur j;
@@ -15,7 +15,7 @@ public class MiniCarteEvent
 	private int newPosX, newPosY;
 	private Piece newPiece;
 
-	public MiniCarteEvent()
+	public MiniCarteController()
 	{
 		this.miniCarte = MiniCarteVue.getMinicarteVue();
 		this.j = SetupModel.getJoueur(); 
@@ -86,6 +86,8 @@ public class MiniCarteEvent
 			this.newPosX = posX;
 			this.newPosY = posY;
 			this.newPiece = p;
+			this.miniCarte.setJoueurPos(posX,posY);
+			this.miniCarte.modifCellule(posX,posY,1);
 		}else{
 			for (Direction dir : Direction.values()){
 

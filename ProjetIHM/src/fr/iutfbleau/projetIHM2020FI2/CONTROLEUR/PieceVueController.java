@@ -10,8 +10,8 @@ import java.util.*;
 public class PieceVueController
 {
 
-	private static int direction[] = new int[4];
-	private static int directionO[] = new int[4];
+	private static int direction[] = new int[4]; //si 1 dans le tableau alors c'est rocher 
+	private static int directionO[] = new int[4];//si 1 dans le tableau alors c'est une porte ouverte
 	private static int numDirection = 0;
 
 	public PieceVueController()
@@ -41,13 +41,13 @@ public class PieceVueController
 			//--- VUE ---
 
 			//PieceVue
-			int direction[] = new int[4];
-			int directionO[] = new int[4];
+			// int direction[] = new int[4];
+			// int directionO[] = new int[4];
 			for(int i = 0; i < 4;i++)					
 			{
 				Passage autrePassage = newPiece.getPassage(Direction.values()[i]);
-				direction[i] = autrePassage == null ? 1 : 0;
-				directionO[i] = autrePassage == null ? 0 : autrePassage.getEtatPassage() == EtatPassage.OPEN ? 1 : 0;
+				PieceVueController.direction[i] = autrePassage == null ? 1 : 0;
+				PieceVueController.directionO[i] = autrePassage == null ? 0 : autrePassage.getEtatPassage() == EtatPassage.OPEN ? 1 : 0;
 			}
 			PieceVue.getPieceVue().transition(direction,directionO);
 
@@ -83,13 +83,11 @@ public class PieceVueController
 		 			PieceVueController.directionO[d.ordinal()] = 0;
 					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
 					DialogDescription.showD(d.toString(),"la porte " + d.toString() + " est maintenant fermée");
-
 		 		}else if(p.getEtatPassage() == EtatPassage.OPEN){
 
 					PieceVueController.directionO[d.ordinal()] = 1;
 					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
 					DialogDescription.showD(d.toString(),"la porte " + d.toString() + " est maintenant ouverte");
-
 		 		}
 		 	}else{
 		 		DialogDescription.showD(d.toString(),p.getDescription());
@@ -118,7 +116,6 @@ public class PieceVueController
 					{
 	 					PieceVueController.directionO[d.ordinal()] = 1;
 						PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
-						PieceVueController.directionO[d.ordinal()] = 0;
 		 				DialogDescription.showD("Bravo !","Vous avez déverrouillé la porte " + d.toString() + " !");
 	 				}
 					else if(p.getEtatPassage() == EtatPassage.LOCKED )
