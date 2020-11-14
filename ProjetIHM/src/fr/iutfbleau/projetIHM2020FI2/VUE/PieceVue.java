@@ -20,6 +20,9 @@ public class PieceVue extends JPanel
 	private int direction[] = new int[4];
 	private int directionOuvert[] = new int[4];
 
+	private ImageIcon[] modeDaltonien = new ImageIcon[4];
+	private boolean daltonien = false;
+
 	public PieceVue()
 	{
 		PieceVue.pthis = this;
@@ -35,6 +38,11 @@ public class PieceVue extends JPanel
 			rocher[i] = ImageClassLoader.getImage("images/Salles/fermer"+i+".png");
 			ouvert[i] = ImageClassLoader.getImage("images/Salles/ouvert"+i+".png");
 		}
+
+		for(int i = 0 ; i < 4 ; i++){
+			modeDaltonien[i] = ImageClassLoader.getImage("images/Salles/daltonien"+i+".png");
+		}
+
 		this.cardl.next(this);
 		this.cardl.next(this);
 
@@ -122,6 +130,14 @@ public class PieceVue extends JPanel
 			}
 		}
 
+		if(daltonien){
+
+			for(int i = 0 ; i < this.direction.length ; i++){
+				this.swapChain[2 + (i*4) ].addImage(modeDaltonien[i]);
+			}
+
+		}
+
 		for(int i = 0; i < 16;i++)
 		{
 			swapChain[i].repaint();
@@ -153,5 +169,14 @@ public class PieceVue extends JPanel
 	public static PieceVue getPieceVue()
 	{
 		return PieceVue.pthis;
+	}
+
+	public void onOffDaltonien(){
+		if(this.daltonien){
+			this.daltonien = false;
+		}else{
+			this.daltonien = true;
+		}
+		reCreate();
 	}
 }

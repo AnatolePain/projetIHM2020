@@ -13,11 +13,7 @@ public class Window extends JFrame {
 	    this.setLocation(100, 100);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setMinimumSize(new Dimension(1200, 740));
-	    //Inventaire inventaire01 = new Inventaire();
-	    //this.add(inventaire01);
-	    //MiniCarteVue miniCarte = new MiniCarteVue();
-	    //miniCarte.modifCellule(2, 1, PIECE);
-	    //this.add(miniCarte,BorderLayout.CENTER);
+	    
 	    GameVue vuePrincipale = new GameVue(this);
 	    this.add(vuePrincipale,BorderLayout.CENTER);
 

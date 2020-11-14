@@ -45,6 +45,8 @@ public class EventPV implements MouseListener
 		{
 			PieceVueController.agirNull();	
 		}
+
+		this.pieceV.requestFocusInWindow();
     }
 
     public void mouseEntered(MouseEvent evenement){}

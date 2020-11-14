@@ -12,6 +12,7 @@ public class SetupController
 	private EventPV mouseEventPV;
 	private PieceVue pv;
 	private MiniCarteController mcEvent;
+	private Raccourcie clavier;
 
 	public SetupController()
 	{
@@ -25,6 +26,10 @@ public class SetupController
 		{
 			mouseEventPV = new EventPV(pv);
 			pv.addMouseListener(mouseEventPV);
+			
+			this.clavier = new Raccourcie();
+			PieceVue.getPieceVue().addKeyListener(this.clavier);
+
 		}
 	}
 }
