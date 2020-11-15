@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import static java.nio.charset.StandardCharsets.*;
 
 public class InventaireMenuContextuel extends JPopupMenu
 {
@@ -20,13 +21,18 @@ public class InventaireMenuContextuel extends JPopupMenu
                 
                 this.addSeparator();
                 
-                this.mnuCopy = new JMenuItem("Description");
+                this.mnuCopy = new JMenuItem("Inspecter");
                 mnuCopy.setIcon(ImageClassLoader.getImage("images/UI/icon/info.png"));
                 mnuCopy.setMnemonic('C');
                 mnuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
                 this.add(mnuCopy);
                 
-                this.mnuCut = new JMenuItem("Jeter");
+                //accent dÉposer
+                String s = "Déposer";
+                byte[] bs = s.getBytes(ISO_8859_1); 
+                String sUTF8 = new String(bs, UTF_8); 
+
+                this.mnuCut = new JMenuItem(sUTF8);
                 mnuCut.setIcon(ImageClassLoader.getImage("images/UI/icon/recup.png"));
                 mnuCut.setMnemonic( 'J' );
                 mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );

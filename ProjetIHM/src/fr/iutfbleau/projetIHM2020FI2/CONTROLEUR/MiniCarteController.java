@@ -33,7 +33,8 @@ public class MiniCarteController
 		}
 	}
 
-	private void DrawCarte(Piece p,int posX,int posY)//methode pas adapter de MiniCarteVue probleme
+	//Cherche les pièces visitées récursibement et les affiche
+	private void DrawCarte(Piece p,int posX,int posY)
 	{	
 		if(p == null || isdraw.contains(p))
 		{
@@ -75,6 +76,7 @@ public class MiniCarteController
 
 	}
 
+	//Cherche la pièce du joeur récursivement
 	private void DrawCarteFound(Piece p,int posX,int posY){
 
 		if(p == null || isdraw.contains(p))
@@ -92,7 +94,6 @@ public class MiniCarteController
 			for (Direction dir : Direction.values()){
 
 				Passage pass = p.getPassage(dir);
-				//System.out.println(dir.toString());
 				if(pass != null)
 				{
 					if(dir ==  Direction.NORD){

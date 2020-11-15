@@ -20,13 +20,13 @@ public class PieceMenuContextuel extends JPopupMenu{
         
         this.addSeparator();
         
-        mnuCopy = new JMenuItem("Description");
+        mnuCopy = new JMenuItem("Inspecter");
         mnuCopy.setIcon(ImageClassLoader.getImage("images/UI/icon/info.png"));
         mnuCopy.setMnemonic('C');
         mnuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
         this.add(mnuCopy);
                 
-        this.mnuCut = new JMenuItem("Ramasser");
+        this.mnuCut = new JMenuItem("Prendre");
         mnuCut.setIcon(ImageClassLoader.getImage("images/UI/icon/recup.png"));
         mnuCut.setMnemonic( 't' );
         mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );

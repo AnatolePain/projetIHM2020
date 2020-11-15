@@ -1,8 +1,6 @@
 package fr.iutfbleau.projetIHM2020FI2.CONTROLEUR;
 import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
-import fr.iutfbleau.projetIHM2020FI2.MODEL.*;
-import fr.iutfbleau.projetIHM2020FI2.MNP.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -41,8 +39,6 @@ public class PieceVueController
 			//--- VUE ---
 
 			//PieceVue
-			// int direction[] = new int[4];
-			// int directionO[] = new int[4];
 			for(int i = 0; i < 4;i++)					
 			{
 				Passage autrePassage = newPiece.getPassage(Direction.values()[i]);
@@ -77,7 +73,11 @@ public class PieceVueController
  		Passage p = j.getPiece().getPassage(d);
 
  		if(p != null){
+
+ 			//MODELE
 	 		if(p.agir(null)){
+
+	 			//VUE
 		 		if(p.getEtatPassage() == EtatPassage.CLOSED){
 
 		 			PieceVueController.directionO[d.ordinal()] = 0;
@@ -89,6 +89,7 @@ public class PieceVueController
 					PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
 					DialogDescription.showD(d.toString(),"la porte " + d.toString() + " est maintenant ouverte");
 		 		}
+
 		 	}else{
 		 		DialogDescription.showD(d.toString(),p.getDescription());
 		 	}
@@ -108,10 +109,12 @@ public class PieceVueController
 		{
 			d = Direction.values()[PieceVueController.numDirection];
 			p = j.getPiece().getPassage(d);
- 			if(p != null)
-			{
-	 			if(p.agir(t))
-				{	
+ 			if(p != null){
+
+				//MODELE
+	 			if(p.agir(t)){
+
+	 				//VUE
 		 			if(p.getEtatPassage() == EtatPassage.OPEN)
 					{
 	 					PieceVueController.directionO[d.ordinal()] = 1;
@@ -124,14 +127,10 @@ public class PieceVueController
 						PieceVue.getPieceVue().reCreateOuvert(PieceVueController.directionO);
 		 				DialogDescription.showD("Bravo !","Vous avez verrouillé la porte " + d.toString() + " !");
 		 			}
-		 		}
-				else
-				{
+		 		}else{
 		 			DialogDescription.showD("Attention ","la clé doit être rouillé");
 		 		}
-			}
-			else
-			{
+			}else{
 				DialogDescription.showD("Attention "," Il n'y pas de passage dans le direction " + d.toString() + " !");
 			}
 		}

@@ -9,7 +9,7 @@ import java.util.*;
 
 public class InventaireController 
 {
-	private CaseInventaireEvent[] caseIEvent; //clik droit sur une case
+	private CaseInventaireEvent[] caseIEvent; //click droit sur une case
 	private static CaseInventaire[] caseI;
 
 	private JeterEvent[] jeterEvent;
@@ -80,6 +80,7 @@ public class InventaireController
 
 		if (Objects.equals(t.getTypeTruc(),TypeTruc.CLE)){
 			PieceVueController.agirAvecTruc(t);
+		//MODELE
 		}else if(SetupModel.getJoueur().agir(t)){
 
 			//VUE
