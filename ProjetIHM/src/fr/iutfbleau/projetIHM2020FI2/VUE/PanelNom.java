@@ -8,6 +8,11 @@ public class PanelNom extends JComponent
 	private String nom;
 	private Font font;
 	
+	/**
+	 * constructeur
+	 * @param b image de fond
+	 * @param n titre
+	 */
 	public PanelNom(ImageIcon b,String n)
 	{
 		this.imageBase = b;
@@ -28,6 +33,12 @@ public class PanelNom extends JComponent
 		drawCenteredString(secondPinceau,this.nom,this.font);
 	}
 
+	/**
+	* Affiche un texte centrer 
+	* @param g paintComponent Graphics 
+	* @param text Titre à centrer 
+	* @Param font police et taille d'ecriture
+	*/
 	public void drawCenteredString(Graphics g, String text, Font font) 
 	{
 		FontMetrics metrics = g.getFontMetrics(font);

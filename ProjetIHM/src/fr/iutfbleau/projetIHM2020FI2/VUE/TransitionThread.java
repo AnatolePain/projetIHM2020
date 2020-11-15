@@ -12,14 +12,22 @@ public class TransitionThread  implements Runnable
 	private int[] direction;
 	private float sinusPi;
 
-    public TransitionThread(ImageDonjon g,float s,PieceVue pv/*,int[] d*/) //ImageDonjon , pour appliquer la bonne transition 
+	/**
+	 * constructeur
+	 * @param g l'element sur lequel appliquer le fondu c'est celui que regarde le joueur
+	 * @param s la vitesse du fondu
+	 * @param pv la vue qui corespond a l'ensemble de la piece
+	 */
+    public TransitionThread(ImageDonjon g,float s,PieceVue pv) //ImageDonjon , pour appliquer la bonne transition 
     {
         this.gc = g;
         this.speed = s;
 		this.pieceV = pv;
-		//this.direction = d;
     }
- 
+ 	/**
+	 * On effectue le fondu aux noire via Sinus et temps entre chaque execution( delta_time) 
+	 * ce calcule permet meme avec un pc tres lents de ne pas ralentire l'execution de l'annimation.
+	 */
     public void run() 
     {
 		this.pieceV.setTransition(true);
@@ -31,9 +39,9 @@ public class TransitionThread  implements Runnable
 			this.sinusPi = (float)Math.sin(this.pi);
 			gc.setAlpha(this.sinusPi);
 			this.pi +=  Math.PI * this.speed * this.delta_time;
-			if(this.sinusPi == 1)//quand le fondu est tout noir je change les images de pièces 
+			if(this.sinusPi == 1)//quand le fondu est tout noir je change les images de pièces
 			{
-				this.pieceV.reCreate(/*this.direction*/);
+				this.pieceV.reCreate();
 			}
 		}
 		this.pieceV.setTransition(false);

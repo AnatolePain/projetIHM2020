@@ -11,22 +11,37 @@ public class ImageDonjon extends JComponent
 	private List<ImageIcon> imagePlus = new ArrayList<ImageIcon>(); 
 	private int i = 0;
 	private float alpha = 0f;
-	
+
+	/**
+	 * constructeur
+	 * une image de la fausse vue 3d d la piece 
+	 */
 	public ImageDonjon(ImageIcon b)
 	{
 		this.imageBase = b;
 	}
 
+	/**
+	 * Image à superposer au paint component pour bloquer ou ouvrir le passage
+	 * @param i imageIcon 
+	 */
 	public void addImage(ImageIcon i)
 	{
 		imagePlus.add(i);
 	}
 
+	/**
+	 * Enleve toutes les images ajouter superposer à l'image de base
+	 */
 	public void clearImagePlus()
 	{
 		imagePlus.clear();
 	}
 
+	/**
+	* Change l'opacité  de l'image de base pour cree un effet de fondu aux 
+	* noires afin de donner l'illusion que l'on change de salle
+	*/
 	public void setAlpha(float value) 
 	{
         this.alpha = Math.min(Math.max(0f, value), 1f);

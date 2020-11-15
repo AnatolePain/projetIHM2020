@@ -8,6 +8,13 @@ public class ChangementThread  implements Runnable
 	private int nbNext = 0;
 	private int indice = 0;
 
+	/**
+	 * constructeur
+	 * @param nb nombre de changement d'image
+	 * @param w temps d'attente entre chaque changement
+	 * @param b Gauche ou droite
+	 * @param pv la vue qui corespond a l'ensemble de la piece
+	 */
     public ChangementThread(PieceVue pv,boolean b,long w,int nb) 
     {
         this.pieceV = pv;
