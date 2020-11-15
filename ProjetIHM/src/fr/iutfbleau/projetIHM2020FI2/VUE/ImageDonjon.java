@@ -22,7 +22,7 @@ public class ImageDonjon extends JComponent
 	}
 
 	/**
-	 * Image à superposer au paint component pour bloquer ou ouvrir le passage
+	 * Image Ã  superposer au paint component pour bloquer ou ouvrir le passage
 	 * @param i imageIcon 
 	 */
 	public void addImage(ImageIcon i)
@@ -31,7 +31,7 @@ public class ImageDonjon extends JComponent
 	}
 
 	/**
-	 * Enleve toutes les images ajouter superposer à l'image de base
+	 * Enleve toutes les images ajouter superposer Ã  l'image de base
 	 */
 	public void clearImagePlus()
 	{
@@ -39,7 +39,7 @@ public class ImageDonjon extends JComponent
 	}
 
 	/**
-	* Change l'opacité  de l'image de base pour cree un effet de fondu aux 
+	* Change l'opacitÃ©  de l'image de base pour cree un effet de fondu aux 
 	* noires afin de donner l'illusion que l'on change de salle
 	*/
 	public void setAlpha(float value) 

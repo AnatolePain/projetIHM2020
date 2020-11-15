@@ -19,7 +19,7 @@ public class ImageClassLoader
 	}
 
 	/**
-	* Recupere l'image via son path ou dans le jar ou s'il n'est pas compressé dans les fichiers du projet
+	* Recupere l'image via son path ou dans le jar ou s'il n'est pas compressÃ© dans les fichiers du projet
 	* String nom path
 	*/
 	public static ImageIcon getImage(String nom)

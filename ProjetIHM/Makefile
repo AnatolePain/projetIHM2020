@@ -295,8 +295,8 @@ $(BUILD)CONTROLEUR/PieceVueController.class: $(SRC)CONTROLEUR/PieceVueController
 $(BUILD)CONTROLEUR/UtiliserEvent.class: $(SRC)CONTROLEUR/UtiliserEvent.java  
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/UtiliserEvent.java $(SRC)CONTROLEUR/InventaireController.java
 
-$(BUILD)test/BdReset.class: $(SRC)test/BdReset.java  
-	$(JC) $(JFLAGS) $(SRC)test/BdReset.java  
+$(BUILD)test/BdReset.class: $(SRC)test/BdReset.java
+	$(JC) $(JFLAGS) $(SRC)test/BdReset.java 
 
 $(BUILD)CONTROLEUR/Raccourcie.class: $(SRC)CONTROLEUR/Raccourcie.java  
 	$(JC) $(JFLAGS) $(SRC)CONTROLEUR/Raccourcie.java  

@@ -36,7 +36,7 @@ public class PanelNom extends JComponent
 	/**
 	* Affiche un texte centrer 
 	* @param g paintComponent Graphics 
-	* @param text Titre à centrer 
+	* @param text Titre Ã  centrer 
 	* @Param font police et taille d'ecriture
 	*/
 	public void drawCenteredString(Graphics g, String text, Font font) 
