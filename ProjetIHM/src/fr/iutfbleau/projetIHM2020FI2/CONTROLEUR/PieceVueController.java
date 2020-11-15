@@ -1,3 +1,9 @@
+/**
+ * La classe <code>PieceVueController</code> gère les intéraction de la fausse vue 3d cliquable 
+ * entre le modèle et les autres vues
+ * @version 1.0
+ * @author Anatole PAIN
+ */
 package fr.iutfbleau.projetIHM2020FI2.CONTROLEUR;
 import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
@@ -7,11 +13,27 @@ import java.util.*;
 
 public class PieceVueController
 {
+	/**
+    * Retient en mémoire les informations d'affichage à envoyer à la vue:
+    * Si 1 dans le tableaux alors c'est un rocher, si 0 une porte.
+   	*/
+	private static int direction[] = new int[4]; 	
 
-	private static int direction[] = new int[4]; //si 1 dans le tableau alors c'est rocher 
-	private static int directionO[] = new int[4];//si 1 dans le tableau alors c'est une porte ouverte
+	/**
+    * Retient en mémoire les informations d'affichage à envoyer à la vue:
+    * Si 1 dans le tableaux alors c'est une porte ouverte, sinon 0 une porte.
+   	*/
+	private static int directionO[] = new int[4];
+
+	/**
+	* Corespond au numéro de l'énumération API/Direction.
+	**/
 	private static int numDirection = 0;
 
+	/**
+	* Constructeur qui set les données d'affichage en fonction du modèle et l'envoie à la vue
+	* (porte ouverte, porte fermée ou rocher).
+	**/
 	public PieceVueController()
 	{
 		Joueur j = SetupModel.getJoueur();
@@ -24,6 +46,10 @@ public class PieceVueController
 		PieceVue.getPieceVue().transition(PieceVueController.direction,PieceVueController.directionO);
 	}
 
+	/**
+	* Change la pièce du joueur dans la vue et dans le modèle si elle n'est
+	* pas fermée ou vérouillée, en fonciton de la direction en atribut.
+	**/
 	public static void setPieceController(){
 
 		Direction d = Direction.values()[PieceVueController.numDirection];
@@ -65,7 +91,9 @@ public class PieceVueController
 
 	}
 
-
+	/**
+	* Lance la méthode agir sans trucs sur le passage de la direction. Change la vue en fonction.
+	**/
  	public static void agirNull(){
 
  		Direction d = Direction.values()[PieceVueController.numDirection];
@@ -98,6 +126,9 @@ public class PieceVueController
 		}*/
  	}
 
+ 	/**
+	* Lance la méthode agir avec un truc sur le passage de la direction. Change la vue en fonction.
+ 	**/
  	public static void agirAvecTruc(Truc t)
 	{
  		Direction d;
@@ -137,11 +168,17 @@ public class PieceVueController
 
  	}
 
+ 	/**
+	* Change la diréction par la droite (quart de tour dans le sens horaire)
+ 	**/
  	public static void orientationADroite(){
  		PieceVueController.numDirection = (PieceVueController.numDirection+1)%4;
 		PieceVue.getPieceVue().changementThread(true);
  	}
 
+ 	/**
+	* Change la diréction par la gauche (quart de tour dans le sens anti-horaire)
+ 	**/
  	public static void orientationAGauche(){
  		if(--PieceVueController.numDirection < 0){
 			PieceVueController.numDirection = 3;

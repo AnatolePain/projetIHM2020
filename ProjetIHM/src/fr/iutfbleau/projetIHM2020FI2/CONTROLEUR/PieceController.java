@@ -1,42 +1,57 @@
+/**
+ * La classe <code>PieceController</code> gère les intéraction de la fausse vue 3d cliquable 
+ * entre le modèle et les autres vues
+ * @version 1.0
+ * @author Anatole PAIN
+ */
 package fr.iutfbleau.projetIHM2020FI2.CONTROLEUR;
 import fr.iutfbleau.projetIHM2020FI2.VUE.*;
 import fr.iutfbleau.projetIHM2020FI2.API.*;
-import fr.iutfbleau.projetIHM2020FI2.MODEL.*;
-import fr.iutfbleau.projetIHM2020FI2.MNP.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
 public class PieceController 
-{
-	private CasePieceEvent[] casePEvent;
+{	
+
+	/**
+	* Tableaux des cases du contenu de la pièce 
+	**/
 	private static CasePiece[] caseP;
-	private PieceContenuEvent[] ramasserEvent;
+
+	/**
+	* Tableaux des events de description pour chaque cases
+	**/
 	private static DescriptionEvent[] descriptionEvent;
 	
 	//model
 	private Joueur jP;
 	private Piece piecePos;
+
+	/**
+	* Map permétant d'associer chaque casse un à truc 
+	**/
 	private static Map<CasePiece, Truc> mapCasePieceTruc = new HashMap<CasePiece, Truc>();
 
+	/**
+	* Déclaration de tout les events et affiche le contenu de la pièces en fonction du modèle 
+	*
+	**/
 	public PieceController()
 	{
-		this.casePEvent = new CasePieceEvent[PieceContenuVue.getNbCase()];
-		this.ramasserEvent = new PieceContenuEvent[PieceContenuVue.getNbCase()];
 		PieceController.descriptionEvent = new DescriptionEvent[PieceContenuVue.getNbCase()];
 		PieceController.caseP = PieceContenuVue.getCasePiecetab();
 		this.jP = SetupModel.getJoueur();
 
 		Iterator<Truc> pT = jP.getPiece().getTrucs();
 
-		for(int i = 0 ; i < this.casePEvent.length;i++)
+		for(int i = 0 ; i < PieceContenuVue.getNbCase(); i++)
 		{
-			this.casePEvent[i] = new CasePieceEvent(PieceController.caseP[i]);
-			PieceController.caseP[i].addMouseListener(this.casePEvent[i]);
+			PieceController.caseP[i].addMouseListener(new CasePieceEvent(PieceController.caseP[i]));
 
 			//Ramasser
-			this.ramasserEvent[i] = new PieceContenuEvent(PieceController.caseP[i]);
-			PieceController.caseP[i].GetPopupMenu().getMenuItemRamasser().addActionListener(this.ramasserEvent[i]);
+			PieceContenuEvent ramasserEvent = new PieceContenuEvent(PieceController.caseP[i]);
+			PieceController.caseP[i].GetPopupMenu().getMenuItemRamasser().addActionListener(ramasserEvent);
 
 			//Descripion
 			PieceController.descriptionEvent[i] = new DescriptionEvent();
@@ -56,6 +71,9 @@ public class PieceController
 
 	}
 
+	/**
+	* Affiche les éléments de la pièces p dans la vue 
+	**/
 	public static void changePiece(Piece p)
 	{
 		if(p != null)
@@ -74,6 +92,9 @@ public class PieceController
 		}
 	}
 
+	/**
+	* Action sur le modèle et la vue quand on prend une truc dans une pièce 
+	**/
 	public static void ramasserPiece(CasePiece cp){
 
 		//Modele
@@ -87,6 +108,9 @@ public class PieceController
 		InventaireController.addInventaireVue(t);
 	}
 
+	/**
+	* Ajoute un truc à la vue et set la map du coontroller 
+	**/
 	public static void addPieceVue(Truc t){
 		int i = 0;
 		while(!PieceController.caseP[i].isEmpty()){
